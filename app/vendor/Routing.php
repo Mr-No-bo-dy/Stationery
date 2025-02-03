@@ -24,7 +24,7 @@ class Routing
     public function setUri(): void
     {
         $this->uri = $_SERVER['REQUEST_URI'];
-        if (preg_match('#^/?stationery#', $this->uri)) {
+        if (preg_match('#^/?stationery#i', $this->uri)) {
             $this->uri = preg_replace('#^/?[^/]+?/#', '', $_SERVER['REQUEST_URI']);
         }
     }
