@@ -8,7 +8,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $username = 'Oleksandr';
+        $username = getenv('USERNAME') ?: getenv('USER') ?: 'guest';
 
         return $this->view('site/index', compact('username'));
     }
