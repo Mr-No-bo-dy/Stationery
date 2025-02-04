@@ -16,4 +16,9 @@ class HomeController extends Controller
     {
         return $this->view('site/catalog');
     }
+
+    public function productCard()
+    {
+        return $this->view('site/productCard');
+    }
 }

@@ -17,12 +17,12 @@ $results = $query->fetchAll();
                     echo '</div><div class="productBlock">';
                 }
             ?>
-                <div class="productCart">
-                    <!-- <a href="<?= str_replace(' ', '', $result['title']) ?>"> -->
+                <div class="productCard">
+                    <a href="productCard?product=<?= str_replace(' ', '', $result['title']) ?>">
                         <h2><?= $result['title']; ?></h2>
                         <p><?= $result['description']; ?></p>
                         <p><?= $result['price']; ?> $</p>
-                    <!-- </a> -->
+                    </a>
                 </div>
             <?php
             }
