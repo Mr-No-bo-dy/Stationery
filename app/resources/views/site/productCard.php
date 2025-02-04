@@ -1,6 +1,7 @@
 <?php require_once 'app/resources/views/site/components/header.php';
 
 use app\vendor\Database;
+use App\models\Product;
 
 $db = Database::connection();
 
@@ -10,21 +11,26 @@ $product = 0;
 
 
 foreach ($results as $result) {
-    // echo "<pre>";
-    // var_dump($result);
     if (str_replace(' ', '', $result['title'])  == $_GET["product"]) {
-        $product = $result;
+        $product = new Product(
+            $result['id'],
+            $result['title'],
+            $result['description'],
+            $result['price'],
+            $result['stock'],
+            $result['image']
+        );
         break;
-    } else {
-        $product = "PIZDETS.";
-    }
+    } 
 }
 
 ?>
 <div class="productCard">
-    <h2><?= $product["title"]; ?></h2>
-    <p><?= $product['description']; ?></p>
-    <p><?= $product['price']; ?> $</p>
+    <p>There was supposed to be a photo, but there will be text. <?= $product->image; ?></p>
+    <h2><?= $product->title; ?></h2>
+    <p><?= $product->description; ?></p>
+    <p><?= $product->price; ?> $</p>  
+    <p>Stock: <?= $product->stock?></p>
 </div>
-<?php
-?>
+
+<?php require_once 'app/resources/views/site/components/footer.php' ?>

@@ -1,11 +1,9 @@
 <?php 
 
+namespace App\models;
 
-namespace app\controllers\site;
 
-use app\vendor\Controller;
-
-class Product extends Controller
+class Product
 {
     protected $id;
     protected $subcategory_id;
@@ -15,12 +13,12 @@ class Product extends Controller
     public $stock;
     public $image;
 
-    public function __construct(int $id, int $subcategory_id, string $title, string $description, float $price, float $stock) {
+    public function __construct(int $id, string $title, string $description, float $price, float $stock, string $image) {
         $this->id = $id;
-        $this->subcategory_id = $subcategory_id;
         $this->title = $title;
         $this->description = $description;
         $this->price = $price;
         $this->stock = $stock;
+        $this->image = $image;
     }
 }

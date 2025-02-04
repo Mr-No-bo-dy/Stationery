@@ -11,6 +11,10 @@
     margin: 20px;
 }
 
+.productCard{
+    padding: 15px;
+}
+
 a{
     color: black;
     text-decoration: none;
