@@ -10,10 +10,10 @@
 <wrapper>
     <nav>
         <ul>
-            <li><a href="<?=HOME?>">Home</a></li>
-            <li><a href="<?=REGISTER?>">Register</a></li>
+            <li><a href="home">Home</a></li>
+            <li><a href="register">Register</a></li>
             <li>
-                <a href="<?= isset($_SESSION['user']) ? LOGOUT : LOGIN?>"><?= isset($_SESSION['user']) ? "Logout" : "Login" ?></a>
+                <a href="<?= isset($_SESSION['user']) ? 'logout' : 'login'?>"><?= isset($_SESSION['user']) ? "Logout" : "Login" ?></a>
             </li>
 
         </ul>

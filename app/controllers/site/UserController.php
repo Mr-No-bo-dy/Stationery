@@ -42,4 +42,11 @@ class UserController extends Controller
         return $this->view('site/login');
     }
 
+    public function logout(): void
+    {
+        session_destroy();
+
+        $this->redirect('home');
+    }
+
 }
