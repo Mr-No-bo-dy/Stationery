@@ -111,7 +111,7 @@ class User extends Model
                 'email' => $this->fillable['email'],
                 'phone' => $this->fillable['phone'],
                 'role' => $this->fillable['role'],
-                'password' => password_hash( $this->fillable['password'], PASSWORD_DEFAULT),
+                'password' => password_hash( $this->fillable['password'],  PASSWORD_BCRYPT, ['cost' => 12]),
             ]);
         } catch (Exception $e) {
 
@@ -127,11 +127,10 @@ class User extends Model
     {
         try {
             $pdo = parent::builder();
-            $sql = "SELECT * FROM $this->tableName WHERE name = :name AND password = :password";
+            $sql = "SELECT * FROM $this->tableName WHERE name = :name";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([
-                'name' => $name,
-                'password' => password_hash($password, PASSWORD_DEFAULT),
+                'name' => $name
             ]);
 
             $user = $stmt->fetch();
