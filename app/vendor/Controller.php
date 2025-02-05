@@ -12,6 +12,12 @@ class Controller
             session_start();
         }
     }
+    public function logout(): void
+    {
+        session_destroy();
+
+        $this->redirect('home');
+    }
 
     // Render view file with data
     public function view(string $name, array $data = []): void

@@ -39,6 +39,7 @@ class Routing
     public function setControllerName($name): void
     {
         $this->controllerName = ucfirst($name) . 'Controller';
+
     }
 
     // Set Controller class namespace
@@ -73,7 +74,7 @@ class Routing
     {
         $file = $this->dirController . $this->controllerName . '.php';
         if (is_null($this->checkExistance('file', $file))) {
-            // require_once($file);
+//             require_once($file);
             if (is_null($this->checkExistance('class', $this->controllerNamespace))) {
                 $controller = new $this->controllerNamespace();
                 if (is_null($this->checkExistance('method', $this->controllerNamespace, $this->methodName))) {
@@ -105,11 +106,11 @@ class Routing
                 }
                 break;
         }
+
         if (!is_null($error)) {
             $baseController = new Controller();
             $baseController->view('templates/404', compact('error'));
         }
-
         return $error;
     }
 }
