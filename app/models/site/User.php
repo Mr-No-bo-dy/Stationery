@@ -25,8 +25,9 @@ class User extends Model
         string $surname,
         string $email,
         string $phone,
-        string $role,
-        string $password
+        string $password,
+        ?string $role = 'user',
+
     )
     {
         $this->fillable['name'] = $name;
@@ -45,27 +46,29 @@ class User extends Model
         ]);
         $this->id = $stmt->fetchColumn();
 
-        $_SESSION['user'] = $this;
+
     }
 
     /**
      * @throws Exception
      */
+
+    // User registration
     public function register(
         string $name,
         string $surname,
         string $email,
         string $phone,
-        string $role,
         string $password
     ): void
     {
+        // validation
         try {
-            if (strlen($name < 2)) {
+            if (strlen($name) < 2) {
 
                 throw new Exception('Name must be at least 2 characters');
 
-            } else if (strlen($surname < 2)) {
+            } else if (strlen($surname) < 2) {
 
                 throw new Exception('Surname must be at least 2 characters');
 
@@ -73,16 +76,15 @@ class User extends Model
 
                 throw new Exception('Email is invalid');
 
-            } else if (strlen($phone < 9)) {
+            } else if (strlen($phone) < 9) {
 
                 throw new Exception('Phone number must be at least 9 characters');
 
-            } else if (strlen($password < 4)) {
+            } else if (strlen($password) < 4) {
 
                 throw new Exception('Password must be at least 4 characters');
 
             }
-
             try {
                 $pdo = parent::builder();
                 $sql = "SELECT email, phone FROM $this->tableName where email = :email or phone = :phone";
@@ -100,7 +102,8 @@ class User extends Model
                 throw new Exception($e->getMessage());
             }
 
-            $this->setUser($name, $surname, $email, $phone, $role, $password);
+            // seting user to db
+            $this->setUser($name, $surname, $email, $phone, $password);
 
             $pdo = parent::builder();
             $sql = "INSERT INTO $this->tableName (name, surname, email, phone, role, password) VALUES (:name, :surname, :email, :phone, :role, :password)";
@@ -123,6 +126,8 @@ class User extends Model
     /**
      * @throws Exception
      */
+
+    // User login
     public function login($name, $password): bool
     {
         try {
@@ -136,15 +141,15 @@ class User extends Model
             $user = $stmt->fetch();
 
             if ($user && password_verify($password, $user['password'])) {
-                $this->setUser($user['name'], $user['surname'], $user['email'], $user['phone'], $user['role'], $user['password']);
+                $this->setUser($user['name'], $user['surname'], $user['email'], $user['phone'], $user['password'], $user['role']);
                 $_SESSION['user'] = $this;
                 return true;
             }
 
-            return false;
-
         } catch (PDOException $e) {
             throw new Exception($e->getMessage() . 'ERROR');
+            return false;
+
         }
     }
 }

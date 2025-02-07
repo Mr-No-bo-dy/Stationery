@@ -11,7 +11,9 @@
     <nav>
         <ul>
             <li><a href="home">Home</a></li>
-            <li><a href="register">Register</a></li>
+            <?php if (!isset($_SESSION['user'])): ?>
+                <li><a href="register">Register</a></li>
+            <?php endif; ?>
             <li>
                 <a href="<?= isset($_SESSION['user']) ? 'logout' : 'login'?>"><?= isset($_SESSION['user']) ? "Logout" : "Login" ?></a>
             </li>

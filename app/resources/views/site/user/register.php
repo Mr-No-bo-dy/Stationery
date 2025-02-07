@@ -13,11 +13,6 @@
             <input type="text" name="email" id="email">
             <label for="phone">Phone</label>
             <input type="text" name="phone" id="phone">
-            <label for="role">Role</label>
-            <select name="role" id="role">
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-            </select>
             <label for="password">Password</label>
             <input type="text" name="password" id="password">
             <button type="submit">Register</button>
