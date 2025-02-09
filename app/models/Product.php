@@ -1,11 +1,12 @@
-<?php 
+<?php
 
 namespace App\models;
 
+use app\vendor\Model;
 
-class Product
+class Product extends Model
 {
-    public $table = "product";
+
     public $fillable = [
         'id',
         'title',
@@ -15,10 +16,19 @@ class Product
         "image",
     ];
 
+    public $table;
 
-    public function __construct(string $table, array $fillable) {
-        
-            $this->table = $table;
-            $this->fillable = $fillable;
+    public static function getProducts(): array
+    {
+        $stm = self::builder()->prepare("SELECT * FROM `products`");
+        $stm->execute();
+        return $stm->fetchAll();
+    }
+
+    public function __construct(array $fillable, string $table = "products")
+    {
+
+        $this->fillable = $fillable;
+        $this->table = $table;
     }
 }
