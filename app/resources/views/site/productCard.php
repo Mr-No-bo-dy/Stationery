@@ -15,12 +15,12 @@ foreach ($results as $result) {
         $product = new Product(
             $result['id'],
             [
-                $result['subcategory_id'],
-                $result['title'],
-                $result['description'],
-                $result['price'],
-                $result['stock'],
-                $result['image'],
+                'subcategory_id' => $result['subcategory_id'],
+                'title' => $result['title'],
+                'description' =>$result['description'],
+                'price' => $result['price'],
+                'stock' => $result['stock'],
+                'image' => $result['image'],
             ]
         );
         break;
