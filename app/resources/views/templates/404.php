@@ -8,5 +8,6 @@
 <body>
     <h1>ERROR #404</h1>
     <p><?= $error ?></p>
+    <p><a href="home">Return to main page</a></p>
 </body>
 </html>
