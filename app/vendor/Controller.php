@@ -39,7 +39,7 @@ class Controller
     }
 
     // Get data from $_POST
-    public function getPost(string $key = null): array
+    public function getPost(string $key = null): mixed
     {
         $postData = [];
         if (!empty($_POST)) {
@@ -53,7 +53,7 @@ class Controller
     }
 
     // Get data from $_GET
-    public function getGet(string $key = null): array
+    public function getGet(string $key = null): mixed
     {
         $getData = [];
         if (!empty($_GET)) {
