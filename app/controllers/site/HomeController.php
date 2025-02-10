@@ -12,4 +12,5 @@ class HomeController extends Controller
 
         return $this->view('site/index', compact('username'));
     }
+   
 }

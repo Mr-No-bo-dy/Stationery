@@ -5,6 +5,10 @@
     background-color: #999;
 }
 
+a{
+    color: black;
+    text-decoration: none;
+
 ul, ol {
     list-style: none;
 }
@@ -27,4 +31,13 @@ ul, ol {
 
 .head_link:hover {
     color: #00f;
+}
+  
+.productBlock{
+    display: flex;
+    margin: 20px;
+}
+
+.productCard{
+    padding: 15px;
 }
