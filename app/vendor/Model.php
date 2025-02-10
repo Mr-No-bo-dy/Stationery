@@ -6,7 +6,8 @@ use PDO;
 
 class Model
 {
-    protected $dbName = 'stationery_db';
+    protected $table = '';
+    protected $fillable = [];
 
     // Connection to DataBase
     public static function builder(): PDO

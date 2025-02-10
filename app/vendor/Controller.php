@@ -37,4 +37,32 @@ class Controller
         var_dump($var);
         die;
     }
+
+    // Get data from $_POST
+    public function getPost(string $key = null): array
+    {
+        $postData = [];
+        if (!empty($_POST)) {
+            $postData = $_POST;
+            if (!is_null($key)) {
+                $postData = $_POST[$key] ?? null;
+            }
+        }
+
+        return $postData;
+    }
+
+    // Get data from $_GET
+    public function getGet(string $key = null): array
+    {
+        $getData = [];
+        if (!empty($_GET)) {
+            $getData = $_GET;
+            if (!is_null($key)) {
+                $getData = $_GET[$key] ?? null;
+            }
+        }
+
+        return $getData;
+    }
 }
