@@ -28,12 +28,10 @@ tr {
 }
 
 td {
-    display: inline-block;
     padding: 5px 10px;
     width: 15%;
     border-left: black .5px solid;
     border-right: black .5px solid;
-
 }
 
 td:nth-child(1) {
@@ -49,7 +47,6 @@ td:nth-child(9) {
 }
 
 img {
-
     width: 200px;
     height: 200px;
 }

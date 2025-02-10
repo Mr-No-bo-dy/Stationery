@@ -14,6 +14,7 @@
         <nav>
             <ul class="head_menu">
                 <li><a class="head_link" href="home">Home</a></li>
+                <li><a class="head_link" href="categories">Categories</a></li>
                 <li><a class="head_link" href="catalog">Catalogue</a></li>
                 <li><a class="head_link" href="cart">Cart</a></li>
                 <?php if (!isset($_SESSION['user'])) { ?>
