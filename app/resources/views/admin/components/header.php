@@ -8,21 +8,21 @@
 </head>
 <body>
 <nav>
-<ul>
-    <li>
-        <a href="home">home</a>
-    </li>
-    <?php if (isset($_SESSION['user'])): ?>
-    <li>
-        <a href="logout">Logout</a>
-    </li>
-    <?php if ($_SESSION['user']->fillable['role'] == 'admin'):?>
+    <ul>
         <li>
-            <a href="users">view all users</a>
+            <a href="home">home</a>
         </li>
-    <?php endif; ?>
-    <?php endif; ?>
+        <?php if (isset($_SESSION['user'])): ?>
+            <li>
+                <a href="logout">Logout</a>
+            </li>
+            <?php if ($_SESSION['user']->fillable['role'] == 'admin'): ?>
+                <li>
+                    <a href="users">view all users</a>
+                </li>
+            <?php endif; ?>
+        <?php endif; ?>
 
 
-</ul>
+    </ul>
 </nav>

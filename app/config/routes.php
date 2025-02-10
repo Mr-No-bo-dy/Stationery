@@ -6,6 +6,8 @@ $urlRoutes = [
     'home' => 'site/home/index',
     'register' => 'site/user/register',
     'login' => 'site/user/login',
+    'profile' => 'site/user/profile',
+    'edit' => 'site/user/edit',
     'logout' => 'site/user/logout',
 
     'admin/home' => 'admin/user/index',

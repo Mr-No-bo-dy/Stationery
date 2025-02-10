@@ -12,12 +12,13 @@ class User extends Model
     protected $id;
     public $fillable =
         [
-            'name',
-            'surname',
-            'email',
-            'phone',
-            'role',
-            'password'
+            'name' => '',
+            'surname' => '',
+            'email' => '',
+            'phone' => '',
+            'role' => '',
+            'password' => '',
+            'photo' => '',
         ];
 
     public function setUser(
@@ -27,6 +28,7 @@ class User extends Model
         string $phone,
         string $password,
         ?string $role = 'user',
+        ?string $photo = 'default.png'
 
     )
     {
@@ -35,6 +37,7 @@ class User extends Model
         $this->fillable['email'] = $email;
         $this->fillable['phone'] = $phone;
         $this->fillable['role'] = $role;
+        $this->fillable['photo'] = $photo;
         $this->fillable['password'] = $password;
 
         $pdo = parent::builder();
@@ -106,7 +109,7 @@ class User extends Model
             $this->setUser($name, $surname, $email, $phone, $password);
 
             $pdo = parent::builder();
-            $sql = "INSERT INTO $this->tableName (name, surname, email, phone, role, password) VALUES (:name, :surname, :email, :phone, :role, :password)";
+            $sql = "INSERT INTO $this->tableName (name, surname, email, phone, role, password, photo) VALUES (:name, :surname, :email, :phone, :role, :password, :photo)";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([
                 'name' => $this->fillable['name'],
@@ -115,6 +118,7 @@ class User extends Model
                 'phone' => $this->fillable['phone'],
                 'role' => $this->fillable['role'],
                 'password' => password_hash( $this->fillable['password'],  PASSWORD_BCRYPT, ['cost' => 12]),
+                'photo' => $this->fillable['photo']
             ]);
         } catch (Exception $e) {
 
@@ -148,8 +152,96 @@ class User extends Model
 
         } catch (PDOException $e) {
             throw new Exception($e->getMessage() . 'ERROR');
-            return false;
 
+        }
+        return false;
+    }
+
+    public function update(
+        string $name,
+        string $surname,
+        string $email,
+        string $phone,
+        string $password
+    ): void
+    {
+        // validation
+        try {
+            if (strlen($name) < 2) {
+
+                throw new Exception('Name must be at least 2 characters');
+
+            } else if (strlen($surname) < 2) {
+
+                throw new Exception('Surname must be at least 2 characters');
+
+            } else if (!preg_match('/^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/', $email)) {
+
+                throw new Exception('Email is invalid');
+
+            } else if (strlen($phone) < 9) {
+
+                throw new Exception('Phone number must be at least 9 characters');
+
+            }  else if (strlen($password) < 4) {
+
+                throw new Exception('Password must be at least 4 characters');
+            }
+            try {
+                $pdo = parent::builder();
+                $sql = "SELECT email, phone FROM $this->tableName where (email = :email or phone = :phone) and id != :id";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([
+                    'email' => $email,
+                    'phone' => $phone,
+                    'id' => $this->id
+                ]);
+
+                if ($stmt->fetch()) {
+                    throw new Exception('User`s email or phone already exists');
+                }
+
+            } catch (PDOException $e) {
+                throw new Exception($e->getMessage());
+            }
+
+            // seting user to db
+            $this->setUser($name, $surname, $email, $phone, $password);
+
+            $pdo = parent::builder();
+            $sql = "UPDATE $this->tableName SET name = :name, surname = :surname, email = :email, phone = :phone, role = :role, password = :password, photo = :photo WHERE id = :id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                'name' => $this->fillable['name'],
+                'surname' => $this->fillable['surname'],
+                'email' => $this->fillable['email'],
+                'phone' => $this->fillable['phone'],
+                'role' => $this->fillable['role'],
+                'password' => password_hash( $this->fillable['password'],  PASSWORD_BCRYPT, ['cost' => 12]),
+                'photo' => $this->fillable['photo'],
+                'id' => $this->id
+            ]);
+        } catch (Exception $e) {
+
+            throw new Exception($e->getMessage());
+        }
+
+    }
+
+    public static function setProfilePhoto($id, $photo): bool
+    {
+        try {
+            $pdo = parent::builder();
+            $sql = "UPDATE users SET photo = :photo WHERE id = :id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                'photo' => $photo,
+                'id' => $id
+            ]);
+            return true;
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage() . 'ERROR');
+            return false;
         }
     }
 }

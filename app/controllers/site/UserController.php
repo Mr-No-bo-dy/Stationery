@@ -45,9 +45,7 @@ class UserController extends Controller
 
                 if ($user->login($_POST['name'], $_POST['password'])) {
 
-                    return $_SESSION['user']->fillable['role'] === 'admin'
-                        ? $this->redirect('admin/home')
-                        : $this->redirect('home');
+                    return $_SESSION['user']->fillable['role'] === 'admin' ? $this->redirect('admin/home') : $this->redirect('home');
                 }
 
             } catch (Exception $e) {
@@ -61,6 +59,30 @@ class UserController extends Controller
         }
 
         return $this->view('site/user/login');
+    }
+
+    public function profile()
+    {
+        $this->view('site/user/profile');
+    }
+
+    public function edit(){
+        if (isset($_POST['edit'])) {
+
+            return $this->view('site/user/edit');
+
+        } else if (isset($_POST['saveEdit'])){
+            var_dump($_FILES);
+            $user = new User();
+
+            $message = $user->update($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['phone'], $_POST['password']) ? 'user is edited successfully' : 'something went wrong';
+
+//            $this->dd($user->update($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['phone'], $_POST['password']));
+            return $this->view('site/user/profile', compact('message'));
+
+
+        }
+
     }
 
     public function logout(): void
