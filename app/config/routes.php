@@ -5,6 +5,9 @@ $urlRoutes = [
     '' => 'site/home/index',
     'home' => 'site/home/index',
 
+    'catalog' => "site/products/catalog",
+    'productCard' => "site/products/productCard",
+
     'register' => 'site/user/register',
     'login' => 'site/user/login',
     'profile' => 'site/user/profile',
@@ -17,6 +20,7 @@ $urlRoutes = [
     'admin/edit' => 'admin/user/edit',
     'admin/delete' => 'admin/user/delete',
 
-    'catalog' => "site/products/catalog",
-    'productCard' => "site/products/productCard",
+    'categories' => 'admin/categories/index',
+
 ];
+
