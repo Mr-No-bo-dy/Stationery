@@ -16,6 +16,7 @@
                 <li><a class="head_link" href="home">Home</a></li>
                 <li><a class="head_link" href="categories">Categories</a></li>
                 <li><a class="head_link" href="catalog">Catalogue</a></li>
+                <li><a class="head_link" href="reviews">Reviews</a></li>
                 <li><a class="head_link" href="cart">Cart</a></li>
                 <?php if (!isset($_SESSION['user'])) { ?>
                       <li><a class="head_link" href="register">Register</a></li>
