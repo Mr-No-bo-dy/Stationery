@@ -2,6 +2,7 @@
 
 namespace app\controllers\site;
 
+use app\models\site\User;
 use app\vendor\Controller;
 
 class HomeController extends Controller
@@ -12,4 +13,5 @@ class HomeController extends Controller
 
         return $this->view('site/index', compact('username'));
     }
+
 }
