@@ -4,3 +4,27 @@
     box-sizing: border-box;
     background-color: #999;
 }
+
+ul, ol {
+    list-style: none;
+}
+
+.head_menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: 15px;
+    row-gap: 10px;
+}
+
+.head_link {
+    display: inline-block;
+    padding: 5px 10px;
+    color: #000;
+    text-decoration: none;
+}
+
+.head_link:hover {
+    color: #00f;
+}
