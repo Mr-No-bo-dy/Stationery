@@ -7,7 +7,8 @@ $urlRoutes = [
 
     'catalog' => "site/products/catalog",
     'productCard' => "site/products/productCard",
-
+    
+    "cart" => "site/order/cart",
     'reviews' => 'site/review/index',
 
     'register' => 'site/user/register',
