@@ -87,7 +87,7 @@ class UserController extends Controller
 
     public function logout(): void
     {
-        session_destroy();
+        unset($_SESSION['users']);
 
         $this->redirect('home');
     }

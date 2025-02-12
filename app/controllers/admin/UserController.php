@@ -3,22 +3,20 @@
 namespace app\controllers\admin;
 
 use app\vendor\Controller;
-use app\models\admin\User;
+use app\models\site\User;
 use Exception;
 
 class UserController extends Controller
 {
     public function logout(): void
     {
-        session_destroy();
+        unset($_SESSION['users']);
         $this->redirect('../home');
 
     }
 
     public function index()
     {
-        $users = User::getAll();
-
         return $this->view('admin/index');
     }
 

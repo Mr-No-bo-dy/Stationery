@@ -8,7 +8,7 @@ use PDOException;
 
 class User extends Model
 {
-    public $tableName = 'users';
+   protected $tableName = 'users';
     protected $id;
     public $fillable =
         [
@@ -175,27 +175,41 @@ class User extends Model
 
                 throw new Exception('Surname must be at least 2 characters');
 
-            } else if (!preg_match('/^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/', $email)) {
+            } else if (!preg_match('#^[a-zA-Z][a-zA-Z0-9._%+-]*[a-zA-Z0-9]@[a-zA-Z0-9-]*[a-zA-Z0-9](\.[a-zA-Z]{2,}){1,2}$#', $email)) {
 
                 throw new Exception('Email is invalid');
 
-            } else if (strlen($phone) < 9) {
+//            } else if (!preg_match('#^\+[0-9]{1,4}[ -]?(( [0-9]{1,3} )|\([0-9]{1,3}\)|[0-9]{1,3})[ -]?([0-9][ -]?){6}[0-9]$#', $phone)) {
+//
+//                throw new Exception('Phone number must be at least 9 characters');
 
-                throw new Exception('Phone number must be at least 9 characters');
-
-            }  else if (strlen($password) < 4) {
+            } else if (strlen($password) < 4) {
 
                 throw new Exception('Password must be at least 4 characters');
+
             }
+
+// CORRECT PASSWORD CHECK
+//            }elseif (strlen($password) <= 8) {
+//                throw new Exception ( 'Your Password Must Contain At Least 8 Characters!');
+//            }
+//            elseif(!preg_match("#[a-zA-Z]+#",$password)) {
+//                throw new Exception( 'Your Password Must Contain At Least 1 Letter!');
+//            }
+//            elseif(!preg_match("#[0-9]+#",$password)) {
+//                throw new Exception('Your Password Must Contain At Least 1 Number!');
+//            }
             try {
                 $pdo = parent::builder();
-                $sql = "SELECT email, phone FROM $this->tableName where (email = :email or phone = :phone) and id != :id";
+                $table = self::$usertable;
+//                var_dump($table);die;
+                $sql = "SELECT * FROM users WHERE email = :email OR phone = :phone";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute([
-                    'email' => $email,
-                    'phone' => $phone,
-                    'id' => $this->id
+                    ':email' => $email,
+                    ':phone' => $phone
                 ]);
+//                var_dump($phone);die;
 
                 if ($stmt->fetch()) {
                     throw new Exception('User`s email or phone already exists');
@@ -204,6 +218,7 @@ class User extends Model
             } catch (PDOException $e) {
                 throw new Exception($e->getMessage());
             }
+
 
             // seting user to db
             $this->setUser($name, $surname, $email, $phone, $password);
@@ -244,4 +259,88 @@ class User extends Model
             return false;
         }
     }
+
+
+    // admin
+
+    /**
+     * @throws Exception
+     */
+
+    //Getting all Users
+    public static function getAll(): array
+    {
+        try {
+            $pdo = parent::builder();
+            $sql = "SELECT * FROM users";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll();
+
+        } catch (PDOException $e) {
+
+            throw new Exception($e->getMessage() . 'ERROR');
+        }
+    }
+
+
+    //Getting user by id
+    public static function getById($id): array
+    {
+        try {
+            $pdo = parent::builder();
+            $sql = "SELECT * FROM users where id = :id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                'id' => $id]);
+            return $stmt->fetch();
+
+        } catch (PDOException $e) {
+
+            throw new Exception($e->getMessage() . 'ERROR');
+        }
+    }
+
+
+    // Save edited user
+    public static function edit($id, $name, $surname, $email, $phone, $role): bool
+    {
+        try {
+            $pdo = parent::builder();
+            $sql = "UPDATE users SET name = :name, surname = :surname, email = :email, phone = :phone, role = :role WHERE id = :id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                'name' => $name,
+                'surname' => $surname,
+                'email' => $email,
+                'phone' => $phone,
+                'role' => $role,
+                'id' => $id
+            ]);
+            return true;
+        } catch (PDOException $e) {
+//            throw new Exception($e->getMessage() . 'ERROR');
+            return false;
+
+        }
+    }
+
+
+    // Delete user
+    public static function delete($id): bool
+    {
+        try {
+            $pdo = parent::builder();
+            $sql = "DELETE FROM users WHERE id = :id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                'id' => $id
+            ]);
+        } catch (PDOException $e) {
+//            throw new Exception($e->getMessage() . 'ERROR');
+            return false;
+        }
+        return true;
+    }
+
 }
