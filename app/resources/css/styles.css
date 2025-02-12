@@ -7,6 +7,8 @@
 
 nav {
     padding: 10px 15px;
+    border-bottom: 2px solid #000;
+    margin-bottom: 50px;
 }
 
 nav ul {
@@ -27,7 +29,8 @@ tr {
     border: black .5px solid;
 }
 
-td {
+td,
+th {
     padding: 5px 10px;
     width: 15%;
     border-left: black .5px solid;
@@ -88,3 +91,23 @@ ul, ol {
 .productCard{
     padding: 15px;
 }
+
+.categoriesTable {
+    margin: auto;
+}
+
+.text-left {
+    text-align: left;
+    background: #ffd237;
+}
+
+.text-left a {
+    color: #881b9e;
+    font-family: "Arial", "Times New Roman";
+    font-weight: bold;
+}
+
+.text-left a:hover {
+    color: #000000;
+}
+
