@@ -12,6 +12,6 @@ class HomeController extends Controller
         $username = getenv('USERNAME') ?: getenv('USER') ?: 'guest';
 
         return $this->view('site/index', compact('username'));
+        
     }
-
 }

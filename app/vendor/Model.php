@@ -18,7 +18,7 @@ class Model
     // Simple handy var_dump
     public function dd($var): void
     {
-        echo '<pre>';
+        echo '<pre>';  
         var_dump($var);
         die;
     }
