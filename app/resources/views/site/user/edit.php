@@ -17,6 +17,7 @@
                 <input type="text" name="phone" value="<?= $_SESSION['user']->fillable['phone'] ?>" id="phone">
                 <label for="password">Password</label>
                 <input type="text" name="password" id="password">
+                <input type="file" name="photoUpload">
                 <input type="submit" name="saveEdit" value="edit your data">
             </form>
 

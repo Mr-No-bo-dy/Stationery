@@ -74,8 +74,9 @@ class UserController extends Controller
         } else if (isset($_POST['saveEdit'])){
             var_dump($_FILES);
             $user = new User();
+            $file = $_FILES['photoUpload'];
 
-            $message = $user->update($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['phone'], $_POST['password']) ? 'user is edited successfully' : 'something went wrong';
+            $message = $user->update($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['phone'], $_POST['password'], $file) ? 'user is edited successfully' : 'something went wrong';
 
 //            $this->dd($user->update($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['phone'], $_POST['password']));
             return $this->view('site/user/profile', compact('message'));
@@ -87,7 +88,7 @@ class UserController extends Controller
 
     public function logout(): void
     {
-        unset($_SESSION['users']);
+        unset($_SESSION['user']);
 
         $this->redirect('home');
     }
