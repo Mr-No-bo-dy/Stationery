@@ -1,7 +1,7 @@
-<?php require_once 'app/resources/views/site/components/header.php' ?>
+<?php require_once 'app/resources/views/admin/components/header.php' ?>
 
 <main>
-    <table>
+    <table class="categoriesTable">
         <tr>
             <th>id</th>
             <th>title</th>
@@ -14,16 +14,14 @@
                 <?php foreach ($category as $column) { ?>
                     <td><?= $column ?></td>
                 <?php } ?>
-                <td><form action="" method="post"><button type="submit">UPDATE</button></form></td>
-                <td><form action="" method="post"><button type="submit">DELETE</button></form></td>
+                <td><form action="updateCategories" method="post"><button type="submit">UPDATE</button></form></td>
+                <td><form action="adminDeleteCategories" method="post"><button type="submit" name="categoryId" value="<?= $category['id'] ?>" >DELETE</button></form></td>
             </tr>
         <?php } ?>
+        <tr>
+            <td colspan="5" class="text-left"><a href="createCategory">Create new category</a></td>
+        </tr>
     </table>
-    <form action="/stationery/categories" method="post">
-        <input type="text" name="categoryName" placeholder="Category name">
-        <input type="text" name="categoryDescription" placeholder="Category description">
-        <button type="submit">Create</button>
-    </form>
 </main>
 
-<?php require_once 'app/resources/views/site/components/footer.php' ?>
+<?php require_once 'app/resources/views/admin/components/footer.php' ?>

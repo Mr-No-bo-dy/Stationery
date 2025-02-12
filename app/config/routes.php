@@ -5,6 +5,8 @@ $urlRoutes = [
     '' => 'site/home/index',
     'home' => 'site/home/index',
 
+    'category' => 'site/category/index',
+
     'catalog' => "site/products/catalog",
     'productCard' => "site/products/productCard",
 
@@ -16,11 +18,13 @@ $urlRoutes = [
     'edit' => 'site/user/edit',
     'logout' => 'site/user/logout',
 
+    'adminCategory' => 'admin/category/index',
+    'adminDeleteCategory' => 'admin/category/deleteCategory',
+    'createCategory' => 'admin/category/create',
     'admin/home' => 'admin/user/index',
     'admin/logout' => 'admin/user/logout',
     'admin/users' => 'admin/user/getAll',
     'admin/edit' => 'admin/user/edit',
     'admin/delete' => 'admin/user/delete',
 
-    'categories' => 'admin/categories/index',
 ];

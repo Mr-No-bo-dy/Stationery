@@ -3,7 +3,7 @@ namespace app\models;
 
 use app\vendor\Model;
 
-class Categories extends Model
+class Category extends Model
 {
     public $table = 'categories';
     public $primaryKey = 'id';
@@ -34,4 +34,11 @@ class Categories extends Model
         $stmt->bindParam(":description", $description);
         $stmt->execute();
     }
+
+    public function deleteCategory($id) {
+        $stmt = self::builder()->prepare("DELETE FROM categories WHERE id = :id");
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+    }
+
 }
