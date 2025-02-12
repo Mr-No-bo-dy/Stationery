@@ -5,9 +5,9 @@ use app\vendor\Model;
 
 class Review extends Model
 {
-    public static $table = 'reviews';
-    public static $primaryKey = 'id';
-    public static $fillable = [
+    public $table = 'reviews';
+    public $primaryKey = 'id';
+    public $fillable = [
         'product_id',
         'user_id',
         'rating',
