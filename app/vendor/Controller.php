@@ -30,11 +30,15 @@ class Controller
         exit;
     }
 
-    // Simple handy var_dump
-    public function dd($var): void
+    // Handy var_dump
+    public function dd(...$vars): void
     {
         echo '<pre>';
-        var_dump($var);
+        foreach ($vars as $var) {
+            var_dump($var);
+            echo '<hr>';
+        }
+        echo '</pre>';
         die;
     }
 
