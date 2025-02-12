@@ -6,8 +6,8 @@ use PDO;
 
 class Model
 {
-    protected static $table = '';
-    protected static $fillable = [];
+    protected $table = '';
+    protected $fillable = [];
 
     // Connection to DataBase
     public static function builder(): PDO
