@@ -7,11 +7,11 @@ use app\controllers\site\ProductsController;
 ?>
 <main>
     <div class="productCard">
-        <p>There was supposed to be a photo, but there will be text. <?= $product->fillable['image']; ?></p>
-        <h2><?= $product->fillable['title']; ?></h2>
-        <p><?= $product->fillable['description']; ?></p>
-        <p><?= $product->fillable['price']; ?> $</p>
-        <p>Stock: <?= $product->fillable['stock']; ?></p>
+        <p>There was supposed to be a photo, but there will be text. <?= $product['image']; ?></p>
+        <h2><?= $product['title']; ?></h2>
+        <p><?= $product['description']; ?></p>
+        <p><?= $product['price']; ?> $</p>
+        <p>Stock: <?= $product['stock']; ?></p>
 
     </div>
 </main>
