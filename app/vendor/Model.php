@@ -6,8 +6,8 @@ use PDO;
 
 class Model
 {
-    protected $table = '';
-    protected $fillable = [];
+    protected static $table = '';
+    protected static $fillable = [];
 
     // Connection to DataBase
     public static function builder(): PDO
@@ -15,11 +15,15 @@ class Model
         return Database::connection();
     }
 
-    // Simple handy var_dump
-    public function dd($var): void
+    // Handy var_dump
+    public static function dd(...$vars): void
     {
         echo '<pre>';
-        var_dump($var);
+        foreach ($vars as $var) {
+            var_dump($var);
+            echo '<hr>';
+        }
+        echo '</pre>';
         die;
     }
 }
