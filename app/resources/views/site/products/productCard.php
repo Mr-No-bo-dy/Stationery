@@ -1,13 +1,9 @@
 <?php require_once 'app/resources/views/site/components/header.php';
 
-use app\vendor\Database;
-use app\models\Product;
-use app\controllers\site\ProductsController;
-
 ?>
 <main>
     <div class="productCard">
-        <p>There was supposed to be a photo, but there will be text. <?= $product['image']; ?></p>
+        <img src="app/resources/img/products/<?= $product['image']; ?>" alt="табурєтка">
         <h2><?= $product['title']; ?></h2>
         <p><?= $product['description']; ?></p>
         <p><?= $product['price']; ?> $</p>
@@ -15,6 +11,10 @@ use app\controllers\site\ProductsController;
         <a class="reviews" href="reviews?id=<?= $product['id'] ?>">
             <p>reviews</p>
         </a>
+        <form action="addToCart" method="POST">
+            <input type="hidden" name="id" value="<?= $product['id'] ?>">
+            <button type="submit">Add to cart</button>
+        </form>
     </div>
 </main>
 

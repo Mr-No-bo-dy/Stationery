@@ -1,7 +1,5 @@
 <?php require_once 'app/resources/views/site/components/header.php';
 
-use app\vendor\Database;
-use App\models\Product;
 
 
 ?>

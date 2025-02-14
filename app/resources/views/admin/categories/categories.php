@@ -14,8 +14,8 @@
                 <?php foreach ($category as $column) { ?>
                     <td><?= $column ?></td>
                 <?php } ?>
-                <td><form action="updateCategories" method="post"><button type="submit">UPDATE</button></form></td>
-                <td><form action="adminDeleteCategories" method="post"><button type="submit" name="categoryId" value="<?= $category['id'] ?>" >DELETE</button></form></td>
+                <td><form action="updateCategory" method="post"><button type="submit" name="categoryId" value="<?= $category['id'] ?>">UPDATE</button></form></td>
+                <td><form action="deleteCategory" method="post"><button type="submit" name="categoryId" value="<?= $category['id'] ?>" >DELETE</button></form></td>
             </tr>
         <?php } ?>
         <tr>

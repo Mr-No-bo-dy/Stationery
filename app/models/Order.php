@@ -1,82 +1,99 @@
 <?php
 namespace App\models;
 use app\vendor\Model;
-use app\vendor\Database;
-use PDO;
 
 
-class Order extends Model{
-    private $id;
-    private $product_id;
-    private $user_id;
-    private $count;
-    private $total;
+class Order extends Model
+{
+    protected $table = 'orders';
 
-    public function __construct($id, $product_id, $user_id, $count, $total) {
-        $this->id = $id;
-        $this->product_id = $product_id;
-        $this->user_id = $user_id;
-        $this->count = $count;
-        $this->total = $total;
-    }
+    protected $primaryKey = 'id';
 
-    public function getId() {
-        return $this->id;
-    }
+    public $fillable = [
+        'product_id', 
+        'user_id', 
+        'count', 
+        'total'
+    ];
 
-    public function getProductId() {
-        return $this->product_id;
-    }
-
-    public function getUserId() {
-        return $this->user_id;
-    }
-
-    public function getCount() {
-        return $this->count;
-    }
-
-    public function getTotal() {
-        return $this->total;
-    }
-
-    public function setId($id) {
-        $this->id = $id;
-    }
-
-    public function setProductId($product_id) {
-        $this->product_id = $product_id;
-    }
-
-    public function setUserId($user_id) {
-        $this->user_id = $user_id;
-    }
-
-    public function setCount($count) {
-        $this->count = $count;
-    }
-
-    public function setTotal($total) {
-        $this->total = $total;
-    }
-
-    public function calculateTotal($price) {
-        $this->total = $this->count * $price;
-    }
+    
 
     public static function getProductById($productId)
     {
-        $productId = (int) $productId;
-        $db = Database::connection();
-        $sql = "SELECT id, subcategory_id, title, description, price, stock, image FROM products WHERE id = ?";
+        $db = Order::builder();
+        $sql = "SELECT id, subcategory_id, title, description, price, stock, image FROM products WHERE id = :id";
         $stmt = $db->prepare($sql);
-        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->execute(["id" => $productId]);
+        $data = $stmt->fetch();
+        // self::dd($data);
 
         return $data;
     }
 
 
-    public function addToCart()
+    public static function addToCart($productId)
+    {
+        $product = Order::getProductById($productId);
+
+        if ($product) {
+            $cart = $_SESSION['cart'] ?? [];
+
+            if (isset($cart[$productId])) {
+                $cart[$productId]['quantity']++;
+            } else {
+                $cart[$productId] = [
+                    'id' => $productId,
+                    'title' => $product['title'],
+                    'price' => $product['price'],
+                    'quantity' => 1,
+                    'image' => $product['image'],
+                ];
+            }
+
+            $_SESSION['cart'] = $cart;
+            
+        }
+    }
+
+    public static function removeFromCart($productId)
+    {
+
+        $product = Order::getProductById($productId);
+
+        if ($product) {
+            $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+
+            if (isset($cart[$productId])) {
+                unset($cart[$productId]);
+            }
+
+            $_SESSION['cart'] = $cart;
+            
+        }
+    }
+
+    public static function minusItemFromCart($productId)
+    {
+
+        $product = Order::getProductById($productId);
+
+        if ($product) {
+            $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+
+            if (isset($cart[$productId])) {
+                if ($cart[$productId]['quantity'] > 1) {
+                    $cart[$productId]['quantity']--;
+                }
+            }
+
+            $_SESSION['cart'] = $cart;                
+        } else {
+            echo 'Товар не знайдений';
+        }
+
+    }
+
+    public function plusItemFromCart()
     {
         if (true) {
             $productId = 21;
@@ -87,20 +104,9 @@ class Order extends Model{
 
                 if (isset($cart[$productId])) {
                     $cart[$productId]['quantity']++;
-                } else {
-                    $cart[$productId] = [
-                        'id' => $productId,
-                        'title' => $product['title'],
-                        'price' => $product['price'],
-                        'quantity' => 1,
-                        'image' => $product['image'],
-                    ];
                 }
 
-                $_SESSION['cart'] = $cart;
-
-                echo 'Товар додано в кошик';
-                
+                $_SESSION['cart'] = $cart;       
             } else {
                 echo 'Товар не знайдений';
             }
