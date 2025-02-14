@@ -10,7 +10,12 @@ $urlRoutes = [
     'catalog' => "site/products/catalog",
     'productCard' => "site/products/productCard",
     
+    "addToCart" => "site/order/addToCart",
+    "removeFromCart" => "site/order/removeFromCart",
+    "plusItemToCart" => "site/order/plusItemToCart",
+    "minusItemFromCart" => "site/order/minusItemFromCart",
     "cart" => "site/order/cart",
+    "order" => "site/order/test",
     'reviews' => 'site/review/index',
 
     'register' => 'site/user/register',

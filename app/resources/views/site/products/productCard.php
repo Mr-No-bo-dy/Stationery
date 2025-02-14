@@ -12,7 +12,10 @@ use app\controllers\site\ProductsController;
         <p><?= $product['description']; ?></p>
         <p><?= $product['price']; ?> $</p>
         <p>Stock: <?= $product['stock']; ?></p>
-
+        <form action="addToCart" method="POST">
+            <input type="hidden" name="id" value="<?= $product['id'] ?>">
+            <button type="submit">Add to cart</button>
+        </form>
     </div>
 </main>
 
