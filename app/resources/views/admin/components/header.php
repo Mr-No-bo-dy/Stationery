@@ -20,6 +20,9 @@
                 <li>
                     <a href="users">view all users</a>
                 </li>
+                <li>
+                    <a href="category">Categories</a>
+                </li>
             <?php endif; ?>
         <?php endif; ?>
     </ul>
