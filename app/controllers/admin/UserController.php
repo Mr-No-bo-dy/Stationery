@@ -14,43 +14,44 @@ class UserController extends Controller
 
     }
 
-    public function index()
+    public function index(): void
     {
-        return $this->view('admin/index');
+        $this->view('admin/index');
     }
 
-    public function getAll()
+    public function getAll(): void
     {
         $users = User::getAll();
 
-        return $this->view('admin/user/users', compact('users'));
+        $this->view('admin/user/users', compact('users'));
     }
 
-    public function delete()
+    public function delete(): void
     {
         if (isset($_POST['delete'])) {
 
             $thisUserId = $_POST['userId'];
             $message = User::delete($thisUserId) ? 'user is deleted successfully' : 'something went wrong';
 
-            return $this->view('admin/index', compact('message'));
+            $this->view('admin/index', compact('message'));
 
         }
     }
 
-    public function edit(){
+    public function edit(): void
+    {
         if (isset($_POST['userId'])) {
 
             $thisUserId = $_POST['userId'];
             $user = User::getById($thisUserId);
 
-            return $this->view('admin/user/edit', compact('user'));
+            $this->view('admin/user/edit', compact('user'));
 
         } else if (isset($_POST['saveUserChanges'])){
 
             $message = User::edit($_POST['user']) ? 'user is edited successfully' : 'something went wrong';
 
-            return $this->view('admin/index', compact('message'));
+            $this->view('admin/index', compact('message'));
 
 
         }

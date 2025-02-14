@@ -32,7 +32,7 @@ class UserController extends Controller
         }
     }
 
-    public function login()
+    public function login(): void
     {
 
         $loginError = '';
@@ -42,7 +42,7 @@ class UserController extends Controller
 
                 if (User::login($_POST['login'], $_POST['password'])) {
 
-                    return $_SESSION['user']['role'] === 'admin' ?
+                    $_SESSION['user']['role'] === 'admin' ?
                         $this->redirect('admin/home') :
                         $this->redirect('home');
                 }
@@ -52,7 +52,7 @@ class UserController extends Controller
                 $loginError = $e->getMessage();
             }
         }
-        return $this->view('site/user/login', compact('loginError'));
+        $this->view('site/user/login', compact('loginError'));
     }
 
     public function profile()
@@ -60,17 +60,18 @@ class UserController extends Controller
         $this->view('site/user/profile');
     }
 
-    public function edit(){
+    public function edit(): void
+    {
         if (isset($_POST['edit'])) {
 
-            return $this->view('site/user/edit');
+            $this->view('site/user/edit');
 
         } else if (isset($_POST['saveEdit'])){
 
 
             $message = User::update($_POST['user']) === null ? 'user is edited successfully' : 'something went wrong';
 
-            return $this->view('site/user/profile', compact('message'));
+            $this->view('site/user/profile', compact('message'));
 
 
         }
