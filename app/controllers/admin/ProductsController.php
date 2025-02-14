@@ -12,15 +12,15 @@ class ProductsController extends Controller
     {
         $data = Controller::getPost();
 
-        if($data != []){
+        if ($data != []) {
             $uploadDir = __DIR__ . 'app/resources/img/products';
-            // if (!is_dir($uploadDir)) {
-            //     mkdir($uploadDir, 0755, true);
-            // }
             $conn = Database::connection();
             $stm = $conn->prepare('SELECT MAX(`id`) FROM products');
             $stm->execute();
             $id = $stm->fetchAll();
+            // if (!is_dir($uploadDir)) {
+            //     mkdir($uploadDir, 0755, true);
+            // }
             // $image = $_FILES["image"];
             // print_r($_FILES["image"]);
             // $fileExtension = pathinfo($_FILES['image'], PATHINFO_EXTENSION);
@@ -29,18 +29,15 @@ class ProductsController extends Controller
 
             // То усьо, галімий недописок коду, не звертайте уваги.
             $stm = $conn->prepare('INSERT INTO products (subcategory_id, title, description, price, stock, image) VALUES (:subcategory_id, :title, :description, :price, :stock, :image)');
-            $stm->execute([
-               "subcategory_id" => $data["subcategory_id"],
-                "title" => $data["title"],
-                "description" => $data["description"],
-                "price" => $data["price"],
-                "stock" => $data["stock"],
-                "image" => $data["image"]
-            ]);
-        
-            $product = $stm->fetchAll();
+            $stm->bindParam('subcategory_id', $data["subcategory_id"]);
+            $stm->bindParam('title', $data["title"]);
+            $stm->bindParam('description', $data["description"]);
+            $stm->bindParam('price', $data["price"]);
+            $stm->bindParam('stock', $data["stock"]);
+            $stm->bindParam('image', $data["image"]);
 
+            $product = $stm->fetchAll();
         }
-        return $this->view("admin/products/creating");
+        return $this->view("admin/products/create");
     }
 }

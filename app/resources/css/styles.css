@@ -113,6 +113,10 @@ ol {
     color: #000000;
 }
 
+.productCard {
+    padding: 20px;
+}
+
 .productForm {
     display: flex;
     column-gap: column;
