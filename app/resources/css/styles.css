@@ -121,6 +121,69 @@ ul, ol {
     display: none;
 }
 
+.categoryForm {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    width: fit-content;
+    padding: 20px 30px;
+    margin: auto;
+    background: linear-gradient(30deg, #3333e3, #b731d3);
+    border-radius: 10px;
+}
+
+.formTitle {
+    color: #fff;
+    font-size: 30px;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.categoryLabel {
+    color: #fff;
+    font-size: 15px;
+    font-family: Arial;
+    margin-bottom: 5px;
+}
+
+.categoryInput {
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #fff;
+    outline: none;
+}
+
+.categoryInput:focus {
+    border: 2px solid #f3c92f;
+}
+
+.categoryName {
+    width: 100%;
+}
+
+.categoryDescription {
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+    max-height: 200px;
+}
+
+.categorySubmitButton {
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 5px;
+    background: transparent;
+    transition: 0.3s;
+    cursor: pointer;
+    border: 3px solid #fff;
+    color: #fff;
+}
+
+.categorySubmitButton:hover {
+    background: #fff;
+    color: #000;
+}
+
 .createReviewsForm {
     display: flex;
     align-items: center;

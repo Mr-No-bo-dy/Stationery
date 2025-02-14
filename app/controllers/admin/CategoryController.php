@@ -13,27 +13,27 @@ class CategoryController extends Controller
         return $this->view('admin/categories/categories', compact('allCategories'));
     }
 
+    // Adds the ability to create category
     public function create() {
         if (isset($_POST['newCategoryName']) && isset($_POST['newCategoryDescription'])) {
             $categoriesModel = new Category();
             $categoriesModel -> createCategory($_POST['newCategoryName'], $_POST['newCategoryDescription']);
-            $_POST['newCategoryName'] = null;
-            $_POST['newCategoryDescription'] = null;
             return $this->index();
         }
         return $this->view('admin/categories/createCategory');
     }
+
+    // Adds the ability to change category
     public function update() {
         if (isset($_POST['newCategoryName']) && isset($_POST['newCategoryDescription'])) {
             $categoriesModel = new Category();
             $categoriesModel -> updateCategory($_POST['newCategoryName'], $_POST['newCategoryDescription'], $_POST['categoryId']);
-            $_POST['newCategoryName'] = null;
-            $_POST['newCategoryDescription'] = null;
             return $this->index();
         }
         return $this->view('admin/categories/updateCategory');
     }
 
+    // Used to delete a category
     public function deleteCategory() {
         if (isset($_POST['categoryId'])) {
             $categoriesModel = new Category();
