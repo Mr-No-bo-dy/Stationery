@@ -2,9 +2,8 @@
 
 namespace app\controllers\admin;
 
+use App\models\User;
 use app\vendor\Controller;
-use app\models\site\User;
-use Exception;
 
 class UserController extends Controller
 {
@@ -40,16 +39,16 @@ class UserController extends Controller
     }
 
     public function edit(){
-        if (isset($_POST['edit'])) {
+        if (isset($_POST['userId'])) {
 
-            $thisUserId = $_POST['edit'];
+            $thisUserId = $_POST['userId'];
             $user = User::getById($thisUserId);
 
             return $this->view('admin/user/edit', compact('user'));
 
-        } else if (isset($_POST['saveEdit'])){
+        } else if (isset($_POST['saveUserChanges'])){
 
-            $message = User::edit($_POST['id'],$_POST['name'], $_POST['surname'], $_POST['email'], $_POST['phone'], $_POST['role']) ? 'user is edited successfully' : 'something went wrong';
+            $message = User::edit($_POST['user']) ? 'user is edited successfully' : 'something went wrong';
 
             return $this->view('admin/index', compact('message'));
 

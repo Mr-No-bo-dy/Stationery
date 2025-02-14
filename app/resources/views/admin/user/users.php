@@ -18,7 +18,7 @@
 
                     <td>
                         <form action="edit" method="post">
-                            <input type="submit" name="edit" value="<?= $user['id'] ?>">edit
+                            <input type="submit" name="userId" value="<?= $user['id'] ?>">edit
                         </form>
                     </td>
                     <td>

@@ -16,7 +16,7 @@
             <li>
                 <a href="logout">Logout</a>
             </li>
-            <?php if ($_SESSION['user']->fillable['role'] == 'admin'): ?>
+            <?php if ($_SESSION['user']['role'] == 'admin'): ?>
                 <li>
                     <a href="users">view all users</a>
                 </li>
