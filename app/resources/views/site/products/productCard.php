@@ -12,7 +12,9 @@ use app\controllers\site\ProductsController;
         <p><?= $product['description']; ?></p>
         <p><?= $product['price']; ?> $</p>
         <p>Stock: <?= $product['stock']; ?></p>
-
+        <a class="reviews" href="reviews?id=<?= $product['id'] ?>">
+            <p>reviews</p>
+        </a>
     </div>
 </main>
 

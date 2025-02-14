@@ -11,11 +11,16 @@ class ReviewController extends Controller
     public function index()
     {
         $allReviews = Review::getSiteReviews();
-        // echo "<pre>";
-        // print_r($_POST);
-        // echo "</pre>";
-        if (isset($_POST["rating"]) && isset($_POST["comment"])) {
-            Review::createSiteReviews($_POST["rating"], $_POST["comment"]);
+        foreach ($_SESSION["user"] as $value) {
+            $user_id = Review::getUserId($value["name"])["id"];
+        }
+        if (isset($_GET["id"])) {
+            $url = "reviews?id=".$_GET["id"];
+            if (isset($_POST["rating"]) && isset($_POST["comment"])) {
+                Review::createSiteReviews($_GET["id"], $user_id, $_POST["rating"], $_POST["comment"]);
+                header("location: ".$url);
+            }
+            return $this->view("site/products/reviews", compact("allReviews", "url"));
         }
         return $this->view("site/products/reviews", compact("allReviews"));
     }
