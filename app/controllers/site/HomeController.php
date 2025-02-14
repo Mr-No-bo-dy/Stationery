@@ -2,7 +2,6 @@
 
 namespace app\controllers\site;
 
-use app\models\site\User;
 use app\vendor\Controller;
 
 class HomeController extends Controller

@@ -18,13 +18,15 @@
 
                     <td>
                         <form action="edit" method="post">
-                            <input type="submit" name="edit" value="<?= $user['id'] ?>">edit
+                            <label for="edit">edit</label>
+                            <input class="dn" type="submit" name="userId" id="edit" value="<?= $user['id'] ?>">
                         </form>
                     </td>
                     <td>
                         <form action="delete" method="post">
                             <input type="hidden" name="userId" value="<?= $user['id'] ?>">
-                            <input type="submit" name="delete" value="delete">
+                            <label for="delete">delete</label>
+                            <input class="dn" type="submit" name="delete" id="delete" value="delete">
                         </form>
                     </td>
 
