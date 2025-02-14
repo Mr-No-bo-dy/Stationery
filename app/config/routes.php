@@ -29,4 +29,6 @@ $urlRoutes = [
     'admin/edit' => 'admin/user/edit',
     'admin/delete' => 'admin/user/delete',
 
+    'admin/productCreating' => 'admin/products/productCreating',
+
 ];
