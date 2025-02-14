@@ -16,7 +16,7 @@ class ProductsController extends Controller
         return $this->view("site/products/catalog", compact("products"));
     }
 
-    public function productCard()
+    public function card()
     {
         $conn = Database::connection();
         $id = $this->getGet('id');
@@ -24,7 +24,7 @@ class ProductsController extends Controller
         $stm->execute(['id' => $id]);
         $product = $stm->fetchAll();
         $product = $product[0];
-        return $this->view("site/products/productCard", compact("product"));
+        return $this->view("site/products/card", compact("product"));
         
     }
 }

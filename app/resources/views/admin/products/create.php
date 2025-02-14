@@ -6,7 +6,7 @@
     <textarea id="description" name="description" placeholder="description" required></textarea>
     <input type="number" name="stock" placeholder="stock" required>
     <input type="number" name="price" placeholder="price" required>
-    <input type="file" name="image" accept="image/*" required>
+    <input type="file" name="image" required>
     <input type="number" name="subcategory_id" placeholder="subcategory_id" required>
     <input type="submit">
 </form>
