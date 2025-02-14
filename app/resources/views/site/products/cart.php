@@ -1,10 +1,6 @@
 <?php require_once 'app/resources/views/site/components/header.php';
-
-use app\vendor\Database;
-use App\models\Product;
-use App\models\Orders;
-
-
+    echo "<pre>";
+    print_r ($_SESSION);
 ?>
 <main>
 
@@ -18,6 +14,7 @@ use App\models\Orders;
                 <th>Ціна</th>
                 <th>Кількість</th>
                 <th>Зображення</th>
+                <th colspan="3">Дії</th>
             </tr>
 
             <?php foreach (isset($_SESSION["cart"]) ? $_SESSION["cart"] : [] as $product) { ?>
@@ -27,9 +24,39 @@ use App\models\Orders;
                     <td><?= $product['price'] ?> грн</td>
                     <td><?= $product['quantity'] ?></td>
                     <td><img src="<?= ($product['image']) ?>" alt=""></td>
+                    <td>
+                        <form action="plusItemToCart" method="POST">
+                            <input type="hidden" name="id" value="<?= $product['id'] ?>">
+                            <button type="submit">+</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="minusItemFromCart" method="POST">
+                            <input type="hidden" name="id" value="<?= $product['id'] ?>">
+                            <button type="submit">-</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="removeFromCart" method="POST">
+                            <input type="hidden" name="id" value="<?= $product['id'] ?>">
+                            <button type="submit">Видалити</button>
+                        </form>
+                    </td>
                 </tr>
             <?php } ?>
         </table>
+
+        <h1>Оформлення замовлення</h1>
+
+        <form action="">
+            
+            <input type="text" name="name" placeholder="Ім'я">
+            <input type="text" name="phone" placeholder="Телефон">
+            <input type="text" name="email" placeholder="Email">
+            <button type="submit">Замовити</button>
+        </form>
+
+
     <?php } ?>
     
 </main>
