@@ -29,12 +29,12 @@ class ProductsController extends Controller
 
             // То усьо, галімий недописок коду, не звертайте уваги.
             $stm = $conn->prepare('INSERT INTO products (subcategory_id, title, description, price, stock, image) VALUES (:subcategory_id, :title, :description, :price, :stock, :image)');
-            $stm->bindParam('subcategory_id', $data["subcategory_id"]);
-            $stm->bindParam('title', $data["title"]);
-            $stm->bindParam('description', $data["description"]);
-            $stm->bindParam('price', $data["price"]);
-            $stm->bindParam('stock', $data["stock"]);
-            $stm->bindParam('image', $data["image"]);
+            $stm->bindParam(':subcategory_id', $data["subcategory_id"]);
+            $stm->bindParam(':title', $data["title"]);
+            $stm->bindParam(':description', $data["description"]);
+            $stm->bindParam(':price', $data["price"]);
+            $stm->bindParam(':stock', $data["stock"]);
+            $stm->bindParam(':image', $data["image"]);
 
             $product = $stm->fetchAll();
         }
