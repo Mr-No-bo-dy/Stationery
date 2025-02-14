@@ -32,7 +32,7 @@ class UserController extends Controller
         }
     }
 
-    public function login(): void
+    public function login()
     {
 
         $loginError = '';
@@ -42,7 +42,7 @@ class UserController extends Controller
 
                 if (User::login($_POST['login'], $_POST['password'])) {
 
-                    $_SESSION['user']['role'] === 'admin' ?
+                    return $_SESSION['user']['role'] === 'admin' ?
                         $this->redirect('admin/home') :
                         $this->redirect('home');
                 }
@@ -52,37 +52,60 @@ class UserController extends Controller
                 $loginError = $e->getMessage();
             }
         }
-        $this->view('site/user/login', compact('loginError'));
+        return $this->view('site/user/login', compact('loginError'));
     }
 
     public function profile()
     {
-        $this->view('site/user/profile');
+        return $this->view('site/user/profile');
     }
 
-    public function edit(): void
+    public function edit()
     {
         if (isset($_POST['edit'])) {
 
-            $this->view('site/user/edit');
+            return $this->view('site/user/edit');
 
         } else if (isset($_POST['saveEdit'])){
 
 
             $message = User::update($_POST['user']) === null ? 'user is edited successfully' : 'something went wrong';
 
-            $this->view('site/user/profile', compact('message'));
+            return $this->view('site/user/profile', compact('message'));
 
 
         }
 
     }
 
-    public function logout(): void
+    public function passwordChange()
+    {
+        if (isset($_POST['changePassword'])) {
+            if (is_null(User::passwordChange($_POST['oldPassword'], $_POST['repeatPassword'], $_POST['newPassword']))) {
+                $message = 'password changed successfully';
+            } else {
+                $message = User::passwordChange($_POST['oldPassword'], $_POST['repeatPassword'], $_POST['newPassword']);
+            }
+
+            return $this->view('site/user/profile', compact('message'));
+        }
+
+
+        return $this->view('site/user/passwordChange');
+
+    }
+
+    public function setPhoto()
+    {
+        $message = User::setProfilePhoto($_FILES['photo']);
+        $this->view('site/user/profile', compact('message'));
+    }
+
+    public function logout()
     {
         unset($_SESSION['user']);
 
-        $this->redirect('home');
+        return $this->redirect('home');
     }
 
 }

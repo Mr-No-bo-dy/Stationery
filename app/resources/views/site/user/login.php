@@ -10,7 +10,7 @@
             <button type="submit">Login</button>
         </form>
         <?php if (!empty($loginError)): ?>
-            <p><?= $loginError ?></p>
+            <p class="warning"><?= $loginError ?></p>
         <?php endif; ?>
     </main>
 

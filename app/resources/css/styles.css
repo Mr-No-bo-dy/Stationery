@@ -121,6 +121,10 @@ ul, ol {
     display: none;
 }
 
+.warning {
+    color: red;
+}
+
 .createReviewsForm {
     display: flex;
     align-items: center;

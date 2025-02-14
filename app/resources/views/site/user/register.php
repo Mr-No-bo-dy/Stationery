@@ -18,7 +18,7 @@
             <button type="submit">Register</button>
         </form>
         <?php if (!empty($registerError)): ?>
-            <p><?= $registerError ?></p>
+            <p class="warning"><?= $registerError ?></p>
         <?php endif; ?>
     </main>
 

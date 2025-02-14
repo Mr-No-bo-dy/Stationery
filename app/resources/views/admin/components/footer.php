@@ -1,4 +1,4 @@
-    <script src="app/resources/js/scripts.js"></script>
+    <script src="/stationery/app/resources/js/scripts.js"></script>
 
 </body>
 </html>

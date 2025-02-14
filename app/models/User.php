@@ -21,11 +21,11 @@ class User extends Model
             'photo' => '',
         ];
 
+
+    // User registration
     /**
      * @throws Exception
      */
-
-    // User registration
     public static function register(
         array $array
     ): void
@@ -101,11 +101,11 @@ class User extends Model
 
     }
 
+
+    // User login
     /**
      * @throws Exception
      */
-
-    // User login
     public static function login(string $login, string $password): bool
     {
         try {
@@ -132,6 +132,8 @@ class User extends Model
         }
     }
 
+
+    //user self update data
     public static function update(
         array $array
 
@@ -161,7 +163,7 @@ class User extends Model
 
         // seting user to db
 
-        $sql = "UPDATE users SET name = :name, surname = :surname, email = :email, phone = :phone, role = :role, password = :password WHERE id = :id";
+        $sql = "UPDATE users SET name = :name, surname = :surname, email = :email, phone = :phone, role = :role WHERE id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             'name' => $array['name'],
@@ -169,7 +171,6 @@ class User extends Model
             'email' => $array['email'],
             'phone' => $array['phone'],
             'role' => $array['role'],
-            'password' => password_hash($array['password'], PASSWORD_BCRYPT, ['cost' => 12]),
             'id' => $array['id']
         ]);
 
@@ -182,31 +183,116 @@ class User extends Model
 
     }
 
-    public static function setProfilePhoto($id, $photo): bool
+    public static function passwordChange($oldPassword, $repeatPassword, $newPassword)
     {
         try {
+            if ($oldPassword != $repeatPassword) {
+                throw new Exception('Passwords do not match');
+            } else if (strlen($newPassword) < 4) {
+
+                throw new Exception('Password must be at least 4 characters');
+
+            } else if (!password_verify($oldPassword, $_SESSION['user']['password'])) {
+                throw new Exception('Old password is incorrect');
+            }
+// CORRECT PASSWORD CHECK
+//            }elseif (strlen($newPassword <= 8) {
+//                throw new Exception ( 'Your Password Must Contain At Least 8 Characters!');
+//            }
+//            elseif(!preg_match("#[a-zA-Z]+#", $newPassword) {
+//                throw new Exception( 'Your Password Must Contain At Least 1 Letter!');
+//            }
+//            elseif(!preg_match("#[0-9]+#", $newPassword) {
+//                throw new Exception('Your Password Must Contain At Least 1 Number!');
+//            }
+
+
+            $pdo = parent::builder();
+            $sql = "UPDATE users SET password = :password WHERE id = :id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                'password' => password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 12]),
+                'id' => $_SESSION['user']['id']
+            ]);
+
+            $_SESSION['user']['password'] = password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 12]);
+
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return null;
+
+    }
+
+
+    // setting profile photo
+    public static function setProfilePhoto($file): null|string
+    {
+        try {
+            if (!isset($_SESSION['user']['id'])) {
+                throw new Exception("User not authenticated!");
+            }
+
+            $uploadDir = "app/resources/img/users/"; // Directory where files will be stored
+            $fileName = basename($file["name"]);
+            $fileTmpName = $file["tmp_name"];
+            $fileSize = $file["size"];
+            $fileError = $file["error"];
+            $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+            // Allowed file types
+            $allowed = ["jpg", "jpeg", "png", "gif"];
+
+            // Check for errors
+            if ($fileError !== 0) {
+                throw new Exception("Error uploading file!");
+            }
+
+            // Validate file type
+            if (!in_array($fileExt, $allowed)) {
+                throw new Exception("Invalid file type! Only JPG, JPEG, PNG, and GIF are allowed.");
+            }
+
+            // Validate file size (max 5MB)
+            if ($fileSize > 5 * 1024 * 1024) {
+                throw new Exception("File size too large! Maximum allowed is 5MB.");
+            }
+
+            // Generate a unique name to prevent overwriting
+            $newFileName = $_SESSION['user']['id'] . "." . $fileExt;
+            $targetFilePath = $uploadDir . $newFileName;
+
+            // Move file to the uploads directory
+            if (!move_uploaded_file($fileTmpName, $targetFilePath)) {
+                throw new Exception("Failed to move uploaded file!");
+            }
+
+            // Update database with new photo name
             $pdo = parent::builder();
             $sql = "UPDATE users SET photo = :photo WHERE id = :id";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([
-                'photo' => $photo,
-                'id' => $id
+                'photo' => $newFileName,
+                'id' => $_SESSION['user']['id']
             ]);
-            return true;
-        } catch (PDOException $e) {
-            throw new Exception($e->getMessage() . 'ERROR');
-            return false;
+
+            // Update session photo
+            $_SESSION['user']['photo'] = $newFileName;
+
+            return null;
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
     }
 
 
-    // admin
 
+    // admin methods
+
+    //Getting all Users
     /**
      * @throws Exception
      */
-
-    //Getting all Users
     public static function getAll(): array
     {
         try {
