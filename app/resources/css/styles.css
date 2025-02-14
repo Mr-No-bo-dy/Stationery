@@ -111,10 +111,12 @@ ul, ol {
     color: #000000;
 }
 
-
-
 .productForm{
     display: flex;
     column-gap: column;
     align-items: left;
+}
+
+.dn {
+    display: none;
 }

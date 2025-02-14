@@ -6,15 +6,15 @@
         <h1>Register</h1>
         <form action="register" method="post">
             <label for="name">Name</label>
-            <input type="text" name="name" id="name">
+            <input type="text" name="user[name]" id="name">
             <label for="surname">Surname</label>
-            <input type="text" name="surname" id="surname">
+            <input type="text" name="user[surname]" id="surname">
             <label for="email">Email</label>
-            <input type="text" name="email" id="email">
+            <input type="text" name="user[email]" id="email">
             <label for="phone">Phone</label>
-            <input type="text" name="phone" id="phone">
+            <input type="text" name="user[phone]" id="phone">
             <label for="password">Password</label>
-            <input type="text" name="password" id="password">
+            <input type="text" name="user[password]" id="password">
             <button type="submit">Register</button>
         </form>
         <?php if (!empty($registerError)): ?>

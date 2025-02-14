@@ -1,15 +1,14 @@
 <?php require_once 'app/resources/views/site/components/header.php';
-//echo '<pre>';
-//var_dump($_SESSION);
+
 ?>
 
     <main>
         <?php if (isset($_SESSION['user'])): ?>
-            <img src="<?= 'app/resources/img/users/'.$_SESSION['user']->fillable['photo'] ?>" alt="profile photo">
-            <p><b>name:</b> <?= $_SESSION['user']->fillable['name']?></p>
-    <p><b>surname:</b> <?= $_SESSION['user']->fillable['surname']  ?></p>
-    <p><b>email:</b> <?= $_SESSION['user']->fillable['email']  ?></p>
-    <p><b>phone:</b> <?= $_SESSION['user']->fillable['phone']  ?></p>
+            <img src="<?= 'app/resources/img/users/'.$_SESSION['user']['photo'] ?>" alt="profile photo">
+            <p><b>name:</b> <?= $_SESSION['user']['name']?></p>
+    <p><b>surname:</b> <?= $_SESSION['user']['surname']  ?></p>
+    <p><b>email:</b> <?= $_SESSION['user']['email']  ?></p>
+    <p><b>phone:</b> <?= $_SESSION['user']['phone']  ?></p>
 
             <form action="edit" method="post">
                 <input type="submit" name="edit" value="edit your data">

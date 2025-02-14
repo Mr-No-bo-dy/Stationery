@@ -2,8 +2,8 @@
 
 namespace app\controllers\site;
 
+use App\models\User;
 use app\vendor\Controller;
-use app\models\site\User;
 use Exception;
 
 class UserController extends Controller
@@ -13,18 +13,15 @@ class UserController extends Controller
     public function register()
     {
         // if not post
-        if (!isset($_POST['name']) && !isset($_POST['surname']) && !isset($_POST['email']) && !isset($_POST['phone']) && !isset($_POST['password'])) {
+        if (!isset($_POST['user'])) {
             return $this->view('site/user/register');
         }
         // if data has been sent
-        $user = new User();
         $registerError = '';
-
         try {
+            User::register($_POST['user']);
 
-            $user->register($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['phone'], $_POST['password']);
-
-            return $this->view('site/user/login', compact('registerError'));
+            return $this->view('site/user/login');
 
         } catch (Exception $e) {
 
@@ -35,30 +32,27 @@ class UserController extends Controller
         }
     }
 
-    public function login()
+    public function login(): void
     {
-        if (isset($_POST['name']) && isset($_POST['password'])) {
+
+        $loginError = '';
+        if (isset($_POST['login']) && isset($_POST['password'])) {
 
             try {
 
-                $user = new User();
+                if (User::login($_POST['login'], $_POST['password'])) {
 
-                if ($user->login($_POST['name'], $_POST['password'])) {
-
-                    return $_SESSION['user']->fillable['role'] === 'admin' ? $this->redirect('admin/home') : $this->redirect('home');
+                    $_SESSION['user']['role'] === 'admin' ?
+                        $this->redirect('admin/home') :
+                        $this->redirect('home');
                 }
 
             } catch (Exception $e) {
 
                 $loginError = $e->getMessage();
-
-                return $this->view('site/user/login', compact('loginError'));
-
-
             }
         }
-
-        return $this->view('site/user/login');
+        $this->view('site/user/login', compact('loginError'));
     }
 
     public function profile()
@@ -66,20 +60,18 @@ class UserController extends Controller
         $this->view('site/user/profile');
     }
 
-    public function edit(){
+    public function edit(): void
+    {
         if (isset($_POST['edit'])) {
 
-            return $this->view('site/user/edit');
+            $this->view('site/user/edit');
 
         } else if (isset($_POST['saveEdit'])){
-            var_dump($_FILES);
-            $user = new User();
-            $file = $_FILES['photoUpload'];
 
-            $message = $user->update($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['phone'], $_POST['password'], $file) ? 'user is edited successfully' : 'something went wrong';
 
-//            $this->dd($user->update($_POST['name'], $_POST['surname'], $_POST['email'], $_POST['phone'], $_POST['password']));
-            return $this->view('site/user/profile', compact('message'));
+            $message = User::update($_POST['user']) === null ? 'user is edited successfully' : 'something went wrong';
+
+            $this->view('site/user/profile', compact('message'));
 
 
         }

@@ -34,6 +34,13 @@ class Category extends Model
         $stmt->bindParam(":description", $description);
         $stmt->execute();
     }
+    public function updateCategory($name, $description, $id) {
+        $stmt = self::builder()->prepare("UPDATE categories SET title = :name, description = :description WHERE id = :id");
+        $stmt->bindParam(":name", $name);
+        $stmt->bindParam(":description", $description);
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+    }
 
     public function deleteCategory($id) {
         $stmt = self::builder()->prepare("DELETE FROM categories WHERE id = :id");
