@@ -10,7 +10,7 @@ class UserController extends Controller
 
     public function authCheck()
     {
-        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
+        if (!isset($_SESSION['user']) && ($_SESSION['user']['role'] != 'admin' || $_SESSION['user']['role'] != 'SuperAdmin')) {
             return $this->redirect('../home');
         }
     }

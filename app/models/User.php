@@ -300,9 +300,16 @@ class User extends Model
     {
         try {
             $pdo = parent::builder();
-            $sql = "SELECT * FROM users";
+            if ($_SESSION['user']['role'] == 'admin') {
+                $sql = "SELECT * FROM `users` WHERE id != :id and role = 'user';";
+            } else if ($_SESSION['user']['role'] == 'SuperAdmin') {
+                $sql = "SELECT * FROM `users` WHERE id != :id ORDER BY CASE WHEN role = 'admin' THEN 1 ELSE 2 END, role;";
+            }
+
             $stmt = $pdo->prepare($sql);
-            $stmt->execute();
+            $stmt->execute([
+                'id' => $_SESSION['user']['id']
+            ]);
             return $stmt->fetchAll();
 
         } catch (PDOException $e) {

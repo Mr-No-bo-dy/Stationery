@@ -41,10 +41,13 @@ class UserController extends Controller
             try {
 
                 if (User::login($_POST['login'], $_POST['password'])) {
+//                    $this->dd($_SESSION);
 
-                    return $_SESSION['user']['role'] === 'admin' ?
-                        $this->redirect('admin/home') :
-                        $this->redirect('home');
+                    if ($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'SuperAdmin') {
+                        return $this->redirect('admin/home');
+                    } else if ($_SESSION['user']['role'] === 'user') {
+                        return $this->redirect('home');
+                    }
                 }
 
             } catch (Exception $e) {
