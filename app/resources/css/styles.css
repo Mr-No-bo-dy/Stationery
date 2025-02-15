@@ -37,12 +37,17 @@ th {
     border-right: black .5px solid;
 }
 
-td:nth-child(1) {
+td:nth-child(1),
+th:nth-child(1){
     width: 3%;
 }
-
-td:nth-child(8) {
-    width: 5%;
+td:nth-child(7):hover,
+td:nth-child(8):hover{
+    background-color: #b0b0b0;
+    cursor: pointer;
+}
+tr:hover td {
+    background-color: #dcdbdb;
 }
 
 td:nth-child(9) {
@@ -149,4 +154,64 @@ ul, ol {
 
 .createReviewsForm input[type="submit"]:hover {
     cursor: pointer;
+}
+
+
+.wrapper {
+    margin: 0 auto;
+    width: 80%;
+}
+.login h1,
+.register h1 {
+    text-align: center;
+}
+.register form,
+.login form {
+    margin: 0 auto;
+    max-width: 60%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+
+}
+
+.register form input,
+.login form input {
+    width: 100%;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+}
+.register form p:last-child,
+.login form p:last-child {
+    text-align: center;
+}
+.register form input[type="submit"],
+.login form input[type="submit"] {
+   display: none;
+}
+.register form label.button,
+.login form label.button {
+    cursor: pointer;
+    padding: 10px 15px;
+    background-color: #09ff00;
+    border: 1px solid #023b00;
+    border-radius: 5px;
+    transition: .3s;
+
+}
+.register form label.button:hover,
+.login form label.button:hover {
+    background-color: #13b20d;
+
+}
+
+.profile p {
+    text-align: center;
+}
+
+.profile img {
+    border-radius: 50%;
+}
+.profile form  {
+    text-align: center;
 }

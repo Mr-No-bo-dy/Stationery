@@ -2,27 +2,33 @@
 
 ?>
 
-    <main>
-        <?php if (isset($_SESSION['user'])): ?>
-            <img src="<?= 'app/resources/img/users/'.$_SESSION['user']['photo'] ?>" alt="profile photo">
-            <form action="setPhoto" method="post" enctype="multipart/form-data">
-                <input type="file" name="photo">
-                <input type="submit" name="save">
-            </form>
-            <p><b>name:</b> <?= $_SESSION['user']['name']?></p>
-    <p><b>surname:</b> <?= $_SESSION['user']['surname']  ?></p>
-    <p><b>email:</b> <?= $_SESSION['user']['email']  ?></p>
-    <p><b>phone:</b> <?= $_SESSION['user']['phone']  ?></p>
+    <main class="profile">
+        <div class="wrapper">
+            <?php if (isset($_SESSION['user'])): ?>
+                <p>
+                    <img src="<?= 'app/resources/img/users/' . $_SESSION['user']['photo'] ?>" alt="profile photo">
+                </p>
+                <p class="photo">
+                <form action="setPhoto" method="post" enctype="multipart/form-data">
+                    <input type="file" name="photo">
+                    <input type="submit" name="save">
+                </form>
+                </p>
+                <p><b>name:</b> <?= $_SESSION['user']['name'] ?></p>
+                <p><b>surname:</b> <?= $_SESSION['user']['surname'] ?></p>
+                <p><b>email:</b> <?= $_SESSION['user']['email'] ?></p>
+                <p><b>phone:</b> <?= $_SESSION['user']['phone'] ?></p>
+                <p>
+                <form action="edit" method="post">
+                    <input type="submit" name="edit" value="edit your data">
+                </form>
+                </p>
+                <p class="warning"><?= $message ?? '' ?></p>
 
-            <form action="edit" method="post">
-                <input type="submit" name="edit" value="edit your data">
-            </form>
-<p class="warning"><?= $message ?? '' ?></p>
-
-        <?php endif; ?>
+            <?php endif; ?>
 
 
-
+        </div>
     </main>
 
 <?php require_once 'app/resources/views/site/components/footer.php' ?>

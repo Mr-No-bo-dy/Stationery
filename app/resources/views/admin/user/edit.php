@@ -4,9 +4,7 @@
 ?>
 
 <main>
-
-    <h1>Hi, <?= $_SESSION['user']->fillable['name'] ?? 'guest'  ?> ADMIN</h1>
-
+    <div class="wrapper">
     <form action="edit" method="post">
         <input type="hidden" name="user[id]" value="<?=$user['id']?>">
         <input type="text" name="user[name]" value="<?=$user['name']?>">
@@ -19,7 +17,7 @@
         </select>
         <input type="submit" name="saveUserChanges" value="edit">
     </form>
-
+    </div>
 </main>
 
 <?php require_once 'app/resources/views/admin/components/footer.php' ?>

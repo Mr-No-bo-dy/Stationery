@@ -2,6 +2,7 @@
 ?>
 
     <main>
+        <div class="wrapper">
         <?php if (isset($_SESSION['user'])): ?>
 
             <form action="edit" method="post">
@@ -17,11 +18,11 @@
                 <input type="hidden" name="user[id]" value="<?=$_SESSION['user']['id']?>">
                 <input type="submit" name="saveEdit" value="edit your data">
             </form>
-            <a href="passwordChange">Change your password?</a>
+            <a class="warning" href="passwordChange">Change your password?</a>
 
         <?php endif; ?>
 
-
+        </div>
 
     </main>
 

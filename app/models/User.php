@@ -48,6 +48,9 @@ class User extends Model
 //
 //                throw new Exception('Phone number must be at least 9 characters');
 
+            } else if ($array['password'] != $array['repeatPassword']) {
+
+                throw new Exception('Passwords do not match');
             } else if (strlen($array['password']) < 4) {
 
                 throw new Exception('Password must be at least 4 characters');
