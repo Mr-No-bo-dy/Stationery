@@ -8,13 +8,6 @@ use app\vendor\Controller;
 class UserController extends Controller
 {
 
-    public function authCheck()
-    {
-        if (!isset($_SESSION['user']) && ($_SESSION['user']['role'] != 'admin' || $_SESSION['user']['role'] != 'SuperAdmin')) {
-            return $this->redirect('../home');
-        }
-    }
-
 
     public function logout()
     {
@@ -25,13 +18,11 @@ class UserController extends Controller
 
     public function index()
     {
-        UserController::authCheck();
         return $this->view('admin/index');
     }
 
     public function getAll()
     {
-        UserController::authCheck();
 
         $users = User::getAll();
 
@@ -40,7 +31,6 @@ class UserController extends Controller
 
     public function delete()
     {
-        UserController::authCheck();
 
         if (isset($_POST['delete'])) {
 
@@ -54,7 +44,6 @@ class UserController extends Controller
 
     public function edit()
     {
-        UserController::authCheck();
 
         if (isset($_POST['userId'])) {
 
