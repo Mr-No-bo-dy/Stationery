@@ -1,13 +1,17 @@
 <?php require_once 'app/resources/views/admin/components/header.php' ?>
 
 
-<form action="" method="POST" class="productForm">
+<form action="" method="POST" class="productForm" enctype="multipart/form-data">
     <input type="text" name="title" placeholder="title" required>
     <textarea id="description" name="description" placeholder="description" required></textarea>
     <input type="number" name="stock" placeholder="stock" required>
     <input type="number" name="price" placeholder="price" required>
-    <input type="file" name="image" required>
-    <input type="number" name="subcategory_id" placeholder="subcategory_id" required>
+    <input type="file" name="image">
+     <select name="subcategory_id">
+        <?php foreach($subcateg as $category){ ?>
+        <option value="<?= $category["id"] ?>"><?= $category["title"] ?></option>
+        <?php } ?>
+     </select>
     <input type="submit">
 </form>
 
