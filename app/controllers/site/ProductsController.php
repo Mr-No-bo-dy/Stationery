@@ -23,7 +23,7 @@ class ProductsController extends Controller
         $stmt->execute(['id' => $id]);
         $product = $stmt->fetchAll();
         $product = $product[0];
-        return $this->view("site/products/card", compact("product"));
+        return $this->view("site/products/productCard", compact("product"));
         
     }
 }
