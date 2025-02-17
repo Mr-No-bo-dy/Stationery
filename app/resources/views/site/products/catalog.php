@@ -6,21 +6,14 @@
 <main>
     <div class="catalog">
         <div class="productBlock">
-            <?php
-            foreach ($products as $i => $result) {
-                if ($i > 0 && $i % 3 == 0) {
-                    echo '</div><div class="productBlock">';
-                }
-            ?>
-                <a class="productCard" href="productCard?id=<?= $result['id'] ?>">
-                    <p>There was supposed to be a photo, but there will be text. <br> <?= $result['image'] ?></p>
-                    <h2><?= $result['title']; ?></h2>
-                    <p><?= $result['description']; ?></p>
-                    <p><?= $result['price']; ?> $</p>
+            <?php foreach ($products as $i => $product) { ?>
+                <a class="card" href="card?id=<?= $product['id'] ?>">
+                    <img src="app/resources/img/products/<?= (file_exists("app/resources/img/products/" . $product['image']) ? $product['image'] : "product.jpg") ?> " alt="табурєтка">
+                     <!-- Checking for a file. If the file does not exist, we use the prepared photo, if we use the file that we actually checked. -->
+                    <h2><?= $product['title']; ?></h2>
+                    <p><?= $product['price']; ?> $</p>
                 </a>
-            <?php
-            }
-            ?>
+            <?php } ?>
         </div>
     </div>
 </main>

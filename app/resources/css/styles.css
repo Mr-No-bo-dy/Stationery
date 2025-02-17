@@ -71,12 +71,13 @@ img {
     height: 200px;
 }
 
-a{
+a {
     color: black;
     text-decoration: none;
 }
 
-ul, ol {
+ul,
+ol {
     list-style: none;
 }
 
@@ -105,13 +106,14 @@ ul, ol {
 .head_link:hover {
     color: #00f;
 }
-  
-.productBlock{
+
+.productBlock {
     display: flex;
     margin: 20px;
+    flex-wrap: wrap;
 }
 
-.productCard{
+.card {
     padding: 15px;
 }
 
@@ -143,7 +145,11 @@ ul, ol {
     color: #000000;
 }
 
-.productForm{
+.productCard {
+    padding: 20px;
+}
+
+.productForm {
     display: flex;
     column-gap: column;
     align-items: left;
@@ -155,7 +161,7 @@ ul, ol {
 
 .warning {
     color: red;
-
+}
 .categoryForm {
     display: flex;
     flex-direction: column;
