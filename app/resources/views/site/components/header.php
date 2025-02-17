@@ -25,6 +25,11 @@
                 <li>
                     <a class="head_link profile_photo" href="profile"><img src="<?= 'app/resources/img/users/' . $_SESSION['user']['photo'] ?>" alt="profile photo"></a>
                 </li>
+                <?php if ($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'SuperAdmin'): ?>
+                    <li>
+                        <a class="head_link" href="admin/home">Admin</a>
+                    </li>
+                <?php endif; ?>
                 <li><a class="head_link" href="logout">Logout</a></li>
             <?php } ?>
         </ul>

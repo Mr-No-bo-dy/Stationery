@@ -1,5 +1,4 @@
-<?php require_once 'app/resources/views/site/components/header.php';
-?>
+<?php require_once 'app/resources/views/site/components/header.php'; ?>
 
 <main class="wrapper">
     <h1>Hi, <?= $_SESSION['user']['name'] ?? 'guest' ?></h1>

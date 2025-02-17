@@ -11,6 +11,12 @@ class Controller
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
+
+        $uri = explode('/', preg_replace('#^/?[^/]+?/#', '', $_SERVER['REQUEST_URI']));
+        if ($uri[0] == 'admin' && (!isset($_SESSION['user']) || ($_SESSION['user']['role'] != 'admin' && $_SESSION['user']['role'] != 'SuperAdmin'))) {
+            unset($_SESSION['user']);
+            return $this->redirect('../login');
+        }
     }
 
     // Render view file with data
