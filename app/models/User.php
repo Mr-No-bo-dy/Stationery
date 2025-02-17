@@ -376,6 +376,7 @@ class User extends Model
     }
 
 
+
     // Delete user
     public static function delete($id): bool
     {
