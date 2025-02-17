@@ -3,12 +3,13 @@
 <main>
     <table class="categoriesTable">
         <tr>
-            <td colspan="5" class="text-left"><a href="createCategory">Create new category</a></td>
+            <td colspan="6" class="text-left"><a href="createCategory">Create new category</a></td>
         </tr>
         <tr>
             <th>id</th>
             <th>title</th>
             <th>description</th>
+            <th>subcategoty</th>
             <th>update</th>
             <th>delete</th>
         </tr>
@@ -17,6 +18,7 @@
                 <?php foreach ($category as $column) { ?>
                     <td><?= $column ?></td>
                 <?php } ?>
+                <td><form action="subcategory" method="post"><button type="submit" name="categoryId" value="<?= $category['id'] ?>" >go to subcategories</button></form></td>
                 <td>
                     <form action="updateCategory" method="post">
                         <input type="hidden" name="categoryName" value="<?= $category['title'] ?>">

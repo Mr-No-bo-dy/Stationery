@@ -6,10 +6,11 @@ $urlRoutes = [
     'home' => 'site/home/index',
 
     'category' => 'site/category/index',
+    'subcategory' => 'admin/subcategory/index',
 
     'catalog' => "site/products/catalog",
     'card' => "site/products/card",
-    
+
     "addToCart" => "site/order/addToCart",
     "removeFromCart" => "site/order/removeFromCart",
     "plusItemToCart" => "site/order/plusItemToCart",
@@ -31,6 +32,9 @@ $urlRoutes = [
     'admin/deleteCategory' => 'admin/category/deleteCategory',
     'admin/createCategory' => 'admin/category/create',
     'admin/updateCategory' => 'admin/category/update',
+    'admin/subcategory' => 'admin/subcategory/index',
+    'admin/createSubcategory' => 'admin/subcategory/create',
+    'admin/updateSubcategory' => 'admin/subcategory/update',
     'admin/home' => 'admin/user/index',
     'admin/logout' => 'admin/user/logout',
     'admin/users' => 'admin/user/getAll',
