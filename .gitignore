@@ -1,5 +1,5 @@
 env.php
 .idea
 tips.txt
-img/products
-img/users
+app/resources/img/users
+app/resources/img/products
