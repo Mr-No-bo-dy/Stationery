@@ -17,7 +17,7 @@ class Review extends Model
 
     public static function getSiteReviews(): array
     {
-        $stmt = self::builder()->prepare("SELECT u.name, r.rating, r.comment, r.product_id FROM reviews r JOIN users u ON r.user_id = u.id ORDER BY r.rating DESC");
+        $stmt = self::builder()->prepare("SELECT u.name, r.rating, r.comment, r.id, r.product_id, r.is_active FROM reviews r JOIN users u ON r.user_id = u.id ORDER BY r.rating DESC");
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -37,6 +37,14 @@ class Review extends Model
         $stmt->bindParam(':user_id', $user_id);
         $stmt->bindParam(':rating', $rating);
         $stmt->bindParam(':comment', $comment);
+        $stmt->execute();
+    } 
+
+    public static function approvedReviews($id, $value): void
+    {
+        $stmt = self::builder()->prepare("UPDATE reviews SET is_active = :value WHERE id = :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':value', $value);
         $stmt->execute();
     } 
 }

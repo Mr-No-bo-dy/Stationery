@@ -24,6 +24,9 @@
                     <a href="category">Categories</a>
                 </li>
             <?php endif; ?>
+            <li>
+                <a href="reviews">reviews</a>
+            </li>
         <?php endif; ?>
     </ul>
 </nav>

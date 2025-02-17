@@ -35,6 +35,8 @@ $urlRoutes = [
     'admin/edit' => 'admin/user/edit',
     'admin/delete' => 'admin/user/delete',
 
+    'admin/reviews' => 'admin/review/index',
+
     'admin/productCreating' => 'admin/products/productCreating',
 
 ];
