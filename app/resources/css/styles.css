@@ -17,41 +17,53 @@ nav ul {
     gap: 10px;
 }
 
-table {
+
+.users table {
     width: 90%;
     text-align: center;
     border-collapse: collapse;
     border: black .5px solid;
 }
 
-tr {
+.users tr {
     width: 100%;
     border: black .5px solid;
 }
 
-td,
-th {
+.users td,
+.users th {
     padding: 5px 10px;
     width: 15%;
     border-left: black .5px solid;
     border-right: black .5px solid;
 }
 
-td:nth-child(1),
-th:nth-child(1){
+.users td:nth-child(1),
+.users th:nth-child(1){
     width: 3%;
 }
-td:nth-child(7):hover,
-td:nth-child(8):hover{
+.users td:nth-child(7):hover,
+.users td:nth-child(8):hover{
     background-color: #b0b0b0;
     cursor: pointer;
 }
-tr:hover td {
+.users tr:hover td {
     background-color: #dcdbdb;
 }
 
-td:nth-child(9) {
+.users td:nth-child(9) {
     width: 5%;
+}
+.edit table{
+    margin: 0 auto;
+    width: 50%;
+}
+.edit td{
+    padding: 0;
+}
+.edit td input{
+    width: 100%;
+    height: 100%;
 }
 
 img {
@@ -83,6 +95,12 @@ ul, ol {
     color: #000;
     text-decoration: none;
 }
+.profile_photo img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
 
 .head_link:hover {
     color: #00f;

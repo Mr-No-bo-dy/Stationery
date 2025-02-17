@@ -2,7 +2,7 @@
 
 ?>
 
-    <main>
+    <main class="users">
         <div class="wrapper">
 
         <h1>Hi, <?= $_SESSION['user']->fillable['name'] ?? 'guest' ?> ADMIN</h1>
