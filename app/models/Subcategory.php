@@ -38,7 +38,7 @@ class Subcategory extends Model
         $stmt->execute();
     }
 
-    public function deleteSubategory($id) {
+    public function deleteSubcategory($id) {
         $stmt = self::builder()->prepare("DELETE FROM subcategories WHERE id = :id");
         $stmt->bindParam(":id", $id);
         $stmt->execute();

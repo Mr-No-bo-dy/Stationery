@@ -6,7 +6,7 @@ $urlRoutes = [
     'home' => 'site/home/index',
 
     'category' => 'site/category/index',
-    'subcategory' => 'admin/subcategory/index',
+    'subcategory' => 'site/subcategory/index',
 
     'catalog' => "site/products/catalog",
     'card' => "site/products/card",
@@ -35,6 +35,7 @@ $urlRoutes = [
     'admin/subcategory' => 'admin/subcategory/index',
     'admin/createSubcategory' => 'admin/subcategory/create',
     'admin/updateSubcategory' => 'admin/subcategory/update',
+    'admin/deleteSubcategory' => 'admin/subcategory/delete',
     'admin/home' => 'admin/user/index',
     'admin/logout' => 'admin/user/logout',
     'admin/users' => 'admin/user/getAll',
