@@ -13,7 +13,6 @@
             <a class="head_link" href="home">Home</a>
         </li>
         <?php if (isset($_SESSION['user'])): ?>
-
             <?php if ($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'SuperAdmin'): ?>
                 <li>
                     <a class="head_link" href="users">Moderate Users</a>
@@ -24,6 +23,9 @@
             <?php endif; ?>
             <li>
                 <a class="head_link" href="logout">Logout</a>
+            </li>
+            <li>
+                <a href="reviews">reviews</a>
             </li>
         <?php endif; ?>
     </ul>

@@ -115,6 +115,15 @@ ul, ol {
     padding: 15px;
 }
 
+.productCard .reviews{
+    background: #eee;
+    border: 1px solid #5b5b5b;
+}
+
+.productCard .reviews:hover {
+    background: #dedede;
+}
+
 .categoriesTable {
     margin: auto;
 }
@@ -146,6 +155,69 @@ ul, ol {
 
 .warning {
     color: red;
+
+.categoryForm {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    width: fit-content;
+    padding: 20px 30px;
+    margin: auto;
+    background: linear-gradient(30deg, #3333e3, #b731d3);
+    border-radius: 10px;
+}
+
+.formTitle {
+    color: #fff;
+    font-size: 30px;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+.categoryLabel {
+    color: #fff;
+    font-size: 15px;
+    font-family: Arial;
+    margin-bottom: 5px;
+}
+
+.categoryInput {
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #fff;
+    outline: none;
+}
+
+.categoryInput:focus {
+    border: 2px solid #f3c92f;
+}
+
+.categoryName {
+    width: 100%;
+}
+
+.categoryDescription {
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+    max-height: 200px;
+}
+
+.categorySubmitButton {
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 5px;
+    background: transparent;
+    transition: 0.3s;
+    cursor: pointer;
+    border: 3px solid #fff;
+    color: #fff;
+}
+
+.categorySubmitButton:hover {
+    background: #fff;
+    color: #000;
+
 }
 
 .createReviewsForm {
@@ -162,6 +234,32 @@ ul, ol {
     left: 0;
 }
 
+.createReviewsForm span {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 25px;
+    height: 25px;
+    background: url(../img/starOff.svg) no-repeat;
+    background-size: 100%;
+}
+
+.range-star {
+    position: relative;
+}
+
+.range-star input[type="range"] {
+    opacity: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.createReviewsForm .active {
+    background: url(../img/starOn.svg) no-repeat;
+    background-size: 100%;
+}
+
 .createReviewsForm input[type="submit"] {
     width: 20px;
     height: 20px;
@@ -173,7 +271,6 @@ ul, ol {
 .createReviewsForm input[type="submit"]:hover {
     cursor: pointer;
 }
-
 
 .wrapper {
     margin: 0 auto;
@@ -233,3 +330,14 @@ ul, ol {
 .profile form  {
     text-align: center;
 }
+
+.adminReviewsButton {
+    display: block;
+    max-width: 200px;
+    padding: 12px;
+    margin-bottom: 20px;
+    background: #fff;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+

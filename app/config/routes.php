@@ -14,6 +14,7 @@ $urlRoutes = [
     "removeFromCart" => "site/order/removeFromCart",
     "plusItemToCart" => "site/order/plusItemToCart",
     "minusItemFromCart" => "site/order/minusItemFromCart",
+    "makeOrder" => "site/order/makeOrder",
     "cart" => "site/order/cart",
     "order" => "site/order/test",
     'reviews' => 'site/review/index',
@@ -35,6 +36,8 @@ $urlRoutes = [
     'admin/users' => 'admin/user/getAll',
     'admin/edit' => 'admin/user/edit',
     'admin/delete' => 'admin/user/delete',
+
+    'admin/reviews' => 'admin/review/index',
 
     'admin/productCreating' => 'admin/products/productCreating',
 
