@@ -6,7 +6,7 @@ $urlRoutes = [
     'home' => 'site/home/index',
 
     'category' => 'site/category/index',
-    'subcategory' => 'admin/subcategory/index',
+    'subcategory' => 'site/subcategory/index',
 
     'catalog' => "site/products/catalog",
     'card' => "site/products/card",
