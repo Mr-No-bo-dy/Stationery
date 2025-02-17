@@ -21,6 +21,9 @@
                     <a href="users">view all users</a>
                 </li>
             <?php endif; ?>
+            <li>
+                <a href="reviews">reviews</a>
+            </li>
         <?php endif; ?>
     </ul>
 </nav>
