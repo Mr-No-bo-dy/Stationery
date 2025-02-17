@@ -1,9 +1,7 @@
 <?php require_once 'app/resources/views/site/components/header.php';
-echo '<pre>';
-var_dump($_SESSION);
 ?>
 
-<main>
+<main class="wrapper">
     <h1>Hi, <?= $_SESSION['user']['name'] ?? 'guest' ?></h1>
 
 </main>

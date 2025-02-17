@@ -23,6 +23,8 @@ $urlRoutes = [
     'login' => 'site/user/login',
     'profile' => 'site/user/profile',
     'edit' => 'site/user/edit',
+    'setPhoto' => 'site/user/setPhoto',
+    'passwordChange' => 'site/user/passwordChange',
     'logout' => 'site/user/logout',
 
     'admin/category' => 'admin/category/index',
