@@ -9,7 +9,7 @@ $urlRoutes = [
     'subcategory' => 'admin/subcategory/index',
 
     'catalog' => "site/products/catalog",
-    'productCard' => "site/products/productCard",
+    'card' => "site/products/card",
 
     "addToCart" => "site/order/addToCart",
     "removeFromCart" => "site/order/removeFromCart",
@@ -24,6 +24,8 @@ $urlRoutes = [
     'login' => 'site/user/login',
     'profile' => 'site/user/profile',
     'edit' => 'site/user/edit',
+    'setPhoto' => 'site/user/setPhoto',
+    'passwordChange' => 'site/user/passwordChange',
     'logout' => 'site/user/logout',
 
     'admin/category' => 'admin/category/index',
@@ -39,6 +41,8 @@ $urlRoutes = [
     'admin/edit' => 'admin/user/edit',
     'admin/delete' => 'admin/user/delete',
 
-    'admin/productCreating' => 'admin/products/productCreating',
+    'admin/reviews' => 'admin/review/index',
 
+    'admin/productCreating' => 'admin/products/productCreating',
+    'admin/productEdit' => 'admin/products/productEdit',
 ];

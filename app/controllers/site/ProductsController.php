@@ -4,7 +4,6 @@ namespace app\controllers\site;
 
 use app\vendor\Controller;
 use app\models\Product;
-use app\vendor\Database;
 
 class ProductsController extends Controller
 {
@@ -16,13 +15,13 @@ class ProductsController extends Controller
         return $this->view("site/products/catalog", compact("products"));
     }
 
-    public function productCard()
+    public function card()
     {
-        $conn = Database::connection();
+        $conn = Product::builder();
         $id = $this->getGet('id');
-        $stm = $conn->prepare('SELECT * FROM `products` WHERE id = :id');
-        $stm->execute(['id' => $id]);
-        $product = $stm->fetchAll();
+        $stmt = $conn->prepare('SELECT * FROM `products` WHERE id = :id');
+        $stmt->execute(['id' => $id]);
+        $product = $stmt->fetchAll();
         $product = $product[0];
         return $this->view("site/products/productCard", compact("product"));
         

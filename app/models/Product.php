@@ -6,7 +6,7 @@ use app\vendor\Model;
 
 class Product extends Model
 {
-    protected $id = "0";
+    protected $primery_key;
     public $fillable = [
         'title',
         'description',

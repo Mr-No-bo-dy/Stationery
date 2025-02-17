@@ -2,10 +2,21 @@
 
 ?>
 
-    <main>
+    <main class="users">
+        <div class="wrapper">
 
         <h1>Hi, <?= $_SESSION['user']->fillable['name'] ?? 'guest' ?> ADMIN</h1>
         <table>
+            <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Role</th>
+            <th>Edit</th>
+            <th>Delete</th>
+            </tr>
             <?php foreach ($users as $user): ?>
 
                 <tr>
@@ -33,7 +44,7 @@
                 </tr>
             <?php endforeach; ?>
         </table>
-
+        </div>
     </main>
 
 <?php require_once 'app/resources/views/admin/components/footer.php' ?>
