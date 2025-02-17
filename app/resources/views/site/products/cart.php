@@ -1,7 +1,4 @@
-<?php require_once 'app/resources/views/site/components/header.php';
-    echo "<pre>";
-    print_r ($_SESSION);
-?>
+<?php require_once 'app/resources/views/site/components/header.php';?>
 <main>
 
     <?php if (empty(isset($_SESSION["cart"]) ? $_SESSION["cart"] : [])) { ?>
@@ -47,12 +44,11 @@
         </table>
 
         <h1>Оформлення замовлення</h1>
-
-        <form action="">
-            
-            <input type="text" name="name" placeholder="Ім'я">
-            <input type="text" name="phone" placeholder="Телефон">
-            <input type="text" name="email" placeholder="Email">
+        <br>
+        <form action="makeOrder" method="POST">
+            <input type="hidden" name="id" value="<?=$_SESSION["user"]["id"]?>"><br>
+            <input type="text" name="name" placeholder="Ім'я"><br>
+            <input type="text" name="phone" placeholder="Телефон"><br>
             <button type="submit">Замовити</button>
         </form>
 
