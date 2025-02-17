@@ -31,7 +31,7 @@ class Order extends Model
     }
 
 
-    // добавлення товару в кошик / збільшення кількості товару в кошику
+    // adding products to the cart / increasing the quantity of goods in the cart
     public static function addToCart($productId)
     {
         $product = Order::getProductById($productId);
@@ -56,10 +56,9 @@ class Order extends Model
         }
     }
 
-    // видалення товару з кошика
+    // removing products from the cart
     public static function removeFromCart($productId)
     {
-
         $product = Order::getProductById($productId);
 
         if ($product) {
@@ -75,10 +74,9 @@ class Order extends Model
     }
 
 
-    // зменшення кількості товару в кошику
+    // decreasing the quantity of goods in the cart
     public static function minusItemFromCart($productId)
     {
-
         $product = Order::getProductById($productId);
 
         if ($product) {
@@ -98,7 +96,7 @@ class Order extends Model
     }
 
 
-    // оформлення замовлення та відправка в тг
+    // check out
     public static function makeOrder ($id, $name, $phone) {
         $cart = $_SESSION['cart'];
         $total = 0;
