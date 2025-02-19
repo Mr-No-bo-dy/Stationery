@@ -15,14 +15,11 @@ class ProductsController extends Controller
         return $this->view("site/products/catalog", compact("products"));
     }
 
-    public function card()
+    public function card()  
     {
         $conn = Product::builder();
         $id = $this->getGet('id');
-        $stmt = $conn->prepare('SELECT * FROM `products` WHERE id = :id');
-        $stmt->execute(['id' => $id]);
-        $product = $stmt->fetchAll();
-        $product = $product[0];
+        $product = Product::getProduct($id);
         return $this->view("site/products/productCard", compact("product"));
         
     }
