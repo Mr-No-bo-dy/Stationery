@@ -8,7 +8,7 @@
     <input type="number" name="price" placeholder="price" required>
     <input type="file" name="image">
      <select name="subcategory_id">
-        <?php foreach($subcateg as $category){ ?>
+        <?php foreach($allSubcategories as $category){ ?>
         <option value="<?= $category["id"] ?>"><?= $category["title"] ?></option>
         <?php } ?>
      </select>
