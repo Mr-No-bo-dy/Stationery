@@ -6,13 +6,16 @@ use app\models\Order;
 
 class OrderController extends Controller
 {
+    // displaying the shopping cart page
     public function cart() {
         return $this->view('site/products/cart');
     }
 
+    // displaying the checkout page
     public function checkout() {
         return $this->view('site/products/checkout');
     }
+    
     // adding products to the cart
     public function addToCart() {
         $id = $this->getPost("id");
