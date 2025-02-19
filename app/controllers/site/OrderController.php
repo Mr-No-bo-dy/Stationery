@@ -9,10 +9,15 @@ class OrderController extends Controller
     public function cart() {
         return $this->view('site/products/cart');
     }
+
+    public function checkout() {
+        return $this->view('site/products/checkout');
+    }
     // adding products to the cart
     public function addToCart() {
-        Order::addToCart($this->getPost("id"));
-        return $this->redirect("productCard?id=" . $this->getPost("id"));
+        $id = $this->getPost("id");
+        Order::addToCart($id);
+        return $this->redirect("card?id=" . $id);
     }
 
     // removing products from the cart
