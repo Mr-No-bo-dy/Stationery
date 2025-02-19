@@ -17,6 +17,7 @@ $urlRoutes = [
     "minusItemFromCart" => "site/order/minusItemFromCart",
     "makeOrder" => "site/order/makeOrder",
     "cart" => "site/order/cart",
+    "checkout" => "site/order/checkout",
     "order" => "site/order/test",
     'reviews' => 'site/review/index',
 
