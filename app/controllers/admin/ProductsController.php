@@ -23,7 +23,7 @@ class ProductsController extends Controller
 
         if (isset($_POST["title"])) {
             $data = $this->getPost();
-            $uploadDir = "C:/xampp/htdocs/Stationery/app/resources/img/products"; // still need to figure it out
+            $uploadDir = "app/resources/img/products"; // still need to figure it out
 
 
             $stmt = $conn->prepare('SELECT MAX(`id`) FROM products'); // get the largest id to add 1 to it and get the id of the next product
