@@ -3,7 +3,7 @@
 ?>
 <main>
     <div class="productCard">
-        <img src="app/resources/img/products/<?= $product['image']; ?>" alt="табурєтка">
+        <img src="app/resources/img/products/<?= (file_exists("app/resources/img/products/" . $product['image']) ? $product['image'] : "product.jpg") ?> " alt="табурєтка">
         <h2><?= $product['title']; ?></h2>
         <p><?= $product['description']; ?></p>
         <p><?= $product['price']; ?> $</p>

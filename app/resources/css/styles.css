@@ -39,16 +39,14 @@ nav ul {
 }
 
 .users td:nth-child(1),
-.users th:nth-child(1) {
+.users th:nth-child(1){
     width: 3%;
 }
-
 .users td:nth-child(7):hover,
-.users td:nth-child(8):hover {
+.users td:nth-child(8):hover{
     background-color: #b0b0b0;
     cursor: pointer;
 }
-
 .users tr:hover td {
     background-color: #dcdbdb;
 }
@@ -56,17 +54,14 @@ nav ul {
 .users td:nth-child(9) {
     width: 5%;
 }
-
-.edit table {
+.edit table{
     margin: 0 auto;
     width: 50%;
 }
-
-.edit td {
+.edit td{
     padding: 0;
 }
-
-.edit td input {
+.edit td input{
     width: 100%;
     height: 100%;
 }
@@ -101,7 +96,6 @@ ol {
     color: #000;
     text-decoration: none;
 }
-
 .profile_photo img {
     width: 50px;
     height: 50px;
@@ -123,7 +117,7 @@ ol {
     padding: 15px;
 }
 
-.productCard .reviews {
+.productCard .reviews{
     background: #eee;
     border: 1px solid #5b5b5b;
 }
@@ -168,7 +162,6 @@ ol {
 .warning {
     color: red;
 }
-
 .categoryForm {
     display: flex;
     flex-direction: column;
@@ -289,12 +282,10 @@ ol {
     margin: 0 auto;
     width: 80%;
 }
-
 .login h1,
 .register h1 {
     text-align: center;
 }
-
 .register form,
 .login form {
     margin: 0 auto;
@@ -311,17 +302,14 @@ ol {
     padding: 5px 10px;
     margin-bottom: 10px;
 }
-
 .register form p:last-child,
 .login form p:last-child {
     text-align: center;
 }
-
 .register form input[type="submit"],
 .login form input[type="submit"] {
-    display: none;
+   display: none;
 }
-
 .register form label.button,
 .login form label.button {
     cursor: pointer;
@@ -332,7 +320,6 @@ ol {
     transition: .3s;
 
 }
-
 .register form label.button:hover,
 .login form label.button:hover {
     background-color: #13b20d;
@@ -346,8 +333,7 @@ ol {
 .profile img {
     border-radius: 50%;
 }
-
-.profile form {
+.profile form  {
     text-align: center;
 }
 
@@ -362,12 +348,18 @@ ol {
 }
 
 
-
-.productCreate {
+.productCreate{
     background: grey;
     width: 230px;
     display: flex;
     color: #fff;
     align-items: center;
     justify-content: center;
-}
+ }
+ 
+ 
+ .cardForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+ }

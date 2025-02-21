@@ -48,6 +48,23 @@ class Product extends Model
         $stmt->execute();
     }
 
+    public static function updateProduct()
+    {
+        $conn = self::builder();
+        $stmt = $conn->prepare('
+        UPDATE products
+        SET subcategory_id = :subcategory_id, title = :title, description = :description, price = :price, stock = :stock
+        WHERE id = :id;');
+        $stmt->bindParam(':id', $_POST["id"]);
+        $stmt->bindParam(':subcategory_id', $_POST["subcategory_id"]);
+        $stmt->bindParam(':title', $_POST["title"]);
+        $stmt->bindParam(':description', $_POST["description"]);
+        $stmt->bindParam(':price', $_POST["price"]);
+        $stmt->bindParam(':stock', $_POST["stock"]);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
     public static function getSubcategories()
     {
         $conn = self::builder();
