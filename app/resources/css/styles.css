@@ -407,11 +407,16 @@ ol {
  }
  
  
- .cardForm {
+.cardForm {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
- }
+}
+
+.productCard img,
+.card img {
+    width: 11rem;
+}
 
 .adminReviewsButton:hover {
     background: #ddd;
