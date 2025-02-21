@@ -25,10 +25,9 @@ class UserController extends Controller
     //try to delete user
     public function delete()
     {
-        if (isset($_POST['delete'])) {
+        if ($this->getGet('id')) {
 
-            $thisUserId = $_POST['userId'];
-            $message = User::delete($thisUserId) ? 'user is deleted successfully' : 'something went wrong';
+            $message = User::delete($this->getGet('id')) ? 'user is deleted successfully' : 'something went wrong';
 
             return $this->view('admin/index', compact('message'));
 

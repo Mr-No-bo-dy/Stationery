@@ -77,11 +77,11 @@ a {
     text-decoration: none;
 }
 
-a.deleteButton {
+.deleteButton {
     color: red;
 }
 
-a.deleteButton:hover {
+.deleteButton:hover {
     color: red;
     text-decoration: underline;
 }
