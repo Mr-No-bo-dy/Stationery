@@ -9,7 +9,6 @@
             <th>id</th>
             <th>title</th>
             <th>description</th>
-            <th>subcategoty</th>
             <th>update</th>
             <th>delete</th>
         </tr>
@@ -18,15 +17,12 @@
                 <?php foreach ($category as $column) { ?>
                     <td><?= $column ?></td>
                 <?php } ?>
-                <td><form action="subcategory" method="post"><button type="submit" name="categoryId" value="<?= $category['id'] ?>" >go to subcategories</button></form></td>
                 <td>
-                    <form action="updateCategory" method="post">
-                        <input type="hidden" name="categoryName" value="<?= $category['title'] ?>">
-                        <input type="hidden" name="categoryDescription" value="<?= $category['description'] ?>">
-                        <button type="submit" name="categoryId" value="<?= $category['id'] ?>">UPDATE</button>
-                    </form>
+                    <a href="updateCategory?id=<?= $category['id'] ?>">UPDATE</a>
                 </td>
-                <td><form action="deleteCategory" method="post"><button type="submit" name="categoryId" value="<?= $category['id'] ?>" >DELETE</button></form></td>
+                <td>
+oca                    <a href="deleteCategory?id=<?= $category['id'] ?>">DELETE</a>
+                </td>
             </tr>
         <?php } ?>
     </table>

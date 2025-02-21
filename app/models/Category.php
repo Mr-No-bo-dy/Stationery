@@ -20,6 +20,12 @@ class Category extends Model
         $stmt->execute();
         return $stmt->fetchAll();
     }
+    public function getCategoryById($id): array
+    {
+        $stmt = self::builder()->prepare("SELECT * FROM categories WHERE id = :id");
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch();
+    }
 
     // create category
     public function createCategory($name, $description) {

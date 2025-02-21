@@ -10,7 +10,8 @@
             <tr>
                 <td><?= $category['title'] ?></td>
                 <td><?= $category['description'] ?></td>
-                <td><form action="subcategory" method="post"><button type="submit" name="categoryId" value="<?= $category['id'] ?>" >go to subcategories</button></form></td>
+<!--                <td><form action="subcategory" method="post"><button type="submit" name="categoryId" value="--><?php //= $category['id'] ?><!--" >go to subcategories</button></form></td>-->
+                <td><a href="subcategory?categoryId=<?= $category['id'] ?>">go to subcategories</a></td>
             </tr>
         <?php } ?>
     </table>

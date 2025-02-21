@@ -1,12 +1,12 @@
 <?php require_once 'app/resources/views/site/components/header.php' ?>
 
     <main>
-        <table>
+        <table class="subcategory">
             <tr>
                 <th>title</th>
                 <th>description</th>
             </tr>
-            <?php foreach ($allSubcategories as $subcategory) { ?>
+            <?php foreach ($subcategories as $subcategory) { ?>
                 <tr>
                     <td><?= $subcategory['title'] ?></td>
                     <td><?= $subcategory['description'] ?></td>
