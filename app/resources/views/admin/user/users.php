@@ -28,15 +28,12 @@
                     <td><?= $user['role'] ?></td>
 
                     <td>
-                        <a href="edit?id=<?= $user['id'] ?>">edit</a>
+                        <a class="deleteButton" href="edit?id=<?= $user['id'] ?>">edit</a>
 
                     </td>
                     <td>
-                        <form action="delete" method="post">
-                            <input type="hidden" name="userId" value="<?= $user['id'] ?>">
-                            <label for="delete">delete</label>
-                            <input class="dn" type="submit" name="delete" id="delete" value="delete">
-                        </form>
+                        <a class="warning deleteButton" href="delete?id=<?= $user['id'] ?>">delete</a>
+
                     </td>
 
                 </tr>
