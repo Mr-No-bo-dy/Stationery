@@ -7,24 +7,38 @@ use app\models\Product;
 
 class ProductsController extends Controller
 {
+
+    public function products()
+    {
+        $products = Product::getProducts();
+        return $this->view("admin/products/products", compact("products"));
+    }
     // product creation and routing to the product card
     public function productEdit()
     {
-        return $this->view("admin/products/edit");
+        $conn = Product::builder();
+        $id = $this->getGet('id');
+        $product = Product::getProduct($id);
+        $allSubcategories = Product::getSubcategories();
+        if (isset($_POST["title"])) {
+            Product::updateProduct();
+            $this->redirect("products#" . $product['id']);
+        }
+        return $this->view("admin/products/edit", compact("product", "allSubcategories"));
     }
     public function productCreating()
     {
 
-       
+
         $allSubcategories = Product::getSubcategories();
 
         if (isset($_POST["title"])) {
             $data = $this->getPost();
             $uploadDir = "app/resources/img/products"; // still need to figure it out
-            
+
             $id = Product::getNewImageId();
-            
-            
+
+
             if (!is_dir($uploadDir)) {
                 mkdir($uploadDir, 0755, true);
             }
@@ -33,7 +47,7 @@ class ProductsController extends Controller
             move_uploaded_file($_FILES['image']['tmp_name'], $fileDir);
 
             Product::createProduct($data, $file);
-            
+
 
             return $this->redirect("productEdit");
         }

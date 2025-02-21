@@ -397,8 +397,23 @@ ol {
     border-radius: 5px;
 }
 
+.productCreate{
+    background: grey;
+    width: 230px;
+    display: flex;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+ }
+ 
+ 
+ .cardForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+ }
+
 .adminReviewsButton:hover {
     background: #ddd;
     cursor: pointer;
 }
-
