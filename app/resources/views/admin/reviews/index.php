@@ -7,28 +7,28 @@
                 <?php if ($_SESSION["reviews"]["is_active"] == "reviews only active") { ?>
                     <input class="adminReviewsButton" type="submit" name="is_active" value="all reviews">
                     <input class="adminReviewsButton" type="submit" name="is_active" value="reviews only not active">
-                    <input style="background: #ddd;" class="adminReviewsButton" type="submit" name="is_active" value="reviews only active">
+                    <input disabled style="background: #ddd;" class="adminReviewsButton" type="submit" name="is_active" value="reviews only active">
                 <?php } else { ?>
                     <input class="adminReviewsButton" type="submit" name="is_active" value="all reviews">
-                    <input style="background: #ddd;" class="adminReviewsButton" type="submit" name="is_active" value="reviews only not active">
+                    <input disabled style="background: #ddd;" class="adminReviewsButton" type="submit" name="is_active" value="reviews only not active">
                     <input class="adminReviewsButton" type="submit" name="is_active" value="reviews only active">
                 <?php } ?>
             <?php } else { ?>
-                <input style="background: #ddd;" class="adminReviewsButton" type="submit" name="is_active" value="all reviews">
+                <input disabled style="background: #ddd;" class="adminReviewsButton" type="submit" name="is_active" value="all reviews">
                 <input class="adminReviewsButton" type="submit" name="is_active" value="reviews only not active">
                 <input class="adminReviewsButton" type="submit" name="is_active" value="reviews only active">
             <?php } ?>
             <?php if (isset($_SESSION["reviews"]["sortBy"])) { ?>   
                 <?php if ($_SESSION["reviews"]["sortBy"] == "sort by rating") { ?>
-                    <input style="background: #ddd;" class="adminReviewsButton" type="submit" name="sortBy" value="sort by rating">
+                    <input disabled style="background: #ddd;" class="adminReviewsButton" type="submit" name="sortBy" value="sort by rating">
                     <input class="adminReviewsButton" type="submit" name="sortBy" value="sort by id">
                 <?php } else { ?>
                     <input class="adminReviewsButton" type="submit" name="sortBy" value="sort by rating">
-                    <input style="background: #ddd;" class="adminReviewsButton" type="submit" name="sortBy" value="sort by id">
+                    <input disabled style="background: #ddd;" class="adminReviewsButton" type="submit" name="sortBy" value="sort by id">
                 <?php } ?>
             <?php } else { ?>
                 <input class="adminReviewsButton" type="submit" name="sortBy" value="sort by rating">
-                <input style="background: #ddd;" class="adminReviewsButton" type="submit" name="sortBy" value="sort by id">
+                <input disabled style="background: #ddd;" class="adminReviewsButton" type="submit" name="sortBy" value="sort by id">
             <?php } ?>
         </form>
         <table class="reviewsTable">
@@ -61,16 +61,29 @@
                                 </tr>
                             <?php } ?>
                         <?php } else { ?>
-                            <tr>
-                                <td><?= $review['id'] ?></td>
-                                <td><?= $review['name'] ?></td>
-                                <td><?= $review['product_id'] ?></td>
-                                <td><?= $review['rating'] ?></td>
-                                <td><?= $review['comment'] ?></td>
-                                <td><?= $review['is_active'] ?></td>
-                                <td><input type="submit" value="approved" name="<?= $review['id'] ?>"></td>
-                                <td><input type="submit" value="not approved" name="<?= $review['id'] ?>"></td>
-                            </tr>
+                            <?php if ($review["is_active"] == 1) { ?>
+                                <tr>
+                                    <td><?= $review['id'] ?></td>
+                                    <td><?= $review['name'] ?></td>
+                                    <td><?= $review['product_id'] ?></td>
+                                    <td><?= $review['rating'] ?></td>
+                                    <td><?= $review['comment'] ?></td>
+                                    <td><?= $review['is_active'] ?></td>
+                                    <td><input type="submit" value="approved" name="<?= $review['id'] ?>"></td>
+                                    <td></td>
+                                </tr>
+                            <?php } else { ?>
+                                <tr>
+                                    <td><?= $review['id'] ?></td>
+                                    <td><?= $review['name'] ?></td>
+                                    <td><?= $review['product_id'] ?></td>
+                                    <td><?= $review['rating'] ?></td>
+                                    <td><?= $review['comment'] ?></td>
+                                    <td><?= $review['is_active'] ?></td>
+                                    <td></td>
+                                    <td><input type="submit" value="not approved" name="<?= $review['id'] ?>"></td>
+                                </tr>
+                            <?php } ?>
                         <?php } ?>
                     <?php } ?>
                 </form>

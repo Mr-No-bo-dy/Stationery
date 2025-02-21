@@ -40,7 +40,7 @@ class ReviewController extends Controller
             Review::approvedReviews($post["not approved"], 0);
             $this->redirect("reviews");
         }
-        if (isset($_POST["is_active"]) || isset($_SESSION["reviews"]["is_active"])) {
+        if (isset($_SESSION["reviews"]["is_active"])) {
             return $this->view("admin/reviews/index", compact("allReviews", "isOnlyActive"));
         }
         return $this->view("admin/reviews/index", compact("allReviews"));
