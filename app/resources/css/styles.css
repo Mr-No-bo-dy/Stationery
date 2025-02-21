@@ -165,23 +165,54 @@ ol {
     border: 2px solid #000;
 }
 
-.categoriesTable {
-    margin: auto;
-}
-
-.text-left {
-    text-align: left;
-    background: #ffd237;
-}
-
-.text-left a {
-    color: #881b9e;
+.createButton {
+    display: block;
+    padding: 7px 14px;
+    width: fit-content;
+    border-radius: 5px;
+    border: 4px solid #39ff00;
+    transition: 0.3s;
     font-family: "Arial", "Times New Roman";
     font-weight: bold;
+    margin: auto;
+    margin-bottom: 30px;
 }
 
-.text-left a:hover {
-    color: #000000;
+.createButton:hover {
+    color: #fff;
+    background: #39ff00;
+}
+
+.categoriesTable {
+    margin: auto;
+    border-collapse: collapse;
+}
+
+.categoriesTable td,
+.categoriesTable th {
+    padding: 7px;
+    border: 2px solid #000;
+}
+
+.categoriesTable .tableButton {
+    padding: 0;
+}
+
+.categoriesTable .tableButton a {
+    padding: 7px;
+    transition: 0.2s;
+}
+
+.categoriesTable .tableButton a:hover {
+    background: #39ff00;
+}
+
+.update a {
+    background: #ffef57;
+}
+
+.delete a {
+    background: #ff6767;
 }
 
 .subcategory {
