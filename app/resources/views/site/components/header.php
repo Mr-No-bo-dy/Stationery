@@ -19,7 +19,7 @@
             <li><a class="head_link" href="reviews">Reviews</a></li>
             <li><a class="head_link" href="cart">Cart</a></li>
             <?php if (!isset($_SESSION['user'])) { ?>
-                <li><a class="head_link" href="register">Register</a></li>
+                <li><a class="head_link" href="registration">Register</a></li>
                 <li><a class="head_link" href="login">Login</a></li>
             <?php } else { ?>
                 <li>

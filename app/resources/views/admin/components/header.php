@@ -24,6 +24,9 @@
                 <a class="head_link" href="category">Categories</a>
             </li>
             <li>
+                <a class="head_link" href="subcategory">Subcategories</a>
+            </li>
+            <li>
                 <a class="head_link" href="products">Products</a>
             </li>
             <li>

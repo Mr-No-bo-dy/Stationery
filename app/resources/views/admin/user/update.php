@@ -5,7 +5,7 @@
 
 <main class="users edit">
     <div class="wrapper">
-    <form action="edit" method="post">
+    <form action="update" method="post">
         <table>
             <tr>
                 <td>Name:</td>

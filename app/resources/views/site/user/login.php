@@ -3,7 +3,7 @@
     <main class="login">
         <div class="wrapper">
         <h1>Login</h1>
-        <form action="login" method="post">
+        <form action="signIn" method="post">
             <p>
             <label for="email">email or phone</label>
             <input type="text" name="login" id="email">
@@ -13,7 +13,7 @@
             <input type="password" name="password" id="password">
             </p>
             <p>
-            <label for="submit" class="button">Log in!</label>
+            <label for="submit" class="button">Sign in!</label>
             <input type="submit" id="submit">
             </p>
         </form>

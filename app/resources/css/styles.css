@@ -66,14 +66,30 @@ nav ul {
     height: 100%;
 }
 
-img {
+.profile img {
     width: 200px;
     height: 200px;
 }
 
+
 a {
     color: black;
     text-decoration: none;
+}
+
+a.deleteButton {
+    color: red;
+}
+
+a.deleteButton:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+form.photo input {
+    margin: 0 auto;
+    display: block;
+
 }
 
 ul,
@@ -101,6 +117,10 @@ ol {
     height: 50px;
     border-radius: 50%;
 }
+.profile_photo img:hover {
+    cursor: pointer;
+    opacity: .5;
+}
 
 
 .head_link:hover {
@@ -126,6 +146,25 @@ ol {
     background: #dedede;
 }
 
+.reviewsMain textarea {
+    resize: horizontal;
+}
+
+.reviewsTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.reviewsTable thead td {
+    font: 500 24px "Arial";
+    border: 3px solid #000;
+}
+
+.reviewsTable td {
+    padding: 20px;
+    border: 2px solid #000;
+}
+
 .categoriesTable {
     margin: auto;
 }
@@ -143,6 +182,10 @@ ol {
 
 .text-left a:hover {
     color: #000000;
+}
+
+.subcategory {
+    margin: auto;
 }
 
 .productCard {
@@ -337,6 +380,13 @@ ol {
     text-align: center;
 }
 
+.adminReviewsButtonForm {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    flex-wrap: wrap;
+}
+
 .adminReviewsButton {
     display: block;
     max-width: 200px;
@@ -346,7 +396,6 @@ ol {
     border: 1px solid #000;
     border-radius: 5px;
 }
-
 
 .productCreate{
     background: grey;
@@ -363,3 +412,8 @@ ol {
     flex-direction: column;
     align-items: flex-start;
  }
+
+.adminReviewsButton:hover {
+    background: #ddd;
+    cursor: pointer;
+}
