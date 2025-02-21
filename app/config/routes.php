@@ -21,12 +21,17 @@ $urlRoutes = [
     "order" => "site/order/test",
     'reviews' => 'site/review/index',
 
-    'register' => 'site/user/register',
+    'registration' => 'site/user/registration',
+    'signUp' => 'site/user/signUp',
     'login' => 'site/user/login',
+    'signIn' => 'site/user/signIn',
     'profile' => 'site/user/profile',
     'edit' => 'site/user/edit',
+    'update' => 'site/user/update',
     'setPhoto' => 'site/user/setPhoto',
+    'deletePhoto' => 'site/user/deletePhoto',
     'passwordChange' => 'site/user/passwordChange',
+    'passwordUpdate' => 'site/user/passwordUpdate',
     'logout' => 'site/user/logout',
 
     'admin/category' => 'admin/category/index',
@@ -45,6 +50,7 @@ $urlRoutes = [
     'admin/logout' => 'admin/user/logout',
     'admin/users' => 'admin/user/getAll',
     'admin/edit' => 'admin/user/edit',
+    'admin/update' => 'admin/user/update',
     'admin/delete' => 'admin/user/delete',
 
     'admin/reviews' => 'admin/review/index',

@@ -5,7 +5,7 @@
     <main class="register">
         <div class="wrapper">
             <h1>Register</h1>
-            <form action="register" method="post">
+            <form action="signUp" method="post">
                 <p>
                     <label for="name">Name</label>
                     <input type="text" name="user[name]" id="name">

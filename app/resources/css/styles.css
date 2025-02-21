@@ -66,14 +66,30 @@ nav ul {
     height: 100%;
 }
 
-img {
+.profile img {
     width: 200px;
     height: 200px;
 }
 
+
 a {
     color: black;
     text-decoration: none;
+}
+
+a.deleteButton {
+    color: red;
+}
+
+a.deleteButton:hover {
+    color: red;
+    text-decoration: underline;
+}
+
+form.photo input {
+    margin: 0 auto;
+    display: block;
+
 }
 
 ul,
@@ -100,6 +116,10 @@ ol {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+}
+.profile_photo img:hover {
+    cursor: pointer;
+    opacity: .5;
 }
 
 

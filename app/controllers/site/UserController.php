@@ -9,43 +9,54 @@ use Exception;
 class UserController extends Controller
 {
 
-    // User registration
-    public function register()
+//open registration page
+    public function registration()
     {
-        // if not post
-        if (!isset($_POST['user'])) {
-            return $this->view('site/user/register');
-        }
-        // if data has been sent
-        $registerError = '';
-        try {
-            User::register($_POST['user']);
-
-            return $this->view('site/user/login');
-
-        } catch (Exception $e) {
-
-            $registerError = $e->getMessage();
-
-            return $this->view('site/user/register', compact('registerError'));
-
-        }
+        return $this->view('site/user/registration');
     }
 
+    //try to register
+    public function signUp()
+    {
+        if (isset($_POST['user'])) {
+            $registerError = '';
+            try {
+                User::register($_POST['user']);
+
+                return $this->view('site/user/login');
+
+            } catch (Exception $e) {
+
+                $registerError = $e->getMessage();
+
+                return $this->view('site/user/registration', compact('registerError'));
+            }
+        }
+        return $this->redirect('registration');
+    }
+
+
+    //open login page
     public function login()
     {
+        return $this->view('site/user/login');
+    }
 
-        $loginError = '';
+    //try to sign in
+    public function signIn()
+    {
         if (isset($_POST['login']) && isset($_POST['password'])) {
+            $loginError = '';
 
             try {
 
                 if (User::login($_POST['login'], $_POST['password'])) {
-//                    $this->dd($_SESSION);
-
                     if ($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'SuperAdmin') {
+
                         return $this->redirect('admin/home');
+
                     } else if ($_SESSION['user']['role'] === 'user') {
+
                         return $this->redirect('home');
                     }
                 }
@@ -54,56 +65,90 @@ class UserController extends Controller
 
                 $loginError = $e->getMessage();
             }
+            return $this->view('site/user/login', compact('loginError'));
         }
-        return $this->view('site/user/login', compact('loginError'));
+        return $this->redirect('login');
     }
 
+    //open profile page
     public function profile()
     {
-        return $this->view('site/user/profile');
+        if (isset($_SESSION['user'])) {
+            return $this->view('site/user/profile');
+        }
+        return $this->redirect('home');
     }
 
+
+    //open edit page
     public function edit()
     {
-        if (isset($_POST['edit'])) {
-
+        if (isset($_SESSION['user'])) {
             return $this->view('site/user/edit');
+        }
+        return $this->redirect('home');
+    }
 
-        } else if (isset($_POST['saveEdit'])){
-
-
+    //try to update data
+    public function update()
+    {
+        if (isset($_POST['user'])) {
             $message = User::update($_POST['user']) === null ? 'user is edited successfully' : 'something went wrong';
 
             return $this->view('site/user/profile', compact('message'));
-
-
         }
-
+        return $this->redirect('home');
     }
 
+    //open password change page
     public function passwordChange()
     {
-        if (isset($_POST['changePassword'])) {
+        if (isset($_SESSION['user'])) {
+            return $this->view('site/user/passwordChange');
+        }
+        return $this->redirect('home');
+    }
+
+    //try to change password
+    public function passwordUpdate()
+    {
+        if (isset($_SESSION['user']) && isset($_POST['changePassword'])) {
+
             if (is_null(User::passwordChange($_POST['oldPassword'], $_POST['repeatPassword'], $_POST['newPassword']))) {
                 $message = 'password changed successfully';
+                return $this->view('site/user/profile', compact('message'));
+
             } else {
                 $message = User::passwordChange($_POST['oldPassword'], $_POST['repeatPassword'], $_POST['newPassword']);
+
             }
-
-            return $this->view('site/user/profile', compact('message'));
+            return $this->view('site/user/passwordChange', compact('message'));
         }
-
-
-        return $this->view('site/user/passwordChange');
+        return $this->redirect('home');
 
     }
 
+//try to set profile photo
     public function setPhoto()
     {
-        $message = User::setProfilePhoto($_FILES['photo']);
-        $this->view('site/user/profile', compact('message'));
+        if (isset($_SESSION['user']) && isset($_FILES['photo'])) {
+            $message = User::setProfilePhoto($_FILES['photo']);
+            return $this->view('site/user/profile', compact('message'));
+        }
+        return $this->redirect('home');
     }
 
+    //try to set profile photo
+    public function deletePhoto()
+    {
+        if (isset($_SESSION['user'])) {
+            $message = User::deleteProfilePhoto();
+            return $this->view('site/user/profile', compact('message'));
+        }
+        return $this->redirect('profile');
+    }
+
+    //logout
     public function logout()
     {
         unset($_SESSION['user']);
