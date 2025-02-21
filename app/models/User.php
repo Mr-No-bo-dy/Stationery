@@ -104,7 +104,7 @@ class User extends Model
     /** User login
      * @throws Exception
      */
-    public static function login(string $login, string $password): bool
+    public static function login(string $login, string $password)
     {
         try {
 
@@ -120,12 +120,15 @@ class User extends Model
 
             if ($user && password_verify($password, $user['password'])) {
                 $_SESSION['user'] = $user;
-                return true;
-            }
-            return false;
 
-        } catch (PDOException $e) {
-            throw new Exception('Authentication failed');
+            } else {
+                throw new Exception('Invalid login or password');
+            }
+
+
+        } catch (Exception $e) {
+
+            throw new Exception($e->getMessage());
         }
     }
 
