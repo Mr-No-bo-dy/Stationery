@@ -40,10 +40,9 @@ class UserController extends Controller
     //open edit page
     public function edit()
     {
-        if (isset($_POST['userId'])) {
+        if ($this->getGet('id')) {
 
-            $thisUserId = $_POST['userId'];
-            $user = User::getById($thisUserId);
+            $user = User::getById($this->getGet('id'));
 
             return $this->view('admin/user/update', compact('user'));
         }
@@ -53,11 +52,8 @@ class UserController extends Controller
     //try to update user data
     public function update()
     {
-      if (isset($_POST['user'])){
-
-//          $message = is_null(User::edit($_POST['user'])) ? 'user is edited successfully' : User::edit($_POST['user']);
-            $message = User::edit($_POST['user']) ?? 'user is edited successfully';
-          return $this->view('admin/index', compact('message'));
+      if (!empty($this->getPost())){
+            User::edit($this->getPost());
       }
 
       return $this->redirect('users');

@@ -8,27 +8,27 @@
             <form action="signUp" method="post">
                 <p>
                     <label for="name">Name</label>
-                    <input type="text" name="user[name]" id="name">
+                    <input type="text" name="name" id="name">
                 </p>
                 <p>
                     <label for="surname">Surname</label>
-                    <input type="text" name="user[surname]" id="surname">
+                    <input type="text" name="surname" id="surname">
                 </p>
                 <p>
                     <label for="email">Email</label>
-                    <input type="text" name="user[email]" id="email" placeholder="user@example.com">
+                    <input type="text" name="email" id="email" placeholder="user@example.com">
                 </p>
                 <p>
                     <label for="phone">Phone</label>
-                    <input type="text" name="user[phone]" id="phone" placeholder="+380123456789">
+                    <input type="text" name="phone" id="phone" placeholder="+380123456789">
                 </p>
                 <p>
                     <label for="password">Password</label>
-                    <input type="password" name="user[password]" id="password">
+                    <input type="password" name="password" id="password">
                 </p>
                 <p>
                     <label for="repPassword">Repeat your Password</label>
-                    <input type="password" name="user[repeatPassword]" id="repPassword">
+                    <input type="password" name="repeatPassword" id="repPassword">
                 </p>
                 <p>
                     <label class="button" for="register">Register!</label>

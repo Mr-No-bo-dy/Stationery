@@ -18,10 +18,10 @@ class UserController extends Controller
     //try to register
     public function signUp()
     {
-        if (isset($_POST['user'])) {
+        if (!empty($this->getPost())) {
             $registerError = '';
             try {
-                User::register($_POST['user']);
+                User::register($this->getPost());
 
                 return $this->view('site/user/login');
 
@@ -48,23 +48,20 @@ class UserController extends Controller
         if (isset($_POST['login']) && isset($_POST['password'])) {
             $loginError = '';
 
-            try {
+            if (User::login($_POST['login'], $_POST['password'])) {
+                if ($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'SuperAdmin') {
 
-                if (User::login($_POST['login'], $_POST['password'])) {
-                    if ($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'SuperAdmin') {
+                    return $this->redirect('admin/home');
 
-                        return $this->redirect('admin/home');
+                } else if ($_SESSION['user']['role'] === 'user') {
 
-                    } else if ($_SESSION['user']['role'] === 'user') {
-
-                        return $this->redirect('home');
-                    }
+                    return $this->redirect('home');
                 }
-
-            } catch (Exception $e) {
-
-                $loginError = $e->getMessage();
             }
+
+            User::login($_POST['login'], $_POST['password']);
+            $loginError = $e->getMessage();
+
             return $this->view('site/user/login', compact('loginError'));
         }
         return $this->redirect('login');

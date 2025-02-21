@@ -28,10 +28,8 @@
                     <td><?= $user['role'] ?></td>
 
                     <td>
-                        <form action="edit" method="post">
-                            <label for="edit">edit</label>
-                            <input class="dn" type="submit" name="userId" id="edit" value="<?= $user['id'] ?>">
-                        </form>
+                        <a href="edit?id=<?= $user['id'] ?>">edit</a>
+
                     </td>
                     <td>
                         <form action="delete" method="post">
@@ -45,6 +43,8 @@
             <?php endforeach; ?>
         </table>
         </div>
+        <h2 class="warning"><?=$message?? ''?></h2>
+
     </main>
 
 <?php require_once 'app/resources/views/admin/components/footer.php' ?>
