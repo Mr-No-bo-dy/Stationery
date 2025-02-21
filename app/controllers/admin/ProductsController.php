@@ -7,6 +7,12 @@ use app\models\Product;
 
 class ProductsController extends Controller
 {
+
+    public function products()
+    {
+        $products = Product::getProducts();
+        return $this->view("admin/products/products", compact("products"));
+    }
     // product creation and routing to the product card
     public function productEdit()
     {
