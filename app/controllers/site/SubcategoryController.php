@@ -10,7 +10,7 @@ class SubcategoryController extends Controller
     public function index()
     {
         $subcategoriesModel = new Subcategory();
-        $allSubcategories = $subcategoriesModel->getAllSubcategories();
-        return $this->view('site/subcategories/subcategories', compact('allSubcategories'));
+        $subcategories = $subcategoriesModel->getSubcategoriesByCategoryId($_GET['categoryId']);
+        return $this->view('site/subcategories/subcategories', compact('subcategories'));
     }
 }

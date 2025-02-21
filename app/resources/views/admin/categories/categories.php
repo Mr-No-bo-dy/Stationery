@@ -21,7 +21,7 @@
                     <a href="updateCategory?id=<?= $category['id'] ?>">UPDATE</a>
                 </td>
                 <td>
-                    <a href="deleteCategory?id=<?= $category['id'] ?>">DELETE</a>
+oca                    <a href="deleteCategory?id=<?= $category['id'] ?>">DELETE</a>
                 </td>
             </tr>
         <?php } ?>

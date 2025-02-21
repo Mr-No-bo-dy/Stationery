@@ -19,7 +19,6 @@ class Subcategory extends Model
         $stmt->execute();
         return $stmt->fetchAll();
     }
-
     public function getAllSubcategories(): array
     {
         $stmt = self::builder()->prepare("SELECT subcategories.id, subcategories.title AS subcategory_title, subcategories.description, categories.title AS category_title FROM subcategories JOIN categories ON subcategories.category_id = categories.id;");
@@ -33,6 +32,13 @@ class Subcategory extends Model
         $stmt->bindParam(":id", $id);
         $stmt->execute();
         return $stmt->fetch();
+    }
+    public function getSubcategoriesByCategoryId($id): array
+    {
+        $stmt = self::builder()->prepare("SELECT * FROM subcategories WHERE category_id = :id;");
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        return $stmt->fetchAll();
     }
 
     public function createSubcategory($categoryTitle, $title, $description) {
