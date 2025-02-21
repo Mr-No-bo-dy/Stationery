@@ -5,13 +5,19 @@
     <main class="profile">
         <div class="wrapper">
             <?php if (isset($_SESSION['user'])): ?>
-                <p>
+                <p class="photo-profile">
                     <img src="<?= 'app/resources/img/users/' . $_SESSION['user']['photo'] ?>" alt="profile photo">
                 </p>
+            <?php if ($_SESSION['user']['photo'] !== 'default.png'): ?>
+                <p>
+                    <a class="deleteButton" href="deletePhoto">delete photo</a>
+                </p>
+
+            <?php endif; ?>
                 <p class="photo">
-                <form action="setPhoto" method="post" enctype="multipart/form-data">
+                <form class="photo" action="setPhoto" method="post" enctype="multipart/form-data">
                     <input type="file" name="photo">
-                    <input type="submit" name="save">
+                    <button type="submit" name="save">save choosen photo</button>
                 </form>
                 </p>
                 <p><b>name:</b> <?= $_SESSION['user']['name'] ?></p>

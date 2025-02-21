@@ -12,23 +12,19 @@ class User extends Model
     protected $primaryKey = 'id';
     protected $fillable =
         [
-            'name' => '',
-            'surname' => '',
-            'email' => '',
-            'phone' => '',
-            'role' => '',
-            'password' => '',
-            'photo' => '',
+            'name',
+            'surname',
+            'email',
+            'phone',
+            'role',
+            'password',
+            'photo'
         ];
 
-
-    // User registration
-    /**
+    /** User registration
      * @throws Exception
      */
-    public static function register(
-        array $array
-    ): void
+    public static function register(array $array): void
     {
         // validation
         try {
@@ -44,19 +40,20 @@ class User extends Model
 
                 throw new Exception('Email is invalid');
 
-//            } else if (!preg_match('#^\+[0-9]{1,4}[ -]?(( [0-9]{1,3} )|\([0-9]{1,3}\)|[0-9]{1,3})[ -]?([0-9][ -]?){6}[0-9]$#', $array['phone'])) {
-//
-//                throw new Exception('Phone number must be at least 9 characters');
+            } else if (!preg_match('#^\+[0-9]{1,4}[ -]?(( [0-9]{1,3} )|\([0-9]{1,3}\)|[0-9]{1,3})[ -]?([0-9][ -]?){6}[0-9]$#', $array['phone'])) {
+
+                throw new Exception('Phone number must be at least 9 characters');
 
             } else if ($array['password'] != $array['repeatPassword']) {
 
                 throw new Exception('Passwords do not match');
+
+        //temp password check
             } else if (strlen($array['password']) < 4) {
 
                 throw new Exception('Password must be at least 4 characters');
 
             }
-
 // CORRECT PASSWORD CHECK
 //            }elseif (strlen($array['password']) <= 8) {
 //                throw new Exception ( 'Your Password Must Contain At Least 8 Characters!');
@@ -85,7 +82,6 @@ class User extends Model
             }
 
             // seting user to db
-            $pdo = parent::builder();
             $sql = "INSERT INTO users (name, surname, email, phone, role, password, photo) VALUES (:name, :surname, :email, :phone, :role, :password, :photo)";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([
@@ -105,21 +101,19 @@ class User extends Model
     }
 
 
-    // User login
-    /**
+    /** User login
      * @throws Exception
      */
     public static function login(string $login, string $password): bool
     {
         try {
 
-            $pdo = parent::builder();
             if (str_contains($login, '@')) {
                 $sql = "SELECT * FROM users WHERE email = :login";
             } else {
                 $sql = "SELECT * FROM users WHERE phone = :login";
             }
-            $stmt = $pdo->prepare($sql);
+            $stmt = self::builder()->prepare($sql);
             $stmt->execute(['login' => $login]);
 
             $user = $stmt->fetch();
@@ -137,10 +131,7 @@ class User extends Model
 
 
     //user self update data
-    public static function update(
-        array $array
-
-    )
+    public static function update(array $array)
     {
         try {
             $pdo = parent::builder();
@@ -163,7 +154,6 @@ class User extends Model
             throw new Exception('Error checking user information');
         }
 
-
         // seting user to db
 
         $sql = "UPDATE users SET name = :name, surname = :surname, email = :email, phone = :phone, role = :role WHERE id = :id";
@@ -181,11 +171,11 @@ class User extends Model
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['id' => $array['id']]);
         $_SESSION['user'] = $stmt->fetch();
+
         return null;
-
-
     }
 
+    //password change
     public static function passwordChange($oldPassword, $repeatPassword, $newPassword)
     {
         try {
@@ -208,11 +198,8 @@ class User extends Model
 //            elseif(!preg_match("#[0-9]+#", $newPassword) {
 //                throw new Exception('Your Password Must Contain At Least 1 Number!');
 //            }
-
-
-            $pdo = parent::builder();
             $sql = "UPDATE users SET password = :password WHERE id = :id";
-            $stmt = $pdo->prepare($sql);
+            $stmt = self::builder()->prepare($sql);
             $stmt->execute([
                 'password' => password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 12]),
                 'id' => $_SESSION['user']['id']
@@ -223,8 +210,8 @@ class User extends Model
         } catch (Exception $e) {
             return $e->getMessage();
         }
-        return null;
 
+        return null;
     }
 
 
@@ -233,7 +220,7 @@ class User extends Model
     {
         try {
             if (!isset($_SESSION['user']['id'])) {
-                throw new Exception("User not authenticated!");
+                return throw new Exception("User not authenticated!");
             }
 
             $uploadDir = "app/resources/img/users/"; // Directory where files will be stored
@@ -248,17 +235,17 @@ class User extends Model
 
             // Check for errors
             if ($fileError !== 0) {
-                throw new Exception("Error uploading file!");
+                return throw new Exception("Error uploading file!");
             }
 
             // Validate file type
             if (!in_array($fileExt, $allowed)) {
-                throw new Exception("Invalid file type! Only JPG, JPEG, PNG, and GIF are allowed.");
+                return throw new Exception("Invalid file type! Only JPG, JPEG, PNG, and GIF are allowed.");
             }
 
             // Validate file size (max 5MB)
             if ($fileSize > 5 * 1024 * 1024) {
-                throw new Exception("File size too large! Maximum allowed is 5MB.");
+                return throw new Exception("File size too large! Maximum allowed is 5MB.");
             }
 
             // Generate a unique name to prevent overwriting
@@ -266,14 +253,16 @@ class User extends Model
             $targetFilePath = $uploadDir . $newFileName;
 
             // Move file to the uploads directory
+            if ($_SESSION['user']['photo'] !== 'default.png') {
+                unlink($uploadDir . $_SESSION['user']['photo']);
+            }
             if (!move_uploaded_file($fileTmpName, $targetFilePath)) {
-                throw new Exception("Failed to move uploaded file!");
+                return throw new Exception("Failed to move uploaded file!");
             }
 
             // Update database with new photo name
-            $pdo = parent::builder();
             $sql = "UPDATE users SET photo = :photo WHERE id = :id";
-            $stmt = $pdo->prepare($sql);
+            $stmt = self::builder()->prepare($sql);
             $stmt->execute([
                 'photo' => $newFileName,
                 'id' => $_SESSION['user']['id']
@@ -284,29 +273,40 @@ class User extends Model
 
             return null;
         } catch (Exception $e) {
+
             return $e->getMessage();
         }
     }
 
+    public static function deleteProfilePhoto()
+    {
+        $sql = "UPDATE users SET photo = 'default.png' WHERE id = :id";
+        $stmt = self::builder()->prepare($sql);
+        $stmt->execute([
+            'id' => $_SESSION['user']['id']
+        ]);
 
+        // Update session photo
+        $_SESSION['user']['photo'] = 'default.png';
 
-    // admin methods
+        return 'photo deleted successfully';
+    }
 
-    //Getting all Users
-    /**
+// admin methods
+
+    /** Getting all Users
      * @throws Exception
      */
     public static function getAll(): array
     {
         try {
-            $pdo = parent::builder();
             if ($_SESSION['user']['role'] == 'admin') {
                 $sql = "SELECT * FROM `users` WHERE id != :id and role = 'user';";
             } else if ($_SESSION['user']['role'] == 'SuperAdmin') {
                 $sql = "SELECT * FROM `users` WHERE id != :id ORDER BY CASE WHEN role = 'admin' THEN 1 ELSE 2 END, role;";
             }
 
-            $stmt = $pdo->prepare($sql);
+            $stmt = self::builder()->prepare($sql);
             $stmt->execute([
                 'id' => $_SESSION['user']['id']
             ]);
@@ -323,9 +323,8 @@ class User extends Model
     public static function getById($id): array
     {
         try {
-            $pdo = parent::builder();
             $sql = "SELECT * FROM users where id = :id";
-            $stmt = $pdo->prepare($sql);
+            $stmt = self::builder()->prepare($sql);
             $stmt->execute([
                 'id' => $id]);
             return $stmt->fetch();
@@ -338,7 +337,7 @@ class User extends Model
 
 
     // Save edited user
-    public static function edit(array $array): bool
+    public static function edit(array $array)
     {
         try {
             $pdo = parent::builder();
@@ -356,11 +355,12 @@ class User extends Model
             }
 
 
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
 
-            throw new Exception('Error checking user information');
+            return $e->getMessage();
         }
-        $pdo = parent::builder();
+
+        // seting user to db
         $sql = "UPDATE users SET name = :name, surname = :surname, email = :email, phone = :phone, role = :role WHERE id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
@@ -371,19 +371,17 @@ class User extends Model
             'role' => $array['role'],
             'id' => $array['id']
         ]);
-        return true;
+        return null;
 
     }
-
 
 
     // Delete user
     public static function delete($id): bool
     {
         try {
-            $pdo = parent::builder();
             $sql = "DELETE FROM users WHERE id = :id";
-            $stmt = $pdo->prepare($sql);
+            $stmt = self::builder()->prepare($sql);
             $stmt->execute([
                 'id' => $id
             ]);

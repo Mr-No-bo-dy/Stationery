@@ -5,7 +5,7 @@
         <div class="wrapper">
         <?php if (isset($_SESSION['user'])): ?>
 
-            <form action="passwordChange" method="post">
+            <form action="passwordUpdate" method="post">
                 <label for="old">Enter your old password</label>
                 <input type="password" name="oldPassword" id="old">
                 <label for="repeat">Repeat your old password</label>
@@ -15,6 +15,7 @@
                 <input type="submit" name="changePassword">
             </form>
 
+            <p class="warning"><?= $message ?? '' ?></p>
         <?php endif; ?>
         </div>
     </main>
