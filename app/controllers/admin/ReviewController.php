@@ -27,6 +27,9 @@ class ReviewController extends Controller
             if ($_SESSION["reviews"]["is_active"] == "reviews only not active") {
                 $isOnlyActive = 0;
             }
+            if ($_SESSION["reviews"]["is_active"] == "all reviews") {
+                unset($_SESSION["reviews"]["is_active"]);
+            }
         }
         $post = array_flip($_POST);
         if (isset($post["approved"])) {
