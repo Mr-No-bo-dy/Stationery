@@ -33,6 +33,9 @@
                 <a class="head_link" href="reviews">Reviews</a>
             </li>
             <li>
+                <a class="head_link" href="orders">Orders</a>
+            </li>
+            <li>
                 <a class="head_link" href="logout">Logout</a>
             </li>
         </ul>

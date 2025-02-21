@@ -52,7 +52,8 @@ $urlRoutes = [
     'admin/edit' => 'admin/user/edit',
     'admin/update' => 'admin/user/update',
     'admin/delete' => 'admin/user/delete',
-
+    'admin/orders' => 'admin/order/index',
+    'admin/ordersSorting' => 'admin/order/sorting',
     'admin/reviews' => 'admin/review/index',
 
     'admin/productCreating' => 'admin/products/productCreating',
