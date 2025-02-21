@@ -48,20 +48,23 @@ class UserController extends Controller
         if (isset($_POST['login']) && isset($_POST['password'])) {
             $loginError = '';
 
-            if (User::login($_POST['login'], $_POST['password'])) {
-                if ($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'SuperAdmin') {
+            try {
 
-                    return $this->redirect('admin/home');
+                if (User::login($_POST['login'], $_POST['password'])) {
+                    if ($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'SuperAdmin') {
 
-                } else if ($_SESSION['user']['role'] === 'user') {
+                        return $this->redirect('admin/home');
 
-                    return $this->redirect('home');
+                    } else if ($_SESSION['user']['role'] === 'user') {
+
+                        return $this->redirect('home');
+                    }
                 }
+
+            } catch (Exception $e) {
+
+                $loginError = $e->getMessage();
             }
-
-            User::login($_POST['login'], $_POST['password']);
-            $loginError = $e->getMessage();
-
             return $this->view('site/user/login', compact('loginError'));
         }
         return $this->redirect('login');
