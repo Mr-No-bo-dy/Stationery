@@ -126,6 +126,25 @@ ol {
     background: #dedede;
 }
 
+.reviewsMain textarea {
+    resize: horizontal;
+}
+
+.reviewsTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.reviewsTable thead td {
+    font: 500 24px "Arial";
+    border: 3px solid #000;
+}
+
+.reviewsTable td {
+    padding: 20px;
+    border: 2px solid #000;
+}
+
 .categoriesTable {
     margin: auto;
 }
@@ -337,6 +356,13 @@ ol {
     text-align: center;
 }
 
+.adminReviewsButtonForm {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+    flex-wrap: wrap;
+}
+
 .adminReviewsButton {
     display: block;
     max-width: 200px;
@@ -345,5 +371,10 @@ ol {
     background: #fff;
     border: 1px solid #000;
     border-radius: 5px;
+}
+
+.adminReviewsButton:hover {
+    background: #ddd;
+    cursor: pointer;
 }
 
