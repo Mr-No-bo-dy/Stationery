@@ -2,15 +2,21 @@
 
 <main class="reviewsMain">
     <div class="wrapper">
-        <form class="adminReviewsButtonForm" action="reviews" method="post">
-            <?php if (isset($_SESSION["reviews"]["is_active"])) { ?>   
+        <form class="adminReviewsButtonForm" action="reviews" method="post">    
+            <?php if (isset($_SESSION["reviews"]["is_active"])) { ?>    
                 <?php if ($_SESSION["reviews"]["is_active"] == "reviews only active") { ?>
+                    <input class="adminReviewsButton" type="submit" name="is_active" value="all reviews">
                     <input class="adminReviewsButton" type="submit" name="is_active" value="reviews only not active">
                     <input style="background: #ddd;" class="adminReviewsButton" type="submit" name="is_active" value="reviews only active">
                 <?php } else { ?>
+                    <input class="adminReviewsButton" type="submit" name="is_active" value="all reviews">
                     <input style="background: #ddd;" class="adminReviewsButton" type="submit" name="is_active" value="reviews only not active">
                     <input class="adminReviewsButton" type="submit" name="is_active" value="reviews only active">
                 <?php } ?>
+            <?php } else { ?>
+                <input style="background: #ddd;" class="adminReviewsButton" type="submit" name="is_active" value="all reviews">
+                <input class="adminReviewsButton" type="submit" name="is_active" value="reviews only not active">
+                <input class="adminReviewsButton" type="submit" name="is_active" value="reviews only active">
             <?php } ?>
             <?php if (isset($_SESSION["reviews"]["sortBy"])) { ?>   
                 <?php if ($_SESSION["reviews"]["sortBy"] == "sort by rating") { ?>
