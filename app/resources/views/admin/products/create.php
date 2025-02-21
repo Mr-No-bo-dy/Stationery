@@ -1,7 +1,7 @@
 <?php require_once 'app/resources/views/admin/components/header.php' ?>
 
 
-<form action="" method="POST" class="productForm" enctype="multipart/form-data">
+<form action="productSave" method="POST" class="productForm" enctype="multipart/form-data">
     <input type="text" name="title" placeholder="title" required>
     <textarea id="description" name="description" placeholder="description" required></textarea>
     <input type="number" name="stock" placeholder="stock" required>
