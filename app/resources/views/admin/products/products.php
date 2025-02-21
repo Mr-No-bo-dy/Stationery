@@ -5,8 +5,8 @@
 ?>
 <main>
     <div class="catalog">
+        <a href="productCreating" class="productCreate">Create product</a>
         <div class="productBlock">
-            <a href="productCreating" class="productCreate">Create product</a>
             <?php foreach ($products as $product) { ?>
                 <a class="card" href="productEdit?id=<?= $product['id'] ?>" id="<?= $product['id']?>">
                     <img src="../app/resources/img/products/<?= (file_exists("app/resources/img/products/" . $product['image']) ? $product['image'] : "product.jpg") ?> " alt="табурєтка">
