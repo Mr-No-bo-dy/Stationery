@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function create() {
         if (isset($_POST['newCategoryName']) && isset($_POST['newCategoryDescription'])) {
             $categoriesModel = new Category();
-            $categoriesModel -> createCategory($_POST['newCategoryName'], $_POST['newCategoryDescription']);
+            $categoriesModel->createCategory($_POST['newCategoryName'], $_POST['newCategoryDescription']);
             return $this->index();
         }
         return $this->view('admin/categories/createCategory');
@@ -27,7 +27,7 @@ class CategoryController extends Controller
     public function update() {
         if (isset($_POST['newCategoryName']) && isset($_POST['newCategoryDescription'])) {
             $categoriesModel = new Category();
-            $categoriesModel -> updateCategory($_POST['newCategoryName'], $_POST['newCategoryDescription'], $_POST['categoryId']);
+            $categoriesModel->updateCategory($_POST['newCategoryName'], $_POST['newCategoryDescription'], $_POST['categoryId']);
             return $this->index();
         }
         return $this->view('admin/categories/updateCategory');

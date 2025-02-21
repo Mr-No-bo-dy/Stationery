@@ -14,20 +14,34 @@ class Subcategory extends Model
         'description',
     ];
 
-    public function getAllSubcategories(): array
-    {
-        $stmt = self::builder()->prepare("SELECT * FROM subcategories WHERE category_id = :categoryId");
-        $stmt->bindParam(":categoryId", $_POST['categoryId']);
+    public function getAllCategoriesTitle(): array {
+        $stmt = self::builder()->prepare("select title from categories");
         $stmt->execute();
         return $stmt->fetchAll();
     }
 
-    public function createSubcategory($categoryId, $name, $description) {
-        $stmt = self::builder()->prepare("INSERT INTO subcategories (category_id, title, description) VALUES (:categoryId, :name, :description)");
-        $stmt->bindParam(":categoryId", $categoryId);
-        $stmt->bindParam(":name", $name);
-        $stmt->bindParam(":description", $description);
+    public function getAllSubcategories(): array
+    {
+        $stmt = self::builder()->prepare("SELECT subcategories.id, subcategories.title AS subcategory_title, subcategories.description, categories.title AS category_title FROM subcategories JOIN categories ON subcategories.category_id = categories.id;");
         $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function getSubcategoryById($id): array
+    {
+        $stmt = self::builder()->prepare("SELECT * FROM subcategories WHERE id = :id LIMIT 1;");
+        $stmt->bindParam(":id", $id);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    public function createSubcategory($categoryTitle, $title, $description) {
+        $stmt = self::builder()->prepare("INSERT INTO subcategories (title, description, category_id) VALUES (:title, :description, (SELECT id FROM categories WHERE title = :categoryTitle LIMIT 1));");
+        $stmt->execute([
+            ":categoryTitle" => $categoryTitle,
+            ":title" => $title,
+            ":description" => $description
+        ]);
     }
 
     public function updateSubcategory($name, $description, $id) {

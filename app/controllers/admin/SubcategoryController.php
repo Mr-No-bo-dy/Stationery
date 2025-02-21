@@ -15,35 +15,38 @@ class SubcategoryController extends Controller
     }
 
     public function create() {
-        if (isset($_POST['newSubcategoryName']) && isset($_POST['newSubcategoryDescription']) && isset($_POST['categoryId'])) {
+        $subcategoriesModel = new Subcategory();
+        $allCategoriesTitle = $subcategoriesModel->getAllCategoriesTitle();
+        return $this->view('admin/subcategories/createSubcategory', compact('allCategoriesTitle'));
+    }
+
+    public function store() {
+        if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['categoryTitle'])) {
             $subcategoriesModel = new Subcategory();
-            $subcategoriesModel -> createSubcategory($_POST['categoryId'], $_POST['newSubcategoryName'], $_POST['newSubcategoryDescription']);
-            return $this->index();
+            $subcategoriesModel->createSubcategory($_POST['categoryTitle'], $_POST['title'], $_POST['description']);
+            return $this->redirect('subcategory');
         }
-        return $this->view('admin/subcategories/createSubcategory');
     }
 
     public function update() {
-        if (isset($_POST['newSubcategoryName']) && isset($_POST['newSubcategoryDescription'])) {
+        $subcategoriesModel = new Subcategory();
+        $subcategory = $subcategoriesModel->getSubcategoryById($_GET['id']);
+        return $this->view('admin/subcategories/updateSubcategory' , compact('subcategory'));
+    }
+
+    public function edit() {
+        if (isset($_POST['title']) && isset($_POST['description'])) {
             $subcategoriesModel = new Subcategory();
-            $subcategoriesModel -> updateSubcategory($_POST['newSubcategoryName'], $_POST['newSubcategoryDescription'], $_POST['subcategoryId']);
-            $categoriesModel = new Category();
-            $allCategories = $categoriesModel->getAllCategories();
-            return $this->view('admin/categories/categories', compact('allCategories'));
+            $subcategoriesModel->updateSubcategory($_POST['title'], $_POST['description'], $_POST['subcategoryId']);
         }
-        return $this->view('admin/subcategories/updateSubcategory');
+        return $this->redirect('subcategory');
     }
 
     public function delete() {
-        if (isset($_POST['subcategoryId'])) {
+        if (isset($_GET['id'])) {
             $subcategoriesModel = new Subcategory();
-            $subcategoriesModel->deleteSubcategory($_POST['subcategoryId']);
-
-            $categoriesModel = new Category();
-            $allCategories = $categoriesModel->getAllCategories();
-            return $this->view('admin/categories/categories', compact('allCategories'));
-        } else {
-            return $this->index();
+            $subcategoriesModel->deleteSubcategory($_GET['id']);
         }
+        return $this->redirect('subcategory');
     }
 }

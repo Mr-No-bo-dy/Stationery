@@ -145,6 +145,10 @@ ol {
     color: #000000;
 }
 
+.subcategory {
+    margin: auto;
+}
+
 .productCard {
     padding: 20px;
 }
