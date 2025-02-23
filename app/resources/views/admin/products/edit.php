@@ -2,7 +2,7 @@
 
 <main>
     <form method="post" action="productUpdate" class="productCard cardForm">
-        <img src="../app/resources/img/products/<?= (file_exists("../app/resources/img/products/" . $product['image']) ? $product['image'] : "product.jpg") ?> " alt="табурєтка">
+        <img src="../app/resources/img/products/<?= (file_exists("../app/resources/img/products/" . $product['image']) ? $product['image'] : "product.jpg") ?> " alt="<?= $product['title'] ?>">
         <label for="title">title:</label>
         <textarea id="title" name="title"><?= $product['title']; ?></textarea>
         <label for="description">description:</label>
