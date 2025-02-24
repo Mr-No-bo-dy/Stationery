@@ -44,12 +44,12 @@ class OrderController extends Controller
     // check out with phone number check
     public function makeOrder() {
         if ($this->getPost("phone")) {
-            if (!preg_match('/^\+380[\s\-()]*\d{2}[\s\-()]*\d{3}[\s\-()]*\d{2}[\s\-()]*\d{2}$/', $this->getPost("phone"))) {
+            if (!preg_match('/^(?:\+\d{1,3})?[\s\-()]*\d{2,4}[\s\-()]*\d{2,4}[\s\-()]*\d{2,4}[\s\-()]*\d{1,4}$/', $this->getPost("phone"))) {
                 $error = "Invalid phone number";
                 return $this->view("site/products/checkout", compact("error"));
             }
         }
-        Order::makeOrder($this->getPost("id"), $this->getPost("name"), $this->getPost("phone"));
+        Order::makeOrder($this->getPost("name"), $this->getPost("phone"));
         return $this->redirect("cart");
     }
 

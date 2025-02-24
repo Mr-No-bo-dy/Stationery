@@ -21,8 +21,19 @@ class OrderController extends Controller
         $order = new Order();
         
         if (isset($_GET["sort"])) {
-            $sort = $_GET["sort"];
-            $orders = $order->findAll($sort);
+            $orders = $order->findAll($_GET["sort"]);
+        }
+
+        return $this->view("admin/orders/orders", compact("orders"));
+    }
+
+    // displaying all user's orders by his id
+    public function userFiltering()
+    {
+        $order = new Order();
+        
+        if (isset($_GET["userid"])) {
+            $orders = $order->findUserOrders($_GET["userid"]);
         }
 
         return $this->view("admin/orders/orders", compact("orders"));

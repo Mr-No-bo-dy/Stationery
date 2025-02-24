@@ -48,9 +48,7 @@ class Order extends Model
     // removing products from the cart
     public static function removeFromCart($productId)
     {
-        $product = Order::getProductById($productId);
-
-        if ($product) {
+        if (Order::getProductById($productId)) {
             $cart = isset($_SESSION["cart"]) ? $_SESSION["cart"] : [];
             if (isset($cart[$productId])) {
                 unset($cart[$productId]);
@@ -71,13 +69,11 @@ class Order extends Model
                 }
             }
             $_SESSION["cart"] = $cart;                
-        } else {
-            echo 'Товар не знайдений';
         }
     }
 
     // check out
-    public static function makeOrder($id, $name, $phone) {
+    public static function makeOrder($name, $phone) {
         $cart = $_SESSION["cart"];
         $total = 0;
         $message = "Нове замовлення!\n\n";
@@ -144,6 +140,16 @@ class Order extends Model
         
         $stmt = $db->prepare($sql);
         $stmt->execute();
+        $data = $stmt->fetchAll();
+        return $data;
+    }
+
+    // get all user's orders
+    public function findUserOrders($userid) {
+        $db = Order::builder();
+        $sql = "SELECT * FROM orders WHERE user_id = :userid";
+        $stmt = $db->prepare($sql);
+        $stmt->execute(['userid' => $userid]);
         $data = $stmt->fetchAll();
         return $data;
     }

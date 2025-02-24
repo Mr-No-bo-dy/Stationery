@@ -10,6 +10,11 @@
             <button style="font-size: 20px; padding: 5px" type="submit" name="sort" value="desc">price desc</button>
             <button style="font-size: 20px; padding: 5px" type="submit" name="sort" value="asc">price asc</button>
         </form>
+        <form action="userFiltering">
+            <p>Search user's orders by ID</p>
+            <input type="text" name="userid" placeholder="user id">
+            <button type="submit">Search</button>
+        </form>
         <br>
         <table border="1">
             <tr>
@@ -21,11 +26,11 @@
             </tr>
             <?php foreach($orders as $order) { ?>
                 <tr>
-                    <td><?php echo $order['id']; ?></td>
-                    <td><?php echo $order['product_id']; ?></td>
-                    <td><?php echo $order['user_id']; ?></td>
-                    <td><?php echo $order['count']; ?></td>
-                    <td><?php echo $order['total']; ?></td>
+                    <td><?= $order['id'] ?></td>
+                    <td><?= $order['product_id'] ?></td>
+                    <td><?= $order['user_id'] ?></td>
+                    <td><?= $order['count'] ?></td>
+                    <td><?= $order['total'] ?></td>
                 </tr>
             <?php } ?>
         </table>
