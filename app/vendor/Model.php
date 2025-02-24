@@ -7,6 +7,7 @@ use PDO;
 class Model
 {
     protected $table = '';
+    protected $primaryKey = 'id';
     protected $fillable = [];
 
     // Connection to DataBase

@@ -26,6 +26,9 @@ class Controller
         if (file_exists($viewPath)) {
             extract($data);
             include($viewPath);
+        } else {
+            $error = 'No such view file: <b>' . $viewPath . '</b>';
+            $this->view('templates/404', compact('error'));
         }
     }
 
