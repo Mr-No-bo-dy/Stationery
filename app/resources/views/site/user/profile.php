@@ -28,8 +28,8 @@
                 <form action="edit" method="post">
                     <input type="submit" name="edit" value="edit your data">
                 </form>
-            <p>
-                <a class="deleteButton" href="edit">edit profile</a>
+                <p>
+                    <a class="deleteButton" href="edit">edit profile</a>
                 </p>
                 <p class="warning"><?= $message ?? '' ?></p>
 
