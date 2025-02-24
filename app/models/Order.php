@@ -15,12 +15,10 @@ class Order extends Model
 
     public static function getProductById($productId)
     {
-        $db = Order::builder();
         $sql = "SELECT id, subcategory_id, title, description, price, stock, image FROM products WHERE id = :id";
-        $stmt = $db->prepare($sql);
+        $stmt = Order::builder()->prepare($sql);
         $stmt->execute(["id" => $productId]);
-        $data = $stmt->fetch();
-        return $data;
+        return $stmt->fetch();
     }
 
     // adding products to the cart / increasing the quantity of goods in the cart
@@ -48,9 +46,7 @@ class Order extends Model
     // removing products from the cart
     public static function removeFromCart($productId)
     {
-        $product = Order::getProductById($productId);
-
-        if ($product) {
+        if (Order::getProductById($productId)) {
             $cart = isset($_SESSION["cart"]) ? $_SESSION["cart"] : [];
             if (isset($cart[$productId])) {
                 unset($cart[$productId]);
@@ -71,13 +67,11 @@ class Order extends Model
                 }
             }
             $_SESSION["cart"] = $cart;                
-        } else {
-            echo 'Товар не знайдений';
         }
     }
 
     // check out
-    public static function makeOrder($id, $name, $phone) {
+    public static function makeOrder($name, $phone) {
         $cart = $_SESSION["cart"];
         $total = 0;
         $message = "Нове замовлення!\n\n";
@@ -111,14 +105,12 @@ class Order extends Model
         ];
         $context = stream_context_create($options);
         file_get_contents($url, false, $context);
-    
-        $db = Order::builder();
-        
+
         foreach ($cart as $product) {
             $productId = $product["id"];
             $quantity = $product["quantity"];
             $sql = "INSERT INTO orders (product_id, user_id, count, total) VALUES (:product_id, :user_id, :count, :total)";
-            $stmt = $db->prepare($sql);
+            $stmt = Order::builder()->prepare($sql);
             $stmt->execute([
                 ':product_id' => $productId,
                 ':user_id' => $_SESSION["user"]["id"],
@@ -131,21 +123,31 @@ class Order extends Model
     }
     
     // get all orders and sorting them
-    public static function findAll($sorting = "")
+    public static function findAll($sorting)
     {
-        $db = Order::builder();
         $sortingOrder = strtoupper($sorting) === 'DESC' ? 'DESC' : 'ASC';
         
-        if ($sorting == "") {
+        if ($sorting == "id") {
             $sql = "SELECT * FROM orders ORDER BY id ASC";
+        } else if ($sorting == "userId") {
+            $sql = "SELECT * FROM orders ORDER BY user_id ASC";
         } else {
             $sql = "SELECT * FROM orders ORDER BY total $sortingOrder";
         }
         
-        $stmt = $db->prepare($sql);
+        $stmt = Order::builder()->prepare($sql);
         $stmt->execute();
-        $data = $stmt->fetchAll();
-        return $data;
+
+        return $stmt->fetchAll();
+    }
+
+    // get all user's orders
+    public static function findUserOrders($userid) {
+        $sql = "SELECT * FROM orders WHERE user_id = :userid";
+        $stmt = Order::builder()->prepare($sql);
+        $stmt->execute(['userid' => $userid]);
+
+        return $stmt->fetchAll();
     }
 
 }
