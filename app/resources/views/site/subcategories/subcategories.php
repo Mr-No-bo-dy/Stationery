@@ -1,7 +1,7 @@
 <?php require_once 'app/resources/views/site/components/header.php' ?>
 
     <main>
-        <table class="subcategory">
+        <table class="categoriesTable">
             <tr>
                 <th>title</th>
                 <th>description</th>

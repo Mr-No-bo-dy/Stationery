@@ -15,16 +15,29 @@ class Subcategory extends Model
     ];
 
     // return categories title
-    public function getAllCategoriesTitle(): array {
+    public function getAllCategoriesTitle(): array
+    {
         $stmt = self::builder()->prepare("select title from categories");
         $stmt->execute();
         return $stmt->fetchAll();
     }
 
+    public function getPresentCategoriesTitle($id):array
+    {
+        $stmt = self::builder()->prepare("select title from categories WHERE id = (SELECT category_id FROM subcategories WHERE id = :id)");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
     // return subcategories
     public function getAllSubcategories(): array
     {
-        $stmt = self::builder()->prepare("SELECT subcategories.id, subcategories.title AS subcategory_title, subcategories.description, categories.title AS category_title FROM subcategories JOIN categories ON subcategories.category_id = categories.id;");
+        $stmt = self::builder()->prepare("
+            SELECT subcategories.id, subcategories.title AS subcategory_title, subcategories.description, categories.title AS category_title 
+            FROM subcategories 
+            JOIN categories ON subcategories.category_id = categories.id;
+        ");
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -49,7 +62,10 @@ class Subcategory extends Model
 
     // create subcategories
     public function createSubcategory($categoryTitle, $title, $description) {
-        $stmt = self::builder()->prepare("INSERT INTO subcategories (title, description, category_id) VALUES (:title, :description, (SELECT id FROM categories WHERE title = :categoryTitle LIMIT 1));");
+        $stmt = self::builder()->prepare("
+            INSERT INTO subcategories (title, description, category_id)
+            VALUES (:title, :description, (SELECT id FROM categories WHERE title = :categoryTitle LIMIT 1));
+        ");
         $stmt->execute([
             ":categoryTitle" => $categoryTitle,
             ":title" => $title,
@@ -58,11 +74,16 @@ class Subcategory extends Model
     }
 
     // update subcategories
-    public function updateSubcategory($name, $description, $id) {
-        $stmt = self::builder()->prepare("UPDATE subcategories SET title = :name, description = :description WHERE id = :id");
+    public function updateSubcategory($name, $description, $id, $categoryTitle) {
+        $stmt = self::builder()->prepare("
+            UPDATE subcategories SET title = :name, description = :description, category_id = 
+            (SELECT id FROM categories WHERE title = :categoryTitle) 
+            WHERE id = :id
+        ");
         $stmt->bindParam(":name", $name);
         $stmt->bindParam(":description", $description);
         $stmt->bindParam(":id", $id);
+        $stmt->bindParam(":categoryTitle", $categoryTitle);
         $stmt->execute();
     }
 

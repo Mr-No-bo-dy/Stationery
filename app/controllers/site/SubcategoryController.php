@@ -7,6 +7,7 @@ use app\vendor\Controller;
 
 class SubcategoryController extends Controller
 {
+    // view all subcategories
     public function index()
     {
         $subcategoriesModel = new Subcategory();
