@@ -1,14 +1,7 @@
 <?php require_once 'app/resources/views/site/components/header.php';?>
 <main>
     <h1>Оформлення замовлення</h1>
-    <br>
-    <form action="makeOrder" method="POST">
-        <input type="text" name="name" placeholder="Ім'я"><br>
-        <input type="text" name="phone" placeholder="Телефон"><br>
-        <button type="submit">Замовити</button>
-        <br><br>
-        <p><?= $error ?? ""?></p>
-        <?php if (empty(isset($_SESSION["cart"]) ? $_SESSION["cart"] : [])) { ?>
+    <?php if (empty(isset($_SESSION["cart"]) ? $_SESSION["cart"] : [])) { ?>
         <p>Кошик порожній</p>
         <?php } else { ?>
             <table>
@@ -30,6 +23,12 @@
                 <?php } ?>
             </table>
         <?php } ?>
+    <form action="makeOrder" method="POST">
+        <input type="text" name="name" placeholder="Ім'я"><br>
+        <input type="text" name="phone" placeholder="Телефон"><br>
+        <button type="submit">Замовити</button>
+        <br><br>
+        <p><?= $error ?? "" ?></p>
     </form>
 </main>
 

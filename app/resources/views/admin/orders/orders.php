@@ -6,7 +6,8 @@
         <form action="ordersSorting" method="get">
             <p>Sorting by</p>
             <br>
-            <button style="font-size: 20px; padding: 5px" type="submit" name="sort" value="">id</button>
+            <button style="font-size: 20px; padding: 5px" type="submit" name="sort" value="id">id</button>
+            <button style="font-size: 20px; padding: 5px" type="submit" name="sort" value="userId">user_id</button>
             <button style="font-size: 20px; padding: 5px" type="submit" name="sort" value="desc">price desc</button>
             <button style="font-size: 20px; padding: 5px" type="submit" name="sort" value="asc">price asc</button>
         </form>
