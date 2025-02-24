@@ -40,14 +40,13 @@
         <table class="reviewsTable">
             <thead>
                 <tr>
-                    <td><h2>id</h2></td>
-                    <td><h2>name</h2></td>
-                    <td><h2>product_id</h2></td>
-                    <td><h2>rating</h2></td>
-                    <td><h2>comment</h2></td>
-                    <td><h2>is_active</h2></td>
-                    <td><h2>approved</h2></td>
-                    <td><h2>not approved</h2></td>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>product_id</th>
+                    <th>rating</th>
+                    <th>comment</th>
+                    <th>is_active</th>
+                    <th>action</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,12 +60,10 @@
                             <td><?= $review['comment'] ?></td>
                             <?php if ($review["is_active"]) { ?>
                                 <td>yes</td>
-                                <td></td>
-                                <td><input type="submit" value="not approved" name="<?= $review['id'] ?>"></td>
+                                <td><input type="submit" value="not approve" name="<?= $review['id'] ?>"></td>
                             <?php } else { ?>
                                 <td>no</td>
-                                <td><input type="submit" value="approved" name="<?= $review['id'] ?>"></td>
-                                <td></td>
+                                <td><input type="submit" value="approve" name="<?= $review['id'] ?>"></td>
                             <?php } ?>
                         </tr>
                     <?php } ?>

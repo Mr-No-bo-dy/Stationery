@@ -7,6 +7,8 @@ use app\models\Review;
 
 class ReviewController extends Controller
 {
+
+    // show and actions with reviews
     public function index()
     {   
         // writes to SESSION
@@ -39,14 +41,14 @@ class ReviewController extends Controller
                 unset($_SESSION["reviews"]["is_active"]);
             }
         }
-        // approved/not approved
+        // approve/not approve
         $post = array_flip($_POST);
-        if (isset($post["approved"])) {
-            Review::approveReview($post["approved"], 1);
+        if (isset($post["approve"])) {
+            Review::approveReview($post["approve"], 1);
             $this->redirect("reviews");
         }
-        if (isset($post["not approved"])) {
-            Review::approveReview($post["not approved"], 0);
+        if (isset($post["not approve"])) {
+            Review::approveReview($post["not approve"], 0);
             $this->redirect("reviews");
         }
         // checking if isset $_SESSION["reviews"]["is_active"]
