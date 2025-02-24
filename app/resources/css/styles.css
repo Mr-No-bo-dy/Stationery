@@ -5,6 +5,13 @@
     /* background-color: #999; */
 }
 
+.productCatalogBlock{
+    display: flex;
+    margin: 20px;
+    flex-wrap: wrap;
+}
+
+
 header {
     position: sticky;
     top: 0;
@@ -72,7 +79,6 @@ nav ul {
 .productBlock tr, td {
     border: 3px solid grey;
 }
-
 
 
 .edit table{
