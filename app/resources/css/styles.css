@@ -191,6 +191,15 @@ ol {
     background: #39ff00;
 }
 
+.cancelButton {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.cancelButton:hover {
+    text-decoration: none;
+}
+
 .categoriesTable {
     margin: auto;
     border-collapse: collapse;
@@ -215,6 +224,10 @@ ol {
     background: #39ff00;
 }
 
+.subcategory a {
+    background: #8effe1;
+}
+
 .update a {
     background: #ffef57;
 }
@@ -222,6 +235,7 @@ ol {
 .delete a {
     background: #ff6767;
 }
+
 
 .subcategory {
     margin: auto;
@@ -288,7 +302,7 @@ ol {
     width: 100%;
     min-height: 100px;
     resize: vertical;
-    max-height: 200px;
+    max-height: 120px;
 }
 
 .categorySubmitButton {

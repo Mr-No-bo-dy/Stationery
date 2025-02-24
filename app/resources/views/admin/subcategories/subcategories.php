@@ -16,7 +16,7 @@
                 <td><?= $subcategory['category_title'] ?></td>
                 <td><?= $subcategory['subcategory_title'] ?></td>
                 <td><?= $subcategory['description'] ?></td>
-                <td class="tableButton update"><a href="updateSubcategory?id=<?= $subcategory['id'] ?>">UPDATE</a></td>
+                <td class="tableButton update"><a href="editSubcategory?id=<?= $subcategory['id'] ?>">UPDATE</a></td>
                 <td class="tableButton delete"><a href="deleteSubcategory?id=<?= $subcategory['id'] ?>">DELETE</a></td>
             </tr>
         <?php } ?>

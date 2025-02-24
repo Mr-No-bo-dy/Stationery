@@ -6,6 +6,7 @@ use app\vendor\Controller;
 
 class CategoryController extends Controller
 {
+    // view all categories
     public function index()
     {
         $categoriesModel = new Category();

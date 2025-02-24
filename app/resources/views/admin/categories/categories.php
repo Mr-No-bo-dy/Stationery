@@ -16,7 +16,7 @@
                     <td><?= $column ?></td>
                 <?php } ?>
                 <td class="tableButton update">
-                    <a href="updateCategory?id=<?= $category['id'] ?>">UPDATE</a>
+                    <a href="editCategory?id=<?= $category['id'] ?>">UPDATE</a>
                 </td>
                 <td class="tableButton delete">
                     <a href="deleteCategory?id=<?= $category['id'] ?>">DELETE</a>

@@ -5,13 +5,13 @@
         <tr>
             <th>title</th>
             <th>description</th>
+            <th>subcategory</th>
         </tr>
         <?php foreach ($allCategories as $category) {?>
             <tr>
                 <td><?= $category['title'] ?></td>
                 <td><?= $category['description'] ?></td>
-<!--                <td><form action="subcategory" method="post"><button type="submit" name="categoryId" value="--><?php //= $category['id'] ?><!--" >go to subcategories</button></form></td>-->
-                <td><a href="subcategory?categoryId=<?= $category['id'] ?>">go to subcategories</a></td>
+                <td class="tableButton subcategory"><a href="subcategory?categoryId=<?= $category['id'] ?>">go to subcategories</a></td>
             </tr>
         <?php } ?>
     </table>
