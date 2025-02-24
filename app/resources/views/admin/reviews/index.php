@@ -22,9 +22,15 @@
                 <?php if ($_SESSION["reviews"]["sortBy"] == "sort by rating") { ?>
                     <input disabled style="background: #ddd;" class="adminReviewsButton" type="submit" name="sortBy" value="sort by rating">
                     <input class="adminReviewsButton" type="submit" name="sortBy" value="sort by id">
-                <?php } else { ?>
+                    <input class="adminReviewsButton" type="submit" name="sortBy" value="sort by product id">
+                <?php } else if ($_SESSION["reviews"]["sortBy"] == "sort by id") { ?>
                     <input class="adminReviewsButton" type="submit" name="sortBy" value="sort by rating">
                     <input disabled style="background: #ddd;" class="adminReviewsButton" type="submit" name="sortBy" value="sort by id">
+                    <input class="adminReviewsButton" type="submit" name="sortBy" value="sort by product id">
+                <?php } else { ?>
+                    <input class="adminReviewsButton" type="submit" name="sortBy" value="sort by rating">
+                    <input class="adminReviewsButton" type="submit" name="sortBy" value="sort by id">
+                    <input disabled style="background: #ddd;" class="adminReviewsButton" type="submit" name="sortBy" value="sort by product id">
                 <?php } ?>
             <?php } else { ?>
                 <input class="adminReviewsButton" type="submit" name="sortBy" value="sort by rating">
@@ -56,34 +62,31 @@
                                     <td><?= $review['rating'] ?></td>
                                     <td><?= $review['comment'] ?></td>
                                     <td><?= $review['is_active'] ?></td>
-                                    <td><input type="submit" value="approved" name="<?= $review['id'] ?>"></td>
-                                    <td><input type="submit" value="not approved" name="<?= $review['id'] ?>"></td>
+                                    <?php if ($review["is_active"] == 1) { ?>
+                                        <td></td>
+                                        <td><input type="submit" value="not approved" name="<?= $review['id'] ?>"></td>
+                                    <?php } else { ?>
+                                        <td><input type="submit" value="approved" name="<?= $review['id'] ?>"></td>
+                                        <td></td>
+                                    <?php } ?>
                                 </tr>
                             <?php } ?>
                         <?php } else { ?>
-                            <?php if ($review["is_active"] == 1) { ?>
-                                <tr>
-                                    <td><?= $review['id'] ?></td>
-                                    <td><?= $review['name'] ?></td>
-                                    <td><?= $review['product_id'] ?></td>
-                                    <td><?= $review['rating'] ?></td>
-                                    <td><?= $review['comment'] ?></td>
-                                    <td><?= $review['is_active'] ?></td>
-                                    <td><input type="submit" value="approved" name="<?= $review['id'] ?>"></td>
-                                    <td></td>
-                                </tr>
-                            <?php } else { ?>
-                                <tr>
-                                    <td><?= $review['id'] ?></td>
-                                    <td><?= $review['name'] ?></td>
-                                    <td><?= $review['product_id'] ?></td>
-                                    <td><?= $review['rating'] ?></td>
-                                    <td><?= $review['comment'] ?></td>
-                                    <td><?= $review['is_active'] ?></td>
+                            <tr>
+                                <td><?= $review['id'] ?></td>
+                                <td><?= $review['name'] ?></td>
+                                <td><?= $review['product_id'] ?></td>
+                                <td><?= $review['rating'] ?></td>
+                                <td><?= $review['comment'] ?></td>
+                                <td><?= $review['is_active'] ?></td>
+                                <?php if ($review["is_active"] == 1) { ?>
                                     <td></td>
                                     <td><input type="submit" value="not approved" name="<?= $review['id'] ?>"></td>
-                                </tr>
-                            <?php } ?>
+                                <?php } else { ?>
+                                    <td><input type="submit" value="approved" name="<?= $review['id'] ?>"></td>
+                                    <td></td>
+                                <?php } ?>
+                            </tr>
                         <?php } ?>
                     <?php } ?>
                 </form>
