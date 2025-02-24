@@ -43,7 +43,9 @@
 
                         </td>
                         <td>
-                            <a class="warning deleteButton" href="delete?id=<?= $user['id'] ?>">delete</a>
+                                <form action="delete" method="post">
+                                    <button type="submit" name="delete" value="<?= $user['id'] ?>">delete</button>
+                                </form>
 
                         </td>
 
