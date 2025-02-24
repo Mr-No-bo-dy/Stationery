@@ -8,11 +8,13 @@ use app\models\Product;
 class ProductsController extends Controller
 {
 
+    //direction to the view of products page in admin
     public function products()
     {
         $products = Product::getProducts();
         return $this->view("admin/products/products", compact("products"));
     }
+
     // product creation and routing to the product card
     public function productEdit()
     {
@@ -21,13 +23,14 @@ class ProductsController extends Controller
         return $this->view("admin/products/edit", compact("product", "allSubcategories"));
     }
 
-    // Внесення змін що вказують на admin/productEditing
-
+    // Make changes pointing to admin/productEditing
     public function update()
     {
         Product::updateProduct();
         return $this->redirect("products#" . $this->getPost('id'));
     }
+
+    // direction to the 'view' of product creation
     public function productCreating()
     {
         $allSubcategories = Product::getSubcategories();
@@ -36,7 +39,6 @@ class ProductsController extends Controller
     }
 
     // Creating a new product in the admin panel 
-
     public function save()
     {
         $uploadDir = "app/resources/img/products";
@@ -56,7 +58,6 @@ class ProductsController extends Controller
     }
 
     // product removal 
-
     public function remove(){
         $stmt = Product::builder()->prepare('DELETE FROM `products` WHERE id = :id');
         $stmt->bindParam(":id", $_GET["id"]);

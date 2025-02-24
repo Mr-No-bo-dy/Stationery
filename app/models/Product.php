@@ -17,6 +17,7 @@ class Product extends Model
     public $table = "products";
 
 
+    // obtaining products data
     public static function getProducts(): array
     {
         $stm = self::builder()->prepare("SELECT * FROM `products`");
@@ -49,7 +50,7 @@ class Product extends Model
         $stmt->execute();
     }
 
-    //запит в базу для збереження змін в продукті що були вказані на admin/productEditing
+    // request to the database to save changes in the product that were specified in admin/productEditing
 
     public static function updateProduct()
     {
@@ -67,12 +68,15 @@ class Product extends Model
         return $stmt->fetch();
     }
 
+    // obtaining subcategories data
     public static function getSubcategories()
     {
         $stmt = self::builder()->prepare('SELECT * FROM subcategories');
         $stmt->execute();
         return $stmt->fetchAll();
     }
+    
+    //obtaining product data
     public static function getProduct($id){
         $stmt = self::builder()->prepare('SELECT * FROM `products` WHERE id = :id');
         $stmt->execute(['id' => $id]);
