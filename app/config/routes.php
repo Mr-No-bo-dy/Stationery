@@ -63,5 +63,6 @@ $urlRoutes = [
     'admin/productSave' => 'admin/products/save',
     'admin/productEdit' => 'admin/products/productEdit',
     'admin/products' => 'admin/products/products',
-    'admin/productUpdate' => 'admin/products/update'
+    'admin/productUpdate' => 'admin/products/update',
+    'admin/productRemove' => 'admin/products/remove'
 ];

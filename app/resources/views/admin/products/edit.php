@@ -1,4 +1,5 @@
-<?php require_once 'app/resources/views/admin/components/header.php' ?>
+<?php require_once 'app/resources/views/admin/components/header.php'; ?>
+
 
 <main>
     <form method="post" action="productUpdate" class="productCard cardForm">
@@ -14,11 +15,12 @@
         <input type="hidden" name="id" value="<?= $product["id"] ?>">
         <select name="subcategory_id">
             <?php foreach ($allSubcategories as $category) { ?>
-                <option value="<?= $category["id"] ?>"><?= $category["title"] ?></option>
+                <option value="<?= $category['id'] ?>" <?php if($product['subcategory_id'] == $category['id']) {  echo"selected"; ?> <?php }?>> <?= $category["title"] ?></option>
             <?php } ?>
         </select>
         <input type="submit">
     </form>
+    <a href="../card?id=<?= $product['id'] ?>">View</a>
 </main>
 
 

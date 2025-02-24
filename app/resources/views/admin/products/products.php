@@ -6,16 +6,22 @@
 <main>
     <div class="catalog">
         <a href="productCreating" class="productCreate">Create product</a>
-        <div class="productBlock">
-            <?php foreach ($products as $product) { ?>
-                <a class="card" href="productEdit?id=<?= $product['id'] ?>" id="<?= $product['id']?>">
-                    <img src="../app/resources/img/products/<?= (file_exists("app/resources/img/products/" . $product['image']) ? $product['image'] : "product.jpg") ?> "alt="<?= $product['title'] ?>">
+            <table class="productBlock">
+                <?php foreach ($products as $product) { ?>
+                    <tr></tr>
+                    <!-- <a class="card" href="> -->
+                    <td><?= $product['id'] ?></td>
+                    <td><img class="adminProductImg" src="../app/resources/img/products/<?= (file_exists("app/resources/img/products/" . $product['image']) ? $product['image'] : "product.jpg") ?> " alt="<?= $product['title'] ?>"></td>
                     <!-- Checking for a file. If the file does not exist, we use the prepared photo, if we use the file that we actually checked. -->
-                    <h2><?= $product['title']; ?></h2>
-                    <p><?= $product['price']; ?> $</p>
-                </a>    
-            <?php } ?>
-        </div>
+                    <td><?= $product['title']; ?></td>
+                    <td><?= $product['price']; ?> $</td>
+                    <td><a href="productEdit?id=<?= $product['id'] ?>" id="<?= $product['id'] ?>">Edit</a></td>
+                    <td><a href="productRemove?id=<?= $product['id'] ?>">Remove</a></td>
+                    <!-- </a>     -->
+                <?php } ?>
+                </tr>
+            </table>
+
     </div>
 </main>
 
