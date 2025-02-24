@@ -16,11 +16,12 @@ class ProductsController extends Controller
     // product creation and routing to the product card
     public function productEdit()
     {
-        $conn = Product::builder();
         $product = Product::getProduct($this->getGet('id'));
         $allSubcategories = Product::getSubcategories();
         return $this->view("admin/products/edit", compact("product", "allSubcategories"));
     }
+
+    // Внесення змін що вказують на admin/productEditing
 
     public function update()
     {
@@ -33,6 +34,8 @@ class ProductsController extends Controller
 
         return $this->view("admin/products/create", compact("allSubcategories"));
     }
+
+    // Creating a new product in the admin panel 
 
     public function save()
     {
@@ -50,5 +53,14 @@ class ProductsController extends Controller
         Product::createProduct($this->getPost(), $file);
 
         return $this->redirect("products#" . $id);
+    }
+
+    // product removal 
+
+    public function remove(){
+        $stmt = Product::builder()->prepare('DELETE FROM `products` WHERE id = :id');
+        $stmt->bindParam(":id", $_GET["id"]);
+        $stmt->execute();
+        return $this->redirect("products");
     }
 }

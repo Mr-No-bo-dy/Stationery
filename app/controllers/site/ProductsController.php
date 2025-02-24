@@ -17,9 +17,7 @@ class ProductsController extends Controller
 
     public function card()  
     {
-        $conn = Product::builder();
-        $id = $this->getGet('id');
-        $product = Product::getProduct($id);
+        $product = Product::getProduct($this->getGet('id'));
         return $this->view("site/products/productCard", compact("product"));
         
     }

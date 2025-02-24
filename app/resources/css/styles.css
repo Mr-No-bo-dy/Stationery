@@ -5,6 +5,13 @@
     /* background-color: #999; */
 }
 
+.productCatalogBlock{
+    display: flex;
+    margin: 20px;
+    flex-wrap: wrap;
+}
+
+
 header {
     position: sticky;
     top: 0;
@@ -62,6 +69,18 @@ nav ul {
 .users td:nth-child(9) {
     width: 5%;
 }
+
+.productBlock{
+    margin: 5rem 0 0 0;
+    border: 3px solid #000;
+    border-collapse: collapse;
+}
+
+.productBlock tr, td {
+    border: 3px solid grey;
+}
+
+
 .edit table{
     margin: 0 auto;
     width: 50%;
@@ -135,11 +154,10 @@ ol {
     color: #00f;
 }
 
-.productBlock {
-    display: flex;
-    margin: 20px;
-    flex-wrap: wrap;
+.adminProductImg{
+    height: 60px;
 }
+
 
 .card {
     padding: 15px;

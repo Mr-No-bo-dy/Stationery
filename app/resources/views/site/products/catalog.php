@@ -5,7 +5,7 @@
 ?>
 <main>
     <div class="catalog">
-        <div class="productBlock">
+        <div class="productCatalogBlock">
             <?php foreach ($products as $product) { ?>
                 <a class="card" href="card?id=<?= $product['id'] ?>">
                     <img src="app/resources/img/products/<?= (file_exists("app/resources/img/products/" . $product['image']) ? $product['image'] : "product.jpg") ?> " alt="<?= $product['title'] ?>">
