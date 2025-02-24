@@ -12,11 +12,10 @@ class Database
     public static function connection(): PDO
     {
         if (is_null(self::$connection)) {
-            $credentials = require 'env.php';
-            $host = $credentials['host'];
-            $db = $credentials['db'];
-            $user = $credentials['user'];
-            $pass = $credentials['pass'];
+            $host = (require 'env.php')['host'];
+            $db = (require 'env.php')['db'];
+            $user = (require 'env.php')['user'];
+            $pass = (require 'env.php')['pass'];
             $charset = 'utf8';
             $dsn = 'mysql:host=' . $host . ';dbname=' . $db . ';charset=' . $charset;
             $options = [
