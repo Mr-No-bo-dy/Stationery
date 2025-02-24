@@ -40,18 +40,21 @@ $urlRoutes = [
     'admin/storeCategory' => 'admin/category/store',
     'admin/updateCategory' => 'admin/category/update',
     'admin/editCategory' => 'admin/category/edit',
+
     'admin/subcategory' => 'admin/subcategory/index',
     'admin/createSubcategory' => 'admin/subcategory/create',
     'admin/storeSubcategory' => 'admin/subcategory/store',
     'admin/updateSubcategory' => 'admin/subcategory/update',
     'admin/editSubcategory' => 'admin/subcategory/edit',
     'admin/deleteSubcategory' => 'admin/subcategory/delete',
+
     'admin/home' => 'admin/user/index',
     'admin/logout' => 'admin/user/logout',
     'admin/users' => 'admin/user/getAll',
     'admin/edit' => 'admin/user/edit',
     'admin/update' => 'admin/user/update',
     'admin/delete' => 'admin/user/delete',
+
     'admin/orders' => 'admin/order/index',
     'admin/ordersSorting' => 'admin/order/sorting',
     'admin/reviews' => 'admin/review/index',
