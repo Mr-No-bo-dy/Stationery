@@ -11,6 +11,7 @@ class ProductsController extends Controller
     public function catalog()
     {
         $products = Product::getProducts();
+        
         return $this->view("site/products/catalog", compact("products"));
     }
 
@@ -18,7 +19,7 @@ class ProductsController extends Controller
     public function card()  
     {
         $product = Product::getProduct($this->getGet('id'));
+
         return $this->view("site/products/productCard", compact("product"));
-        
     }
 }

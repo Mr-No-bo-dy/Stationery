@@ -12,7 +12,9 @@ class ProductsController extends Controller
     public function products()
     {
         $products = Product::getProducts();
-        return $this->view("admin/products/products", compact("products"));
+        $categories = Product::getSubcategoryTitle();
+
+        return $this->view("admin/products/products", compact("products", "categories"));
     }
 
     // product creation and routing to the product card
@@ -20,6 +22,7 @@ class ProductsController extends Controller
     {
         $product = Product::getProduct($this->getGet('id'));
         $allSubcategories = Product::getSubcategories();
+
         return $this->view("admin/products/edit", compact("product", "allSubcategories"));
     }
 
@@ -27,6 +30,7 @@ class ProductsController extends Controller
     public function update()
     {
         Product::updateProduct();
+
         return $this->redirect("products#" . $this->getPost('id'));
     }
 
@@ -58,10 +62,12 @@ class ProductsController extends Controller
     }
 
     // product removal 
-    public function remove(){
+    public function remove()
+    {
         $stmt = Product::builder()->prepare('DELETE FROM `products` WHERE id = :id');
-        $stmt->bindParam(":id", $_GET["id"]);
+        $stmt->bindParam(":id", $_POST["remove"]);
         $stmt->execute();
+
         return $this->redirect("products");
     }
 }
