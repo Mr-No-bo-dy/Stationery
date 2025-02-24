@@ -7,6 +7,11 @@
         <input type="text" name="name" placeholder="Ім'я"><br>
         <input type="text" name="phone" placeholder="Телефон"><br>
         <button type="submit">Замовити</button>
+        <?php
+            if (isset($error)) {
+                echo $error;
+            }
+        ?>
     </form>
 </main>
 
