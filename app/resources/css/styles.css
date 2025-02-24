@@ -85,11 +85,11 @@ a {
     text-decoration: none;
 }
 
-a.deleteButton {
+.deleteButton {
     color: red;
 }
 
-a.deleteButton:hover {
+.deleteButton:hover {
     color: red;
     text-decoration: underline;
 }
@@ -419,6 +419,10 @@ ol {
     text-align: center;
 }
 
+.active {
+    color: #3333e3;
+}
+
 .adminReviewsButtonForm {
     display: flex;
     align-items: center;
@@ -438,7 +442,8 @@ ol {
 
 .productCreate{
     background: grey;
-    width: 230px;
+    width: 100%;
+    padding: 10px;
     display: flex;
     color: #fff;
     align-items: center;

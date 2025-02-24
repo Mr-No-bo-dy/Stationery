@@ -39,7 +39,6 @@ class Routing
     public function setControllerName($name): void
     {
         $this->controllerName = ucfirst($name) . 'Controller';
-
     }
 
     // Set Controller class namespace
@@ -92,12 +91,12 @@ class Routing
         switch ($entityType) {
             case 'file':
                 if (!file_exists($entity)) {
-                    $error = 'No such file: ' . $entity;
+                    $error = 'No such file: <b>' . $entity . '</b>';
                 }
                 break;
             case 'class':
                 if (!class_exists($entity)) {
-                    $error = 'No such class: ' . $entity;
+                    $error = 'No such class: <b>' . $entity . '</b>';
                 }
                 break;
             case 'method':
@@ -111,6 +110,7 @@ class Routing
             $baseController = new Controller();
             $baseController->view('templates/404', compact('error'));
         }
+
         return $error;
     }
 }

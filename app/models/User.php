@@ -297,19 +297,32 @@ class User extends Model
     /** Getting all Users
      * @throws Exception
      */
-    public static function getAll(): array
+    public static function getAll($role = null): array
     {
         try {
             if ($_SESSION['user']['role'] == 'admin') {
                 $sql = "SELECT * FROM `users` WHERE id != :id and role = 'user';";
+                $stmt = self::builder()->prepare($sql);
+                $stmt->execute([
+                    'id' => $_SESSION['user']['id']
+                ]);
             } else if ($_SESSION['user']['role'] == 'SuperAdmin') {
-                $sql = "SELECT * FROM `users` WHERE id != :id ORDER BY CASE WHEN role = 'admin' THEN 1 ELSE 2 END, role;";
+                if (!$role) {
+                    $sql = "SELECT * FROM `users` WHERE id != :id;";
+                    $stmt = self::builder()->prepare($sql);
+                    $stmt->execute([
+                        'id' => $_SESSION['user']['id']
+                    ]);
+                } else {
+                    $sql = "SELECT * FROM `users` WHERE id != :id and role = :role;";
+                    $stmt = self::builder()->prepare($sql);
+                    $stmt->execute([
+                        'id' => $_SESSION['user']['id'],
+                        'role' => $role
+                    ]);
+                }
             }
 
-            $stmt = self::builder()->prepare($sql);
-            $stmt->execute([
-                'id' => $_SESSION['user']['id']
-            ]);
             return $stmt->fetchAll();
 
         } catch (PDOException $e) {
@@ -329,11 +342,46 @@ class User extends Model
                 'id' => $id]);
             return $stmt->fetch();
 
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
 
             throw new Exception($e->getMessage() . 'ERROR');
         }
     }
+
+
+    public static function getBySearch(string $search): array|false
+    {
+        try {
+            $sql = "SELECT * FROM users WHERE 
+            id LIKE ? OR 
+            name LIKE ? OR 
+            surname LIKE ? OR 
+            email LIKE ? OR 
+            phone LIKE ?";
+
+            $stmt = self::builder()->prepare($sql);
+
+            $searchPattern = "{$search}%";
+            $stmt->execute([
+                $searchPattern,
+                $searchPattern,
+                $searchPattern,
+                $searchPattern,
+                $searchPattern
+            ]);
+
+            $results = $stmt->fetchAll();
+//            self::dd($results);
+            return $results;
+
+        } catch (Exception $e) {
+            error_log("User search error: " . $e->getMessage());
+            return false;
+        }
+    }
+
+
+
 
 
     // Save edited user

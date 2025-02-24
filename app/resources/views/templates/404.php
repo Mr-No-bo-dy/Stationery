@@ -8,6 +8,10 @@
 <body>
     <h1>ERROR #404</h1>
     <p><?= $error ?></p>
-    <p><a href="home">Return to main page</a></p>
+    <?php if (preg_match('#^/?stationery/admin#i', $_SERVER['REQUEST_URI'])) { ?>
+        <p><a href="../home">Return to main page</a></p>
+    <?php } else { ?>
+        <p><a href="home">Return to main page</a></p>
+    <?php } ?>
 </body>
 </html>

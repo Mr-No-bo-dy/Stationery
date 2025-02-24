@@ -23,6 +23,10 @@
                 <td>Phone:</td>
                 <td> <input type="text" name="phone" value="<?=$user['phone']?>"></td>
             </tr>
+<!--            <tr>-->
+<!--                <td>photo</td>-->
+<!--                <td><img src="--><?php //='../app/resources/img/users/' . $user['photo']?><!--" alt="user photo"></td>-->
+<!--            </tr>-->
             <tr>
                 <td>Role:</td>
                 <td> <select name="role">

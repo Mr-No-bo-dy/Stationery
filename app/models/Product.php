@@ -36,7 +36,6 @@ class Product extends Model
     public static function createProduct($data, $file)
     {
         $conn = self::builder();
-        print_r( $data);
         $stmt = $conn->prepare('INSERT INTO products (subcategory_id, title, description, price, stock, image) VALUES (:subcategory_id, :title, :description, :price, :stock, :image)');
         $stmt->bindParam(':subcategory_id', $data["subcategory_id"]);
         $stmt->bindParam(':title', $data["title"]);

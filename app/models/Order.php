@@ -77,22 +77,23 @@ class Order extends Model
     }
 
     // check out
-    public static function makeOrder ($id, $name, $phone) {
+    public static function makeOrder($id, $name, $phone) {
         $cart = $_SESSION["cart"];
         $total = 0;
         $message = "Нове замовлення!\n\n";
     
         foreach ($cart as $product) {
             $total += $product["price"] * $product["quantity"];
-            $message .= "" . $product["title"] . "\n";
+            $message .= $product["title"] . "\n";
             $message .= "Кількість: " . $product["quantity"] . "\n";
             $message .= "Ціна за одиницю: " . $product["price"] . "\n";
-            $message .= "Загальна ціна продуктів: " . $product["price"] * $product["quantity"] . " грн\n\n";
+            $message .= "Загальна ціна продуктів: " . ($product["price"] * $product["quantity"]) . " грн\n\n";
         }
-
+    
         $message .= "Ім'я замовника: " . $name . "\n";
         $message .= "Телефон замовника: " . $phone . "\n";
         $message .= "Загальна сума замовлення: " . $total . " грн";
+    
         $botToken = '7727218769:AAHjqc3u7BDMPGjinedYWTQx-nT8_1Yz3zE';
         $chatId = '-1002392193600';
         $url = "https://api.telegram.org/bot{$botToken}/sendMessage";
@@ -109,7 +110,42 @@ class Order extends Model
             ]
         ];
         $context = stream_context_create($options);
-
-        file_get_contents($url, false, $context);   
+        file_get_contents($url, false, $context);
+    
+        $db = Order::builder();
+        
+        foreach ($cart as $product) {
+            $productId = $product["id"];
+            $quantity = $product["quantity"];
+            $sql = "INSERT INTO orders (product_id, user_id, count, total) VALUES (:product_id, :user_id, :count, :total)";
+            $stmt = $db->prepare($sql);
+            $stmt->execute([
+                ':product_id' => $productId,
+                ':user_id' => $_SESSION["user"]["id"],
+                ':count' => $quantity,
+                ':total' => $product["price"] * $quantity
+            ]);
+        }
+    
+        unset($_SESSION["cart"]);
     }
+    
+    // get all orders and sorting them
+    public static function findAll($sorting = "")
+    {
+        $db = Order::builder();
+        $sortingOrder = strtoupper($sorting) === 'DESC' ? 'DESC' : 'ASC';
+        
+        if ($sorting == "") {
+            $sql = "SELECT * FROM orders ORDER BY id ASC";
+        } else {
+            $sql = "SELECT * FROM orders ORDER BY total $sortingOrder";
+        }
+        
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll();
+        return $data;
+    }
+
 }

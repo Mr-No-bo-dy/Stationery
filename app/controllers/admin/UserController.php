@@ -16,7 +16,7 @@ class UserController extends Controller
     //open users page
     public function getAll()
     {
-        $users = User::getAll();
+        $users = $this->getGet('role') ? User::getAll($this->getGet('role')) : User::getAll();
 
         return $this->view('admin/user/users', compact('users'));
     }
@@ -25,10 +25,9 @@ class UserController extends Controller
     //try to delete user
     public function delete()
     {
-        if (isset($_POST['delete'])) {
+        if ($this->getGet('id')) {
 
-            $thisUserId = $_POST['userId'];
-            $message = User::delete($thisUserId) ? 'user is deleted successfully' : 'something went wrong';
+            $message = User::delete($this->getGet('id')) ? 'user is deleted successfully' : 'something went wrong';
 
             return $this->view('admin/index', compact('message'));
 
@@ -45,7 +44,14 @@ class UserController extends Controller
             $user = User::getById($this->getGet('id'));
 
             return $this->view('admin/user/update', compact('user'));
+        } else if ($this->getGet('search')) {
+
+            $users = User::getBySearch($this->getGet('search'));
+            if (is_array($users)) {
+                return $this->view('admin/user/users', compact('users'));
+            }
         }
+
         return $this->redirect('users');
     }
 
