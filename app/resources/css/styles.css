@@ -411,6 +411,10 @@ ol {
     text-align: center;
 }
 
+.active {
+    color: #3333e3;
+}
+
 .adminReviewsButtonForm {
     display: flex;
     align-items: center;

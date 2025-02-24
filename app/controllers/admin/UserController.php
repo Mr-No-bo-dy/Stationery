@@ -16,7 +16,7 @@ class UserController extends Controller
     //open users page
     public function getAll()
     {
-        $users = User::getAll();
+        $users = $this->getGet('role') ? User::getAll($this->getGet('role')) : User::getAll();
 
         return $this->view('admin/user/users', compact('users'));
     }
@@ -44,7 +44,14 @@ class UserController extends Controller
             $user = User::getById($this->getGet('id'));
 
             return $this->view('admin/user/update', compact('user'));
+        } else if ($this->getGet('search')) {
+
+            $users = User::getBySearch($this->getGet('search'));
+            if (is_array($users)) {
+                return $this->view('admin/user/users', compact('users'));
+            }
         }
+
         return $this->redirect('users');
     }
 
