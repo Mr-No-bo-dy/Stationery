@@ -9,34 +9,36 @@
 </head>
 
 <body>
-    <nav>
-        <ul class="head_menu">
-            <li>
-                <a class="head_link" href="../home">Site</a>
-            </li>
-            <li>
-                <a class="head_link" href="home">Dashboard</a>
-            </li>
-            <li>
-                <a class="head_link" href="users">Users</a>
-            </li>
-            <li>
-                <a class="head_link" href="category">Categories</a>
-            </li>
-            <li>
-                <a class="head_link" href="subcategory">Subcategories</a>
-            </li>
-            <li>
-                <a class="head_link" href="products">Products</a>
-            </li>
-            <li>
-                <a class="head_link" href="reviews">Reviews</a>
-            </li>
-            <li>
-                <a class="head_link" href="orders">Orders</a>
-            </li>
-            <li>
-                <a class="head_link" href="logout">Logout</a>
-            </li>
-        </ul>
-    </nav>
+    <header>
+        <nav>
+            <ul class="head_menu">
+                <li>
+                    <a class="head_link" href="../home">Site</a>
+                </li>
+                <li>
+                    <a class="head_link" href="home">Dashboard</a>
+                </li>
+                <li>
+                    <a class="head_link" href="users">Users</a>
+                </li>
+                <li>
+                    <a class="head_link" href="category">Categories</a>
+                </li>
+                <li>
+                    <a class="head_link" href="subcategory">Subcategories</a>
+                </li>
+                <li>
+                    <a class="head_link" href="products">Products</a>
+                </li>
+                <li>
+                    <a class="head_link" href="reviews">Reviews</a>
+                </li>
+              <li>
+                  <a class="head_link" href="orders">Orders</a>
+              </li>
+                <li>
+                    <a class="head_link" href="logout">Logout</a>
+                </li>
+            </ul>
+        </nav>
+    </header>

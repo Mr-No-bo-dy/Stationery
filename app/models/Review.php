@@ -24,6 +24,9 @@ class Review extends Model
         if ($sortBy == "sort by rating") {
             $sql .= " ORDER BY r.rating DESC";
         }
+        if ($sortBy == "sort by product id") {
+            $sql .= " ORDER BY r.product_id DESC";
+        }
         $stmt = self::builder()->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll();
