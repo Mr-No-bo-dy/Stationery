@@ -361,7 +361,7 @@ class User extends Model
 
             $stmt = self::builder()->prepare($sql);
 
-            $searchPattern = "{$search}%";
+            $searchPattern = "%{$search}%";
             $stmt->execute([
                 $searchPattern,
                 $searchPattern,

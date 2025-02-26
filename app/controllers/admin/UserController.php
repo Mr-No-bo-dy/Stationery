@@ -26,10 +26,9 @@ class UserController extends Controller
     public function delete()
     {
         if ($this->getPost('delete')) {
-
-            $message = User::delete($this->getPost('delete')) ? 'user is deleted successfully' : 'something went wrong';
-
-//            return $this->redirect('users');
+            User::delete($this->getPost('delete'));
+//            $message = User::delete($this->getPost('delete')) ? 'user is deleted successfully' : 'something went wrong';
+//            return $this->view('adimn/user/users', compact('message'));
 
         }
         return $this->redirect('users');
