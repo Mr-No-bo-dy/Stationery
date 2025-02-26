@@ -18,17 +18,15 @@ class HomeController extends Controller
 
     public function changeColorTheme()
     {
-        $uri = $_POST["uri"];
-        if (preg_match('#^/?stationery#i', $uri)) {
-            $uri = preg_replace('#^/?[^/]+?/#', '', $_POST["uri"]);
-        }
+        if ($this->getPost('uri')) {
+            $uri = $_POST["uri"];
+            if (preg_match('#^/?stationery#i', $uri)) {
+                $uri = preg_replace('#^/?[^/]+?/#', '', $_POST["uri"]);
+            }
+            setcookie("colorTheme",  $_COOKIE['colorTheme'] == 'light' ? 'dark' : 'light' , time() + 86400 * 30);
 
-        if (($_COOKIE["colorTheme"] == "light")) {
-            setcookie("colorTheme", "dark", time() + 86400 * 30);
             return $this->redirect($uri);
         }
-
-        setcookie("colorTheme", "light", time() + 86400 * 30);
-        return $this->redirect($uri);
+        return $this->redirect('home');
     }
 }

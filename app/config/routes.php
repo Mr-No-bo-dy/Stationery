@@ -35,6 +35,7 @@ $urlRoutes = [
     'passwordUpdate' => 'site/user/passwordUpdate',
     'logout' => 'site/user/logout',
 
+    'admin/changeColorTheme' => 'site/home/changeColorTheme',
     'admin/category' => 'admin/category/index',
     'admin/deleteCategory' => 'admin/category/deleteCategory',
     'admin/createCategory' => 'admin/category/create',
