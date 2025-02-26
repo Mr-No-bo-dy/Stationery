@@ -44,7 +44,7 @@ class OrderController extends Controller
     // check out with phone number check
     public function makeOrder() {
         if ($this->getPost("phone")) {
-            if (!preg_match('#^\+[0-9]{1,4}[ -()]?(( [0-9]{1,3} )|\([0-9]{1,3}\)|[0-9]{1,3})[ -]?([0-9][ -]?){6}[0-9]$#', $this->getPost("phone"))) {
+            if (!preg_match('#^(\+[0-9]{1,4})?[ -()]?(([0-9]{1,3})|\([0-9]{1,3}\))[ -]?([0-9][ -]?){6}[0-9]$#', $this->getPost("phone"))) {
                 $error = "Invalid phone number";
                 return $this->view("site/products/checkout", compact("error"));
             }
