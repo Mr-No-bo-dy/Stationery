@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/stationery/app/resources/css/styles.css">
+    <link rel="stylesheet" href="/stationery/app/resources/css/<?= $_COOKIE['colorTheme'] == 'light' ? '' : 'dark'?>styles.css">
 </head>
 
 <body>
@@ -13,8 +13,13 @@
         <nav>
             <ul class="head_menu">
                 <li>
-                    <a class="head_link" href="../home">Site</a>
+                    <form action="../changeColorTheme" method="post">
+                        <label class="head_link" for="changeColor"><?= $_COOKIE['colorTheme'] == 'light' ? 'Dark' : 'Light' ?></label>
+                        <input class="dn" type="submit" id="changeColor" name="uri" value="<?= $_SERVER['REQUEST_URI'] ?>">
+                    </form>
                 </li>
+            </ul>
+            <ul class="head_menu">
                 <li>
                     <a class="head_link" href="home">Dashboard</a>
                 </li>
@@ -36,6 +41,14 @@
               <li>
                   <a class="head_link" href="orders">Orders</a>
               </li>
+                <li>
+                    <a class="head_link" href="logout">Logout</a>
+                </li>
+            </ul>
+            <ul class="head_menu">
+                <li>
+                    <a class="head_link" href="../home">Site</a>
+                </li>
                 <li>
                     <a class="head_link" href="logout">Logout</a>
                 </li>

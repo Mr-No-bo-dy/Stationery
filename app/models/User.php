@@ -77,29 +77,29 @@ class User extends Model
                     throw new Exception('User`s email or phone already exists');
                 }
 
-            } catch (PDOException $e) {
+
+                // seting user to db
+                $sql = "INSERT INTO users (name, surname, email, phone, role, password, photo) VALUES (:name, :surname, :email, :phone, :role, :password, :photo)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([
+                    'name' => $array['name'],
+                    'surname' => $array['surname'],
+                    'email' => $array['email'],
+                    'phone' => $array['phone'],
+                    'role' => 'user',
+                    'password' => password_hash($array['password'], PASSWORD_BCRYPT, ['cost' => 12]),
+                    'photo' => 'default.png'
+                ]);
+            } catch (Exception $e) {
+
                 throw new Exception($e->getMessage());
             }
 
-            // seting user to db
-            $sql = "INSERT INTO users (name, surname, email, phone, role, password, photo) VALUES (:name, :surname, :email, :phone, :role, :password, :photo)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([
-                'name' => $array['name'],
-                'surname' => $array['surname'],
-                'email' => $array['email'],
-                'phone' => $array['phone'],
-                'role' => 'user',
-                'password' => password_hash($array['password'], PASSWORD_BCRYPT, ['cost' => 12]),
-                'photo' => 'default.png'
-            ]);
         } catch (Exception $e) {
 
             throw new Exception($e->getMessage());
         }
-
     }
-
 
     /** User login
      * @throws Exception

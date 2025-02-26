@@ -1,8 +1,17 @@
+:root {
+    --background-color: #545454;
+    --background-color-hover: #757575;
+    --text-color: #000;
+}
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     /* background-color: #999; */
+}
+body, input, textarea, select, button {
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 .productCatalogBlock{
@@ -17,7 +26,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    background: #fff;
+    background: var(--background-color);
 }
 
 nav {
@@ -48,7 +57,6 @@ nav ul:last-child{
     justify-content: flex-end;
 }
 
-
 .users table {
     width: 90%;
     text-align: center;
@@ -75,7 +83,7 @@ nav ul:last-child{
 }
 
 .users tr:hover td {
-    background-color: #eae9e9;
+    background-color: var(--background-color-hover);
 }
 
 .users td:nth-child(9) {
@@ -83,7 +91,6 @@ nav ul:last-child{
 }
 
 .productBlock{
-    width: 100%;
     margin: 5rem 0 0 0;
     border: 3px solid #000;
     border-collapse: collapse;
@@ -98,8 +105,6 @@ nav ul:last-child{
     margin: 0 auto;
     width: 50%;
 }
-
-
 .edit td{
     padding: 0;
 }
@@ -160,7 +165,7 @@ ol {
 .usersButton{
     display: inline-block;
     padding: 5px 10px;
-    background: #ffffff;
+    background: var(--background-color);
     border: 1px #000 solid;
     border-radius: 5px;
     transition: .3s;
@@ -169,7 +174,7 @@ ol {
     display: inline-block;
     padding: 5px 10px;
     color: red;
-    background: #ffffff;
+    background: var(--background-color);
     border: 1px red solid;
     border-radius: 5px;
     transition: .3s;
@@ -180,7 +185,8 @@ ol {
     display: none;
 }
 .usersButton:hover{
-    background: #dad9d9;
+    background: var(--background-color-hover);
+;
 }
 .usersButton-delete:hover{
     background: red;
@@ -228,12 +234,6 @@ ol {
 .reviewsTable th {
     padding: 5px;
     border: 2px solid #000;
-}
-
-.reviews_inputs-flex {
-    display: flex;
-    align-items: center;
-    column-gap: 20px;
 }
 
 .categoriesButton {
@@ -517,7 +517,7 @@ ol {
 }
 .register form input[type="submit"],
 .login form input[type="submit"] {
-   display: none;
+    display: none;
 }
 .register form label.button,
 .login form label.button {
@@ -576,9 +576,9 @@ ol {
     color: #fff;
     align-items: center;
     justify-content: center;
- }
- 
- 
+}
+
+
 .cardForm {
     display: flex;
     flex-direction: column;
