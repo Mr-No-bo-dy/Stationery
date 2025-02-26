@@ -4,40 +4,20 @@
     <div class="wrapper">
         <table class="reviewsTable">
             <thead>
-                <?php if (isset($_GET["id"])) { ?>
-                    <tr>
-                        <td>name</td>
-                        <td>rating</td>
-                        <td>comment</td>
-                    </tr>
-                <?php } else { ?>
-                    <tr>
-                        <td>name</td>
-                        <td>product_id</td>
-                        <td>rating</td>
-                        <td>comment</td>
-                    </tr>
-                <?php } ?>
+                <tr>
+                    <td>name</td>
+                    <td>rating</td>
+                    <td>comment</td>
+                </tr>
             </thead>
             <tbody>
                 <?php foreach ($allReviews as $review) { ?>
-                    <?php if (isset($_GET["id"])) { ?>
-                        <?php if ($review["product_id"] == $_GET["id"] && $review["is_active"] == 1) { ?>
-                            <tr>
-                                <td><?= $review['name'] ?></td>
-                                <td><?= $review['rating'] ?></td>
-                                <td><?= $review['comment'] ?></td>
-                            </tr>
-                        <?php } ?>
-                    <?php } else { ?>
-                        <?php if ($review["is_active"] == 1) { ?>
-                            <tr>
-                                <td><?= $review['name'] ?></td>
-                                <td><?= $review['product_id'] ?></td>
-                                <td><?= $review['rating'] ?></td>
-                                <td><?= $review['comment'] ?></td>
-                            </tr>
-                        <?php } ?>
+                    <?php if ($review["product_id"] == $_GET["id"]) { ?>
+                        <tr>
+                            <td><?= $review['name'] ?></td>
+                            <td><?= $review['rating'] ?></td>
+                            <td><?= $review['comment'] ?></td>
+                        </tr>
                     <?php } ?>
                 <?php } ?>
             </tbody>

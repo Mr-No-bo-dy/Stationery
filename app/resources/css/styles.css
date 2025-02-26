@@ -181,13 +181,14 @@ ol {
     border-collapse: collapse;
 }
 
-.reviewsTable thead td {
-    font: 500 20px "Arial";
+.reviewsTable thead th {
+    font: 700 20px "Arial";
     border: 3px solid #000;
 }
 
-.reviewsTable td {
-    padding: 20px;
+.reviewsTable td,
+.reviewsTable th {
+    padding: 5px;
     border: 2px solid #000;
 }
 

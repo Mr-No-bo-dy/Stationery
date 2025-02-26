@@ -40,54 +40,32 @@
         <table class="reviewsTable">
             <thead>
                 <tr>
-                    <td><h2>id</h2></td>
-                    <td><h2>name</h2></td>
-                    <td><h2>product_id</h2></td>
-                    <td><h2>rating</h2></td>
-                    <td><h2>comment</h2></td>
-                    <td><h2>is_active</h2></td>
-                    <td><h2>approved</h2></td>
-                    <td><h2>not approved</h2></td>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>product_id</th>
+                    <th>rating</th>
+                    <th>comment</th>
+                    <th>is_active</th>
+                    <th>action</th>
                 </tr>
             </thead>
             <tbody>
                 <form action="reviews" method="post">
                     <?php foreach ($allReviews as $review) { ?>
-                        <?php if (isset($_SESSION["reviews"]["is_active"])) { ?>
-                            <?php if ($review["is_active"] == $isOnlyActive) { ?>
-                                <tr>
-                                    <td><?= $review['id'] ?></td>
-                                    <td><?= $review['name'] ?></td>
-                                    <td><?= $review['product_id'] ?></td>
-                                    <td><?= $review['rating'] ?></td>
-                                    <td><?= $review['comment'] ?></td>
-                                    <td><?= $review['is_active'] ?></td>
-                                    <?php if ($review["is_active"] == 1) { ?>
-                                        <td></td>
-                                        <td><input type="submit" value="not approved" name="<?= $review['id'] ?>"></td>
-                                    <?php } else { ?>
-                                        <td><input type="submit" value="approved" name="<?= $review['id'] ?>"></td>
-                                        <td></td>
-                                    <?php } ?>
-                                </tr>
+                        <tr>
+                            <td><a href="../reviews?id=<?= $review['product_id'] ?>"><?= $review['id'] ?></a></td>
+                            <td><a href="edit?id=<?= $review['user_id'] ?>"><?= $review['name'] ?></a></td>
+                            <td><a href="productEdit?id=<?= $review['product_id'] ?>"><?= $review['product_id'] ?></a></td>
+                            <td><?= $review['rating'] ?></td>
+                            <td><?= $review['comment'] ?></td>
+                            <?php if ($review["is_active"]) { ?>
+                                <td>yes</td>
+                                <td><input type="submit" value="not approve" name="<?= $review['id'] ?>"></td>
+                            <?php } else { ?>
+                                <td>no</td>
+                                <td><input type="submit" value="approve" name="<?= $review['id'] ?>"></td>
                             <?php } ?>
-                        <?php } else { ?>
-                            <tr>
-                                <td><?= $review['id'] ?></td>
-                                <td><?= $review['name'] ?></td>
-                                <td><?= $review['product_id'] ?></td>
-                                <td><?= $review['rating'] ?></td>
-                                <td><?= $review['comment'] ?></td>
-                                <td><?= $review['is_active'] ?></td>
-                                <?php if ($review["is_active"] == 1) { ?>
-                                    <td></td>
-                                    <td><input type="submit" value="not approved" name="<?= $review['id'] ?>"></td>
-                                <?php } else { ?>
-                                    <td><input type="submit" value="approved" name="<?= $review['id'] ?>"></td>
-                                    <td></td>
-                                <?php } ?>
-                            </tr>
-                        <?php } ?>
+                        </tr>
                     <?php } ?>
                 </form>
             </tbody>

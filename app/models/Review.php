@@ -16,11 +16,17 @@ class Review extends Model
     ];
 
     // this function get information about reviews and sort it by id or rating
-    public static function getSiteReviews($sortBy = "sort by id"): array
+    public static function getSiteReviews($sortBy = "sort by id", $is_active = NULL): array
     {
-        $sql = "SELECT u.name, r.rating, r.comment, r.id, r.product_id, r.is_active 
+        $sql = "SELECT r.user_id, u.name, r.rating, r.comment, r.id, r.product_id, r.is_active 
                 FROM reviews r 
                 JOIN users u ON r.user_id = u.id";
+        if ($is_active == "reviews only active") {
+            $sql .= " WHERE r.is_active = 1";
+        }
+        if ($is_active == "reviews only not active") {
+            $sql .= " WHERE r.is_active = 0";
+        }
         if ($sortBy == "sort by rating") {
             $sql .= " ORDER BY r.rating DESC";
         }
@@ -53,7 +59,7 @@ class Review extends Model
     } 
 
     // this function uapdate the value in is_active depending on the specified argument
-    public static function approvedReviews($id, $value): void
+    public static function approveReview($id, $value): void
     {
         $stmt = self::builder()->prepare("UPDATE reviews SET is_active = :value WHERE id = :id");
         $stmt->bindParam(':id', $id);
