@@ -2,40 +2,43 @@
 
 ?>
 
-    <main class="profile">
+    <main>
         <div class="wrapper">
+            <div class="profile">
             <?php if (isset($_SESSION['user'])): ?>
+            <h1>Profile</h1>
                 <p class="photo-profile">
                     <img src="<?= 'app/resources/img/users/' . $_SESSION['user']['photo'] ?>" alt="profile photo">
                 </p>
                 <p class="photo">
                 <form class="photo" action="setPhoto" method="post" enctype="multipart/form-data">
-                    <input type="file" name="photo">
-                    <button type="submit" name="save">save choosen photo</button>
+                    <label for="chooseFile" class="usersButton">Choose File</label>
+                    <input type="file" name="photo" id="chooseFile">
+                    <label for="saveButton" class="usersButton">Save choosen photo</label>
+                    <button type="submit" name="save" id="saveButton">save choosen photo</button>
 
                 </form>
                 <?php if ($_SESSION['user']['photo'] !== 'default.png'): ?>
                     <form action="deletePhoto" method="post">
-                        <button type="submit" name="delete">delete photo</button>
+                        <label class="usersButton" for="deleteButton">delete photo</label>
+                        <button type="submit" name="delete" id="deleteButton">delete photo</button>
                     </form>
                 <?php endif; ?>
 
-                <p><b>name:</b> <?= $_SESSION['user']['name'] ?></p>
-                <p><b>surname:</b> <?= $_SESSION['user']['surname'] ?></p>
-                <p><b>email:</b> <?= $_SESSION['user']['email'] ?></p>
-                <p><b>phone:</b> <?= $_SESSION['user']['phone'] ?></p>
+            <div class="profile-info">
+                <p><b>Name:</b> <?= $_SESSION['user']['name'] ?></p>
+                <p><b>Surname:</b> <?= $_SESSION['user']['surname'] ?></p>
+                <p><b>Email:</b> <?= $_SESSION['user']['email'] ?></p>
+                <p><b>Phone:</b> <?= $_SESSION['user']['phone'] ?></p>
+            </div>
                 <p>
-                <form action="edit" method="post">
-                    <input type="submit" name="edit" value="edit your data">
-                </form>
-                <p>
-                    <a class="deleteButton" href="edit">edit profile</a>
+                    <a class="usersButton" href="edit">edit profile</a>
                 </p>
                 <p class="warning"><?= $message ?? '' ?></p>
 
             <?php endif; ?>
 
-
+            </div>
         </div>
     </main>
 
