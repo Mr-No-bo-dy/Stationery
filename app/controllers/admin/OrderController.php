@@ -9,7 +9,7 @@ class OrderController extends Controller
     //display all the orders in db
     public function index()
     {
-        $orders = Order::findAll();
+        $orders = Order::findAll("id");
 
         return $this->view("admin/orders/orders", compact("orders"));
     }
