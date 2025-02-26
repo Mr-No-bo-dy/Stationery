@@ -67,6 +67,7 @@ nav ul {
 }
 
 .productBlock{
+    width: 100%;
     margin: 5rem 0 0 0;
     border: 3px solid #000;
     border-collapse: collapse;
@@ -81,6 +82,8 @@ nav ul {
     margin: 0 auto;
     width: 50%;
 }
+
+
 .edit td{
     padding: 0;
 }

@@ -4,8 +4,8 @@
 
 ?>
 <main>
-    <div class="catalog">
-        <a href="productCreating" class="productCreate">Create product</a>
+    <a href="productCreating" class="productCreate">Create product</a>
+    <div class="catalog wrapper">
         <table class="productBlock">
             <tr>
                 <th>Id</th>
