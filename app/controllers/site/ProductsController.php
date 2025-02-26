@@ -10,9 +10,27 @@ class ProductsController extends Controller
     // direction to the catalog view 
     public function catalog()
     {
-        $products = Product::getProducts();
-        
-        return $this->view("site/products/catalog", compact("products"));
+        $subCategories = Product::getSubcategoryTitle();
+        $filters = [];
+
+        if(!empty($_GET['title'])){
+            $filters["title"] = $_GET['title'];
+        }
+        if(!empty($_GET['minPrice'])){
+            $filters["minPrice"] = $_GET['minPrice'];
+        }
+
+        if(!empty($_GET['maxPrice'])){
+            $filters["maxPrice"] = $_GET['maxPrice'];
+        }
+
+        if(!empty($_GET['subcategory_id'])){
+            $filters["subcategory_id"] = $_GET['subcategory_id'];
+        }
+        // $this->dd($filters, $_GET);
+        $products = Product::getProducts($filters);
+
+        return $this->view("site/products/catalog", compact("products", "subCategories"));
     }
 
      // direction to the card view 
