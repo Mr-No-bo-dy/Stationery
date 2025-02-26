@@ -9,8 +9,15 @@ class CategoryController extends Controller
     // view all categories
     public function index()
     {
+        $orderBy = $_GET['sort'] ?? 'id'; // За замовчуванням сортуємо по ID
         $categoriesModel = new Category();
-        $allCategories = $categoriesModel->getAllCategories();
+
+        if ($orderBy === 'title') {
+            $allCategories = $categoriesModel->sortByTitle();
+        } else {
+            $allCategories = $categoriesModel->sortById();
+        }
+
         return $this->view('admin/categories/categories', compact('allCategories'));
     }
 
@@ -29,7 +36,6 @@ class CategoryController extends Controller
         }
         $this->redirect('category');
     }
-
 
     // view to update category page
     public function edit()
