@@ -8,11 +8,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        if (!isset($_COOKIE["colorTheme"])) {
-
-            setcookie("colorTheme", "light", time() + 86400 * 30);
-        }
-
         return $this->view('site/index');
     }
 
@@ -23,9 +18,10 @@ class HomeController extends Controller
             if (preg_match('#^/?stationery#i', $uri)) {
                 $uri = preg_replace('#^/?[^/]+?/#', '', $_POST["uri"]);
             }
-            setcookie("colorTheme",  $_COOKIE['colorTheme'] == 'light' ? 'dark' : 'light' , time() + 86400 * 30);
 
-            return $this->redirect($uri);
+            setcookie("colorTheme", !isset($_COOKIE['colorTheme']) || $_COOKIE['colorTheme'] == 'light' ? 'dark' : 'light' , time() + 86400 * 30);
+
+            return $this->redirect($uri ? $uri : 'home');
         }
         return $this->redirect('home');
     }
