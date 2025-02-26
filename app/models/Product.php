@@ -17,9 +17,34 @@ class Product extends Model
     ];
 
     // obtaining products data
-    public static function getProducts(): array
+    public static function getProducts($filters = []): array
     {
-        $stm = self::builder()->prepare("SELECT * FROM `products`");
+        $sql = "SELECT * FROM `products` WHERE 1";
+        if (isset($filters["title"])) {
+            $sql .= " AND title like :title";
+        }
+        if (isset($filters["minPrice"])) {
+            $sql .= " AND price >= :minPrice";
+        }
+        if (isset($filters["maxPrice"])) {
+            $sql .= " AND price <= :maxPrice";
+        }
+        if (isset($filters["subcategory_id"])) {
+            $sql .= " AND subcategory_id = :subcategory_id";
+        }
+        $stm = self::builder()->prepare($sql);
+        if (isset($filters["title"])) {
+            $stm->bindValue(":title", "%" . $filters["title"] . "%");
+        }
+        if (isset($filters["minPrice"])) {
+            $stm->bindValue(":minPrice",  $filters["minPrice"]);
+        }
+        if (isset($filters["maxPrice"])) {
+            $stm->bindValue(":maxPrice", $filters["maxPrice"]);
+        }
+        if (isset($filters["subcategory_id"])) {
+            $stm->bindValue(":subcategory_id", $filters["subcategory_id"]);
+        }
         $stm->execute();
         return $stm->fetchAll();
     }
