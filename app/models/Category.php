@@ -37,6 +37,20 @@ class Category extends Model
         $stmt->execute();
     }
 
+    // return all category sort by id
+    public function sortById() {
+        $stmt = self::builder()->prepare("SELECT * FROM categories ORDER BY id ASC");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    // return all category sort by title
+    public function sortByTitle() {
+        $stmt = self::builder()->prepare("SELECT * FROM categories ORDER BY title ASC");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     // edit category by id
     public function updateCategory($name, $description, $id) {
         $stmt = self::builder()->prepare("UPDATE categories SET title = :name, description = :description WHERE id = :id");

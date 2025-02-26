@@ -191,6 +191,14 @@ ol {
     border: 2px solid #000;
 }
 
+.categoriesButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
 .createButton {
     display: block;
     padding: 7px 14px;
@@ -200,8 +208,32 @@ ol {
     transition: 0.3s;
     font-family: "Arial", "Times New Roman";
     font-weight: bold;
-    margin: auto;
-    margin-bottom: 30px;
+}
+
+.createButton:hover {
+    color: #fff;
+    background: #39ff00;
+}
+
+.sortButton {
+    display: block;
+    padding: 7px 14px;
+    width: fit-content;
+    border-radius: 5px;
+    border: 4px solid #3c9a25;
+    transition: 0.3s;
+    font-family: "Arial", "Times New Roman";
+    font-weight: bold;
+}
+
+.sortButton.active {
+    background: #3c9a25;
+    color: #fff;
+}
+
+.sortButton:hover {
+    background: #3c9a25;
+    color: #fff;
 }
 
 .createButton:hover {

@@ -1,7 +1,11 @@
 <?php require_once 'app/resources/views/admin/components/header.php' ?>
 
 <main>
-    <a href="createCategory" class="createButton">Create category</a>
+    <div class="categoriesButton">
+        <a href="createCategory" class="createButton">Create category</a>
+        <a href="category?sort=id" class="sortButton <?= (!isset($_GET['sort']) || $_GET['sort'] == 'id') ? 'active' : '' ?>">Sort by id</a>
+        <a href="category?sort=title" class="sortButton <?= (isset($_GET['sort']) && $_GET['sort'] == 'title') ? 'active' : '' ?>">Sort by title</a>
+    </div>
     <table class="categoriesTable">
         <tr>
             <th>id</th>

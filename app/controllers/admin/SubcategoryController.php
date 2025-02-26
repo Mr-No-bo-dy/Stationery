@@ -10,8 +10,17 @@ class SubcategoryController extends Controller
     // view all subcategories
     public function index()
     {
+        $orderBy = $_GET['sort'] ?? 'id'; // За замовчуванням сортуємо по ID
         $subcategoriesModel = new Subcategory();
-        $allSubcategories = $subcategoriesModel->getAllSubcategories();
+
+        if ($orderBy == 'id') {
+            $allSubcategories = $subcategoriesModel->sortById();
+        } else if ($orderBy == 'category') {
+            $allSubcategories = $subcategoriesModel->sortByCategory();
+        } else {
+            $allSubcategories = $subcategoriesModel->sortByTitle();
+        }
+
         return $this->view('admin/subcategories/subcategories', compact('allSubcategories'));
     }
 
