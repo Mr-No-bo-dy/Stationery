@@ -19,7 +19,7 @@ class UserController extends Controller
     public function signUp()
     {
         if (!empty($this->getPost())) {
-            $registerError = '';
+            $message = '';
             try {
                 User::register($this->getPost());
 
@@ -27,9 +27,9 @@ class UserController extends Controller
 
             } catch (Exception $e) {
 
-                $registerError = $e->getMessage();
+                $message = $e->getMessage();
 
-                return $this->view('site/user/registration', compact('registerError'));
+                return $this->view('site/user/registration', compact('message'));
             }
         }
         return $this->redirect('registration');
@@ -46,11 +46,11 @@ class UserController extends Controller
     public function signIn()
     {
         if (isset($_POST['login']) && isset($_POST['password'])) {
-            $loginError = '';
+            $message = '';
 
             try {
 
-                if (User::login($_POST['login'], $_POST['password'])) {
+                if (User::login($_POST['login'], $_POST['password']) === null) {
                     if ($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'SuperAdmin') {
 
                         return $this->redirect('admin/home');
@@ -63,9 +63,9 @@ class UserController extends Controller
 
             } catch (Exception $e) {
 
-                $loginError = $e->getMessage();
+                $message = $e->getMessage();
             }
-            return $this->view('site/user/login', compact('loginError'));
+            return $this->view('site/user/login', compact('message'));
         }
         return $this->redirect('login');
     }
@@ -93,9 +93,13 @@ class UserController extends Controller
     public function update()
     {
         if (isset($_POST['user'])) {
-            $message = User::update($_POST['user']) === null ? 'user is edited successfully' : 'something went wrong';
+            if (User::update($_POST['user']) === null) {
+                $message = 'data updated successfully';
+                return $this->view('site/user/profile', compact('message'));
+            }
+            $message = User::update($_POST['user']);
+            return $this->view('site/user/edit', compact('message'));
 
-            return $this->view('site/user/profile', compact('message'));
         }
         return $this->redirect('home');
     }

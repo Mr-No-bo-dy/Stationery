@@ -2,8 +2,8 @@
 
     <main class="login">
         <div class="wrapper">
-        <h1>Login</h1>
         <form action="signIn" method="post">
+        <h1>Login</h1>
             <p>
             <label for="email">email or phone</label>
             <input type="text" name="login" id="email">
@@ -16,10 +16,8 @@
             <label for="submit" class="button">Sign in!</label>
             <input type="submit" id="submit">
             </p>
+            <p class="warning"><?= $message ?? '' ?></p>
         </form>
-        <?php if (!empty($loginError)): ?>
-            <p class="warning"><?= $loginError ?></p>
-        <?php endif; ?>
         </div>
     </main>
 

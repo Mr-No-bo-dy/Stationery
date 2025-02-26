@@ -4,8 +4,8 @@
 
     <main class="register">
         <div class="wrapper">
-            <h1>Register</h1>
             <form action="signUp" method="post">
+                <h1>Register</h1>
                 <p>
                     <label for="name">Name</label>
                     <input type="text" name="name" id="name">
@@ -34,10 +34,8 @@
                     <label class="button" for="register">Register!</label>
                     <input type="submit" id="register">
                 </p>
+                <p class="warning"><?= $message ?? '' ?></p>
             </form>
-            <?php if (!empty($registerError)): ?>
-                <p class="warning"><?= $registerError ?></p>
-            <?php endif; ?>
         </div>
     </main>
 
