@@ -31,13 +31,13 @@ class ReviewController extends Controller
         
         // providing a value for the variable $isOnlyActive depending on $_SESSION["reviews"]["is_active"]
         if (isset($_POST["is_active"]) || isset($_SESSION["reviews"]["is_active"])) {
-            if ($_SESSION["reviews"]["is_active"] == "reviews only active") {
+            if ($_SESSION["reviews"]["is_active"] == "yes") {
                 $isOnlyActive = 1;
             }
-            if ($_SESSION["reviews"]["is_active"] == "reviews only not active") {
+            if ($_SESSION["reviews"]["is_active"] == "no") {
                 $isOnlyActive = 0;
             }
-            if ($_SESSION["reviews"]["is_active"] == "all reviews") {
+            if ($_SESSION["reviews"]["is_active"] == "all") {
                 unset($_SESSION["reviews"]["is_active"]);
             }
         }

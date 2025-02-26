@@ -219,6 +219,12 @@ ol {
     border: 2px solid #000;
 }
 
+.reviews_inputs-flex {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+}
+
 .categoriesButton {
     display: flex;
     justify-content: center;

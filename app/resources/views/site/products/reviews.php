@@ -12,7 +12,7 @@
             </thead>
             <tbody>
                 <?php foreach ($allReviews as $review) { ?>
-                    <?php if ($review["product_id"] == $_GET["id"]) { ?>
+                    <?php if ($review["product_id"] == $_GET["id"] && $review["is_active"] == 1) { ?>
                         <tr>
                             <td><?= $review['name'] ?></td>
                             <td><?= $review['rating'] ?></td>
