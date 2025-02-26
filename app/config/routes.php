@@ -4,6 +4,7 @@ $urlRoutes = [
     // URI => directory / controller / method
     '' => 'site/home/index',
     'home' => 'site/home/index',
+    'changeColorTheme' => 'site/home/changeColorTheme',
 
     'category' => 'site/category/index',
     'subcategory' => 'site/subcategory/index',
