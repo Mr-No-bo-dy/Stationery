@@ -12,23 +12,7 @@ class ProductsController extends Controller
     public function products()
     
     {
-        $filters = [];
-
-        if(!empty($_GET['title'])){
-            $filters["title"] = $_GET['title'];
-        }
-        if(!empty($_GET['minPrice'])){
-            $filters["minPrice"] = $_GET['minPrice'];
-        }
-
-        if(!empty($_GET['maxPrice'])){
-            $filters["maxPrice"] = $_GET['maxPrice'];
-        }
-
-        if(!empty($_GET['subcategory_id']) && $_GET['subcategory_id'] != 'All'){
-            $filters["subcategory_id"] = $_GET['subcategory_id'];
-        }
-        $products = Product::getProducts($filters);
+        $products = Product::getProducts();
         $subCategories = Product::getSubcategoryTitle();
         return $this->view("admin/products/products", compact("products", "subCategories"));
     }
