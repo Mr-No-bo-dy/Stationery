@@ -17,25 +17,8 @@ class Product extends Model
     ];
 
     // obtaining products data
-    public static function getProducts(): array
+    public static function getProducts($filters = []): array
     {
-        $filters = [];
-
-        if(!empty($_GET['title'])){
-            $filters["title"] = $_GET['title'];
-        }
-        if(!empty($_GET['minPrice'])){
-            $filters["minPrice"] = $_GET['minPrice'];
-        }
-
-        if(!empty($_GET['maxPrice'])){
-            $filters["maxPrice"] = $_GET['maxPrice'];
-        }
-
-        if(!empty($_GET['subcategory_id']) && $_GET['subcategory_id'] != 'All'){
-            $filters["subcategory_id"] = $_GET['subcategory_id'];
-        }
-        
         $sql = "SELECT * FROM `products` WHERE 1";
         if (isset($filters["title"])) {
             $sql .= " AND title like :title";
