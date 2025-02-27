@@ -523,15 +523,15 @@ ol {
 .login form label.button {
     cursor: pointer;
     padding: 12px 50px;
-    background-color: #c7c6c6;
-    border: 1px solid #023b00;
+    background-color: var(--background-color);
+    border: 1px solid #000;
     border-radius: 20px;
     transition: .3s;
 
 }
 .register form label.button:hover,
 .login form label.button:hover {
-    background-color: #09f500;
+    background-color: var(--background-color-hover);
 
 }
 
