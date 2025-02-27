@@ -24,12 +24,11 @@ class ProductsController extends Controller
             $filters["maxPrice"] = $_GET['maxPrice'];
         }
 
-        if(!empty($_GET['subcategory_id'])){
+        if(!empty($_GET['subcategory_id']) && $_GET['subcategory_id'] != 'All'){
             $filters["subcategory_id"] = $_GET['subcategory_id'];
         }
-        // $this->dd($filters, $_GET);
+       
         $products = Product::getProducts($filters);
-
         return $this->view("site/products/catalog", compact("products", "subCategories"));
     }
 

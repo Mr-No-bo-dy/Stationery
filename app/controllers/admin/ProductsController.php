@@ -10,11 +10,27 @@ class ProductsController extends Controller
 
     //direction to the view of products page in admin
     public function products()
+    
     {
-        $products = Product::getProducts();
-        $categories = Product::getSubcategoryTitle();
+        $filters = [];
 
-        return $this->view("admin/products/products", compact("products", "categories"));
+        if(!empty($_GET['title'])){
+            $filters["title"] = $_GET['title'];
+        }
+        if(!empty($_GET['minPrice'])){
+            $filters["minPrice"] = $_GET['minPrice'];
+        }
+
+        if(!empty($_GET['maxPrice'])){
+            $filters["maxPrice"] = $_GET['maxPrice'];
+        }
+
+        if(!empty($_GET['subcategory_id']) && $_GET['subcategory_id'] != 'All'){
+            $filters["subcategory_id"] = $_GET['subcategory_id'];
+        }
+        $products = Product::getProducts($filters);
+        $subCategories = Product::getSubcategoryTitle();
+        return $this->view("admin/products/products", compact("products", "subCategories"));
     }
 
     // product creation and routing to the product card
