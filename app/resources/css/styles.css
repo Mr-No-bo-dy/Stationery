@@ -526,6 +526,7 @@ ol {
     background-color: #c7c6c6;
     border: 1px solid #023b00;
     border-radius: 20px;
+    text-align: center;
     transition: .3s;
 
 }

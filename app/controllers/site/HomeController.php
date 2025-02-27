@@ -18,6 +18,9 @@ class HomeController extends Controller
             if (preg_match('#^/?stationery#i', $uri)) {
                 $uri = preg_replace('#^/?[^/]+?/#', '', $_POST["uri"]);
             }
+            if (str_contains($uri, 'admin')){
+                $uri = preg_replace('#^/?[^/]+?/#', '', $uri);
+            }
 
             setcookie("colorTheme", !isset($_COOKIE['colorTheme']) || $_COOKIE['colorTheme'] == 'light' ? 'dark' : 'light' , time() + 86400 * 30);
 
