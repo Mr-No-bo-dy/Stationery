@@ -3,48 +3,40 @@
 <main class="reviewsMain">
     <div class="wrapper">
         <form class="adminReviewsButtonForm" action="reviews" method="post">    
-        <div class="reviews_block">
+            <div class="reviews_block">
                 <p>is_active:</p>
                 <div class="reviews_inputs-flex">
-                    <?php if (isset($_SESSION["reviews"]["is_active"])) { ?>    
-                        <?php if ($_SESSION["reviews"]["is_active"] == "yes") { ?>
-                            <input class="adminReviewsButton" type="submit" name="is_active" value="all">
-                            <input class="adminReviewsButton" type="submit" name="is_active" value="no">
-                            <input disabled style="background: #ddd;" class="adminReviewsButton" type="submit" name="is_active" value="yes">
-                        <?php } else { ?>
-                            <input class="adminReviewsButton" type="submit" name="is_active" value="all">
-                            <input disabled style="background: #ddd;" class="adminReviewsButton" type="submit" name="is_active" value="no">
-                            <input class="adminReviewsButton" type="submit" name="is_active" value="yes">
-                        <?php } ?>
-                    <?php } else { ?>
-                        <input disabled style="background: #ddd;" class="adminReviewsButton" type="submit" name="is_active" value="all">
-                        <input class="adminReviewsButton" type="submit" name="is_active" value="no">
-                        <input class="adminReviewsButton" type="submit" name="is_active" value="yes">
-                    <?php } ?>
+                    <input class="adminReviewsButton" type="submit" name="is_active" value="yes" 
+                        <?= isset($_SESSION["reviews"]["filters"]["is_active"]) && $_SESSION["reviews"]["filters"]["is_active"] == "yes" ? "disabled style='background: #ddd;'" : "" ?>>
+                    <input class="adminReviewsButton" type="submit" name="is_active" value="no" 
+                        <?= isset($_SESSION["reviews"]["filters"]["is_active"]) && $_SESSION["reviews"]["filters"]["is_active"] == "no" ? "disabled style='background: #ddd;'" : "" ?>>
+                    <input class="adminReviewsButton" type="submit" name="is_active" value="all" 
+                        <?= isset($_SESSION["reviews"]["filters"]["is_active"]) ? "" : "disabled style='background: #ddd;'" ?>>
                 </div>
             </div>
             <div class="reviews_block">
                 <p>sort by:</p>
                 <div class="reviews_inputs-flex">
-                    <?php if (isset($_SESSION["reviews"]["sortBy"])) { ?>   
-                        <?php if ($_SESSION["reviews"]["sortBy"] == "rating") { ?>
-                            <input disabled style="background: #ddd;" class="adminReviewsButton" type="submit" name="sortBy" value="rating">
-                            <input class="adminReviewsButton" type="submit" name="sortBy" value="id">
-                            <input class="adminReviewsButton" type="submit" name="sortBy" value="product id">
-                        <?php } else if ($_SESSION["reviews"]["sortBy"] == "id") { ?>
-                            <input class="adminReviewsButton" type="submit" name="sortBy" value="rating">
-                            <input disabled style="background: #ddd;" class="adminReviewsButton" type="submit" name="sortBy" value="id">
-                            <input class="adminReviewsButton" type="submit" name="sortBy" value="product id">
-                        <?php } else { ?>
-                            <input class="adminReviewsButton" type="submit" name="sortBy" value="rating">
-                            <input class="adminReviewsButton" type="submit" name="sortBy" value="id">
-                            <input disabled style="background: #ddd;" class="adminReviewsButton" type="submit" name="sortBy" value="product id">
+                    <input class="adminReviewsButton" type="submit" name="sortBy" value="rating" 
+                        <?= isset($_SESSION["reviews"]["sortBy"]) && $_SESSION["reviews"]["sortBy"] == "rating" ? "disabled style='background: #ddd;'" : "" ?>>
+                    <input class="adminReviewsButton" type="submit" name="sortBy" value="id" 
+                        <?= $_SESSION["reviews"]["sortBy"] == "id" ? "disabled style='background: #ddd;'" : "" ?>>
+                    <input class="adminReviewsButton" type="submit" name="sortBy" value="product id" 
+                        <?= isset($_SESSION["reviews"]["sortBy"]) && $_SESSION["reviews"]["sortBy"] == "product id" ? "disabled style='background: #ddd;'" : "" ?>>
+                </div>
+            </div>
+        </form>
+        <form class="adminReviewsButtonForm" action="reviews" method="post">    
+            <div class="reviews_block">
+                <p>product_id:</p>
+                <div class="reviews_inputs-flex">
+                    <select name="product_id">
+                        <option value="">all</option>
+                        <?php foreach ($allProductsWithReviews as $id => $pr) { ?>
+                            <option value="<?= $id ?>" <?= isset($_SESSION["reviews"]["filters"]["product_id"]) && $_SESSION["reviews"]["filters"]["product_id"] == $id ? "selected" : "" ?>><?= $id ?>. <?= $pr ?></option>
                         <?php } ?>
-                    <?php } else { ?>
-                        <input class="adminReviewsButton" type="submit" name="sortBy" value="rating">
-                        <input disabled style="background: #ddd;" class="adminReviewsButton" type="submit" name="sortBy" value="id">
-                        <input class="adminReviewsButton" type="submit" name="sortBy" value="product id">
-                    <?php } ?>
+                    </select>
+                    <input type="submit" value="send">
                 </div>
             </div>
         </form>
