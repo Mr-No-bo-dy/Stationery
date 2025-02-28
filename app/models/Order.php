@@ -122,32 +122,57 @@ class Order extends Model
         unset($_SESSION["cart"]);
     }
     
-    // get all orders and sorting them
-    public static function findAll($sorting)
-    {
-        $sortingOrder = strtoupper($sorting) === 'DESC' ? 'DESC' : 'ASC';
-        
-        if ($sorting == "id") {
-            $sql = "SELECT * FROM orders ORDER BY id ASC";
-        } else if ($sorting == "userId") {
-            $sql = "SELECT * FROM orders ORDER BY user_id ASC";
+    // // get all user's orders and sorting them
+    public static function findUserOrders($filters = []) {
+        $sql = "SELECT * FROM orders WHERE 1";
+
+        if (isset($filters["sort"]) && $filters["sort"] === "id") {
+            $sql .= " ORDER BY id ASC";
+            $filters = [];
+            $_GET['minPrice'] = $_GET['minPrice'] !== "" ? "" : "";
+            $_GET['maxPrice'] = $_GET['maxPrice'] !== "" ? "" : "";
+            $_GET['userid'] = $_GET['userid'] !== "" ? "" : "";
         } else {
-            $sql = "SELECT * FROM orders ORDER BY total $sortingOrder";
+            if (isset($filters["userid"])) {
+                $sql .= " AND user_id = :userid";
+            }
+            if (isset($filters["minPrice"])) {
+                $sql .= " AND total >= :minPrice";
+            }
+            if (isset($filters["maxPrice"])) {
+                $sql .= " AND total <= :maxPrice";
+            }
+            
+            $sorting = $filters["sort"] ?? "total";
+            $sortingOrder = (isset($filters["sort"]) && strtoupper($filters["sort"]) === "DESC") ? "DESC" : "ASC";
+            
+            switch ($sorting) {
+                case "id":
+                    $sql .= " ORDER BY id ASC";
+                    break;
+                case "userId":
+                    $sql .= " ORDER BY user_id ASC";
+                    break;
+                default:
+                    $sql .= " ORDER BY total $sortingOrder";
+                    break;
+            }
         }
         
-        $stmt = Order::builder()->prepare($sql);
-        $stmt->execute();
-
-        return $stmt->fetchAll();
+        $stm = self::builder()->prepare($sql);
+            
+        if (isset($filters["userid"])) {
+            $stm->bindValue(":userid", $filters["userid"]);
+        }
+        if (isset($filters["minPrice"])) {
+            $stm->bindValue(":minPrice", $filters["minPrice"]);
+        }
+        if (isset($filters["maxPrice"])) {
+            $stm->bindValue(":maxPrice", $filters["maxPrice"]);
+        }
+        $stm->execute();
+        return $stm->fetchAll();
     }
-
-    // get all user's orders
-    public static function findUserOrders($userid) {
-        $sql = "SELECT * FROM orders WHERE user_id = :userid";
-        $stmt = Order::builder()->prepare($sql);
-        $stmt->execute(['userid' => $userid]);
-
-        return $stmt->fetchAll();
-    }
+    
 
 }
