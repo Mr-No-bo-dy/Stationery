@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><?= $title ?? 'Stationery' ?></title>
     <link rel="stylesheet" href="/stationery/app/resources/css/<?= !isset($_COOKIE['colorTheme']) || $_COOKIE['colorTheme'] == 'light' ? '' : 'dark' ?>styles.css">
 </head>
 

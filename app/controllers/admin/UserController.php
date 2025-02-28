@@ -27,8 +27,6 @@ class UserController extends Controller
     {
         if ($this->getPost('delete')) {
             User::delete($this->getPost('delete'));
-//            $message = User::delete($this->getPost('delete')) ? 'user is deleted successfully' : 'something went wrong';
-//            return $this->view('adimn/user/users', compact('message'));
 
         }
         return $this->redirect('users');
@@ -57,11 +55,11 @@ class UserController extends Controller
     //try to update user data
     public function update()
     {
-      if (!empty($this->getPost())){
+        if ($this->getPost()) {
             User::edit($this->getPost());
-      }
+        }
 
-      return $this->redirect('users');
+        return $this->redirect('users');
     }
 
     //logout
