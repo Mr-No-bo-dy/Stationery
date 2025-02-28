@@ -4,6 +4,19 @@
 
 ?>
 <main>
+    <form action="" method="get">
+        <input type="text" name="title" value="<?= $_GET["title"] ?? "" ?>" placeholder="Name">
+        <input type="number" name="minPrice" value="<?= $_GET["minPrice"] ?? "" ?>" placeholder="Min price">
+        <input type="number" name="maxPrice" value="<?= $_GET["maxPrice"] ?? "" ?>" placeholder="Max price">
+        <select name="subcategory_id">
+            <option>All</option>
+            <?php foreach ($subCategories as $subCatId => $subCat) { ?>
+                <option value="<?= $subCatId ?>" <?= isset($_GET["subcategory_id"]) && $_GET["subcategory_id"] == $subCatId ? "selected" : "" ?>><?= $subCat ?></option>
+            <?php } ?>
+        </select>
+        <input type="submit" value="Filter">
+    </form>
+    <a href="products">Clear filters</a>
     <a href="productCreating" class="productCreate">Create product</a>
     <div class="catalog wrapper">
         <table class="productBlock">
@@ -25,7 +38,7 @@
                 <td><a href="../card?id=<?= $product['id'] ?>"><?= $product['title']; ?></a></td>
                 <td><?= $product['stock']; ?></td>
                 <td><?= $product['price']; ?> $</td>
-                <td><?= $categories[$product['subcategory_id']]?></td>
+                <td><?= $subCategories[$product['subcategory_id']] ?></td>
                 <td><a href="productEdit?id=<?= $product['id'] ?>" id="<?= $product['id'] ?>">Edit</a></td>
                 <td>
                     <form action="productRemove" method="post">
