@@ -10,6 +10,8 @@ class SubcategoryController extends Controller
     // view all subcategories
     public function index()
     {
+        $title = "Admin List Of Stationery Subcategory";
+
         $orderBy = $_GET['sort'] ?? 'id'; // За замовчуванням сортуємо по ID
         $subcategoriesModel = new Subcategory();
 
@@ -21,7 +23,7 @@ class SubcategoryController extends Controller
             $allSubcategories = $subcategoriesModel->sortByTitle();
         }
 
-        return $this->view('admin/subcategories/subcategories', compact('allSubcategories'));
+        return $this->view('admin/subcategories/subcategories', compact('allSubcategories', 'title'));
     }
 
     // view to create subcategory page

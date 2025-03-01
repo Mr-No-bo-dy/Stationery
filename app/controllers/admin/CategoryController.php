@@ -9,6 +9,7 @@ class CategoryController extends Controller
     // view all categories
     public function index()
     {
+        $title = "Admin List Of Stationery Categories";
         $orderBy = $_GET['sort'] ?? 'id'; // За замовчуванням сортуємо по ID
         $categoriesModel = new Category();
 
@@ -18,7 +19,7 @@ class CategoryController extends Controller
             $allCategories = $categoriesModel->sortById();
         }
 
-        return $this->view('admin/categories/categories', compact('allCategories'));
+        return $this->view('admin/categories/categories', compact('allCategories', 'title'));
     }
 
     // view to create category page
