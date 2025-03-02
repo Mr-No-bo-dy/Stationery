@@ -10,13 +10,14 @@ class CategoryController extends Controller
     public function index()
     {
         $title = "Admin List Of Stationery Categories";
-        $orderBy = $_GET['sort'] ?? 'id'; // За замовчуванням сортуємо по ID
+
+        $orderBy = $_GET['sort'] ?? 'id';
         $categoriesModel = new Category();
 
-        if ($orderBy === 'title') {
-            $allCategories = $categoriesModel->sortByTitle();
+        if ($orderBy == 'title') {
+            $allCategories = $categoriesModel->sortBy("title", $_GET['filter'] ?? "");
         } else {
-            $allCategories = $categoriesModel->sortById();
+            $allCategories = $categoriesModel->sortBy("id", $_GET['filter'] ?? "");
         }
 
         return $this->view('admin/categories/categories', compact('allCategories', 'title'));

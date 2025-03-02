@@ -44,7 +44,7 @@ class Subcategory extends Model
     }
 
     // return all subcategories sort by id
-    public function sortById() {
+    public function sortBy($col) {
         $stmt = self::builder()->prepare("
             SELECT subcategories.id, 
             subcategories.title AS subcategory_title, 
@@ -52,37 +52,7 @@ class Subcategory extends Model
             categories.title AS category_title 
             FROM subcategories 
             JOIN categories ON subcategories.category_id = categories.id 
-            ORDER BY subcategories.id ASC;
-        ");
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-
-    // return all subcategories sort by category title
-    public function sortByCategory(): array {
-        $stmt = self::builder()->prepare("
-            SELECT subcategories.id, 
-            subcategories.title AS subcategory_title, 
-            subcategories.description, 
-            categories.title AS category_title 
-            FROM subcategories 
-            JOIN categories ON subcategories.category_id = categories.id 
-            ORDER BY categories.title ASC;
-        ");
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-
-    // return all subcategories sort by subcategory title
-    public function sortByTitle() {
-        $stmt = self::builder()->prepare("
-            SELECT subcategories.id, 
-            subcategories.title AS subcategory_title, 
-            subcategories.description, 
-            categories.title AS category_title 
-            FROM subcategories 
-            JOIN categories ON subcategories.category_id = categories.id 
-            ORDER BY subcategories.title ASC;
+            ORDER BY $col ASC;
         ");
         $stmt->execute();
         return $stmt->fetchAll();

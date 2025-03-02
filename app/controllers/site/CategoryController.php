@@ -11,7 +11,7 @@ class CategoryController extends Controller
     {
         $title = "List Of Stationery Categories";
         $categoriesModel = new Category();
-        $allCategories = $categoriesModel->getAllCategories();
+        $allCategories = $categoriesModel->getAllCategories($_GET['filter'] ?? null);
         return $this->view('site/categories/categories', compact('allCategories', 'title'));
     }
 }

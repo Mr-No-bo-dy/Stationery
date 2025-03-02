@@ -14,9 +14,18 @@ class Category extends Model
     ];
 
     // return all category
-    public function getAllCategories(): array
+    public function getAllCategories($filter = null): array
     {
-        $stmt = self::builder()->prepare("SELECT * FROM categories");
+        $sql = "SELECT * FROM categories WHERE 1";
+        if (!empty($filter)) {
+            $sql .= " AND title LIKE :filterTitle OR description LIKE :filterDescription";
+        }
+        $stmt = self::builder()->prepare($sql);
+        if (!empty($filter)) {
+            $filter = "%" . $filter . "%";
+            $stmt->bindParam(':filterTitle', $filter);
+            $stmt->bindParam(':filterDescription', $filter);
+        }
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -37,16 +46,19 @@ class Category extends Model
         $stmt->execute();
     }
 
-    // return all category sort by id
-    public function sortById() {
-        $stmt = self::builder()->prepare("SELECT * FROM categories ORDER BY id ASC");
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
-
-    // return all category sort by title
-    public function sortByTitle() {
-        $stmt = self::builder()->prepare("SELECT * FROM categories ORDER BY title ASC");
+    // return all category sort by arguments
+    public function sortBy(string $col, $filter = null): array {
+        $sql = "SELECT * FROM categories WHERE 1";
+        if (!empty($filter)) {
+            $sql .= " AND title LIKE :filterTitle OR description LIKE :filterDescription";
+        }
+        $sql .= " ORDER BY $col ASC";
+        $stmt = self::builder()->prepare($sql);
+        if (!empty($filter)) {
+            $filter = "%" . $filter . "%";
+            $stmt->bindParam(":filterTitle", $filter);
+            $stmt->bindParam(":filterDescription", $filter);
+        }
         $stmt->execute();
         return $stmt->fetchAll();
     }
