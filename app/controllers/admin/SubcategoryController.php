@@ -16,11 +16,11 @@ class SubcategoryController extends Controller
         $subcategoriesModel = new Subcategory();
 
         if ($orderBy == 'id') {
-            $allSubcategories = $subcategoriesModel->sortBy("subcategories.id");
+            $allSubcategories = $subcategoriesModel->sortBy("subcategories.id", $_GET['filter'] ?? "");
         } else if ($orderBy == 'category') {
-            $allSubcategories = $subcategoriesModel->sortBy("categories.title");
+            $allSubcategories = $subcategoriesModel->sortBy("categories.title", $_GET['filter'] ?? "");
         } else {
-            $allSubcategories = $subcategoriesModel->sortBy("subcategories.title");
+            $allSubcategories = $subcategoriesModel->sortBy("subcategories.title", $_GET['filter'] ?? "");
         }
 
         return $this->view('admin/subcategories/subcategories', compact('allSubcategories', 'title'));

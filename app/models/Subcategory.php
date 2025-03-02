@@ -43,17 +43,31 @@ class Subcategory extends Model
         return $stmt->fetchAll();
     }
 
-    // return all subcategories sort by id
-    public function sortBy($col) {
-        $stmt = self::builder()->prepare("
-            SELECT subcategories.id, 
-            subcategories.title AS subcategory_title, 
-            subcategories.description, 
-            categories.title AS category_title 
-            FROM subcategories 
-            JOIN categories ON subcategories.category_id = categories.id 
-            ORDER BY $col ASC;
-        ");
+    // return all subcategories sort by column and check filter
+    public function sortBy($col, $filter = null) {
+        $sql = "
+        SELECT subcategories.id, 
+               subcategories.title AS subcategory_title, 
+               subcategories.description, 
+               categories.title AS category_title 
+        FROM subcategories 
+        JOIN categories ON subcategories.category_id = categories.id
+        WHERE 1
+    ";
+
+        if (!empty($filter)) {
+            $sql .= " AND (subcategories.title LIKE :filterTitle OR subcategories.description LIKE :filterDescription OR categories.title LIKE :filterCategory)";
+        }
+
+        $sql .= " ORDER BY $col ASC"; // Додано пробіл перед ORDER
+
+        $stmt = self::builder()->prepare($sql);
+        if (!empty($filter)) {
+            $filter = "%" . $filter . "%";
+            $stmt->bindParam(":filterTitle", $filter);
+            $stmt->bindParam(":filterDescription", $filter);
+            $stmt->bindParam(":filterCategory", $filter);
+        }
         $stmt->execute();
         return $stmt->fetchAll();
     }

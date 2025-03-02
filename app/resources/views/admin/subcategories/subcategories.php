@@ -1,13 +1,20 @@
 <?php require_once 'app/resources/views/admin/components/header.php' ?>
 
     <main>
-        <div class="categoriesButton">
-            <a href="createSubcategory" class="createButton">Create subcategory</a>
-            <a href="subcategory?sort=id" class="sortButton <?= (!isset($_GET['sort']) || $_GET['sort'] == 'id') ? 'active' : '' ?>">Sort by id</a>
-            <a href="subcategory?sort=category" class="sortButton <?= (isset($_GET['sort']) && $_GET['sort'] == 'category') ? 'active' : '' ?>">Sort by category</a>
-            <a href="subcategory?sort=title" class="sortButton <?= (isset($_GET['sort']) && $_GET['sort'] == 'title') ? 'active' : '' ?>">Sort by title</a>
-        </div>
-<!--        --><?php //$this->dd($allSubcategories); ?>
+        <form action="subcategory" method="get" class="filters">
+            <div class="categoriesButton">
+                <a href="createSubcategory" class="createButton">Create subcategory</a>
+                <input type="radio" name="sort" value="id" class="sortRadio" <?= (!isset($_GET['sort']) || $_GET['sort'] == 'id') ? 'checked' : '' ?>>
+                <input type="radio" name="sort" value="category" class="sortRadio" <?= (isset($_GET['sort']) && $_GET['sort'] == 'category') ? 'checked' : '' ?>>
+                <input type="radio" name="sort" value="title" class="sortRadio" <?= (isset($_GET['sort']) && $_GET['sort'] == 'title') ? 'checked' : '' ?>>
+
+                <button type="submit" class="sortButton <?= (!isset($_GET['sort']) || $_GET['sort'] == 'id') ? 'active' : '' ?>" data-value="id">Sort by id</button>
+                <button type="submit" class="sortButton <?= (isset($_GET['sort']) && $_GET['sort'] == 'category') ? 'active' : '' ?>" data-value="category">Sort by category</button>
+                <button type="submit" class="sortButton <?= (isset($_GET['sort']) && $_GET['sort'] == 'title') ? 'active' : '' ?>" data-value="title">Sort by title</button>
+            </div>
+            <input type="text" name="filter" placeholder="Title or description" value="<?= $_GET['filter'] ?? '' ?>">
+            <button type="submit" class="search">search</button>
+        </form>
         <table class="subcategory categoriesTable">
             <tr>
                 <th>id</th>
