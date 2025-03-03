@@ -5,7 +5,7 @@ use app\models\traits\Pagination;
 
 class ProductOrganizing 
 {
-    // Write data from GET to variables to use them in the model function
+    // Get the information you need for catalog and admin/products
     public static function organizing() 
     {
         $filters = [];
