@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers\admin;
 
 use app\models\Category;
@@ -16,15 +17,16 @@ class SubcategoryController extends Controller
         $orderBy = $_GET['sort'] ?? 'id'; // За замовчуванням сортуємо по ID
         $subcategoriesModel = new Subcategory();
 
-        if ($orderBy == 'id') {
-            $allSubcategories = $subcategoriesModel->sortBy("subcategories.id", $_GET['filter'] ?? "");
-        } else if ($orderBy == 'category') {
-            $allSubcategories = $subcategoriesModel->sortBy("categories.title", $_GET['filter'] ?? "");
-        } else {
-            $allSubcategories = $subcategoriesModel->sortBy("subcategories.title", $_GET['filter'] ?? "");
-        }
+//        if ($orderBy == 'id') {
+//            $allSubcategories = $subcategoriesModel->sortBy("subcategories.id", $_GET['filter'] ?? "");
+//        } else if ($orderBy == 'category') {
+//            $allSubcategories = $subcategoriesModel->sortBy("categories.title", $_GET['filter'] ?? "");
+//        } else {
+//            $allSubcategories = $subcategoriesModel->sortBy("subcategories.title", $_GET['filter'] ?? "");
+//        }
+        $allSubcategories = $subcategoriesModel->getSubcategories($orderBy, $_GET['filter'] ?? "");
 
-        $pagination = new Pagination(count($allSubcategories), 2);
+        $pagination = new Pagination(count($allSubcategories), 5);
         $pageNumber = $_GET['page'] ?? 1;
         $allSubcategories = $pagination->getItemsPerPage($allSubcategories, $pageNumber);
         $links = $pagination->getLinks($pageNumber);
@@ -33,14 +35,16 @@ class SubcategoryController extends Controller
     }
 
     // view to create subcategory page
-    public function create() {
+    public function create()
+    {
         $subcategoriesModel = new Subcategory();
         $allCategoriesTitle = $subcategoriesModel->getAllCategoriesTitle();
         return $this->view('admin/subcategories/createSubcategory', compact('allCategoriesTitle'));
     }
 
     // create subcategory redirect to main page
-    public function store() {
+    public function store()
+    {
         if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['categoryTitle'])) {
             $subcategoriesModel = new Subcategory();
             $subcategoriesModel->createSubcategory($_POST['categoryTitle'], $_POST['title'], $_POST['description']);
@@ -49,16 +53,18 @@ class SubcategoryController extends Controller
     }
 
     // view to update subcategory page
-    public function edit() {
+    public function edit()
+    {
         $subcategoriesModel = new Subcategory();
         $subcategory = $subcategoriesModel->getSubcategoryById($_GET['id']);
         $allCategoriesTitle = $subcategoriesModel->getAllCategoriesTitle();
         $presentCategoriesTitle = $subcategoriesModel->getPresentCategoriesTitle($_GET['id']);
-        return $this->view('admin/subcategories/updateSubcategory' , compact('subcategory', 'allCategoriesTitle', 'presentCategoriesTitle'));
+        return $this->view('admin/subcategories/updateSubcategory', compact('subcategory', 'allCategoriesTitle', 'presentCategoriesTitle'));
     }
 
     // edit category redirect to main page
-    public function update() {
+    public function update()
+    {
         if (isset($_POST['title']) && isset($_POST['description']) && isset($_POST['categoryTitle'])) {
             $subcategoriesModel = new Subcategory();
             $subcategoriesModel->updateSubcategory($_POST['title'], $_POST['description'], $_POST['subcategoryId'], $_POST['categoryTitle']);
@@ -67,7 +73,8 @@ class SubcategoryController extends Controller
     }
 
     // delete subcategory by id
-    public function delete() {
+    public function delete()
+    {
         if (isset($_GET['id'])) {
             $subcategoriesModel = new Subcategory();
             $subcategoriesModel->deleteSubcategory($_GET['id']);

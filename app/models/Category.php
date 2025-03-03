@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 use app\vendor\Model;
@@ -39,7 +40,8 @@ class Category extends Model
     }
 
     // create category
-    public function createCategory($name, $description) {
+    public function createCategory($name, $description)
+    {
         $stmt = self::builder()->prepare("INSERT INTO categories (title, description) VALUES (:name, :description)");
         $stmt->bindParam(":name", $name);
         $stmt->bindParam(":description", $description);
@@ -47,12 +49,17 @@ class Category extends Model
     }
 
     // return all category sort by arguments
-    public function sortBy(string $col, $filter = null): array {
+    public function getCategories(string $sort, $filter = null): array
+    {
         $sql = "SELECT * FROM categories WHERE 1";
         if (!empty($filter)) {
             $sql .= " AND title LIKE :filterTitle OR description LIKE :filterDescription";
         }
-        $sql .= " ORDER BY $col ASC";
+        if ("id" == $sort) {
+            $sql .= " ORDER BY id";
+        } else if ("title" == $sort) {
+            $sql .= " ORDER BY title";
+        }
         $stmt = self::builder()->prepare($sql);
         if (!empty($filter)) {
             $filter = "%" . $filter . "%";
@@ -64,7 +71,8 @@ class Category extends Model
     }
 
     // edit category by id
-    public function updateCategory($name, $description, $id) {
+    public function updateCategory($name, $description, $id)
+    {
         $stmt = self::builder()->prepare("UPDATE categories SET title = :name, description = :description WHERE id = :id");
         $stmt->bindParam(":name", $name);
         $stmt->bindParam(":description", $description);
@@ -73,7 +81,8 @@ class Category extends Model
     }
 
     // delete category in data base
-    public function deleteCategory($id) {
+    public function deleteCategory($id)
+    {
         $stmt = self::builder()->prepare("DELETE FROM categories WHERE id = :id");
         $stmt->bindParam(":id", $id);
         $stmt->execute();
