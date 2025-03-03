@@ -1,5 +1,7 @@
-<?php require_once 'app/resources/views/site/components/header.php';
-//var_dump($_POST);
+<?php
+$title = 'Registration';
+require_once 'app/resources/views/site/components/header.php';
+
 ?>
 
     <main class="register">

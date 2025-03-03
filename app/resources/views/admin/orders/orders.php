@@ -1,19 +1,18 @@
-<?php require_once 'app/resources/views/admin/components/header.php' ?>
+<?php require_once 'app/resources/views/admin/components/header.php'?>
 
 <main>
     <div class="all-reviews-list">
         <h1>Orders list</h1>
-        <form action="ordersSorting" method="get">
+        <form action="userFiltering" method="get">
             <p>Sorting by</p>
-            <br>
-            <button style="font-size: 20px; padding: 5px" type="submit" name="sort" value="id">id</button>
+            <button style="font-size: 20px; padding: 5px" type="submit" name="sort" value="id">all</button>
             <button style="font-size: 20px; padding: 5px" type="submit" name="sort" value="userId">user_id</button>
             <button style="font-size: 20px; padding: 5px" type="submit" name="sort" value="desc">price desc</button>
             <button style="font-size: 20px; padding: 5px" type="submit" name="sort" value="asc">price asc</button>
-        </form>
-        <form action="userFiltering">
-            <p>Search user's orders by ID</p>
-            <input type="text" name="userid" placeholder="user id">
+            <p>User's orders filter</p>
+            <input type="text" name="minPrice" placeholder="min total price" value="<?= $_GET['minPrice'] ?? '' ?>">
+            <input type="text" name="maxPrice" placeholder="max total price" value="<?= $_GET['maxPrice'] ?? '' ?>">
+            <input type="text" name="userid" placeholder="user id" value="<?= $_GET['userid'] ?? '' ?>">
             <button type="submit">Search</button>
         </form>
         <br>
