@@ -25,7 +25,16 @@ class OrderController extends Controller
     // displaying the checkout page
     public function checkout() {
         $title = "Checkout";
-        return $this->view('site/products/checkout', compact('title'));
+
+        $cartModel = new Order();
+        $cartItems = $cartModel->getCartItems();
+
+        $pagination = new Pagination(count($cartItems), 2);
+        $pageNumber = $_GET['page'] ?? 1;
+        $cartItems = $pagination->getItemsPerPage($cartItems, $pageNumber);
+        $links = $pagination->getLinks($pageNumber);
+
+        return $this->view('site/products/checkout', compact('cartItems', 'title', 'links'));
     }
     
     // adding products to the cart
