@@ -9,9 +9,10 @@ class OrderController extends Controller
     //display all the orders in db
     public function index()
     {
+        $title = "User's orders list";
         $orders = Order::findUserOrders();
 
-        return $this->view("admin/orders/orders", compact("orders"));
+        return $this->view("admin/orders/orders", compact("orders", "title"));
     }
 
     // displaying all user's orders by his id
