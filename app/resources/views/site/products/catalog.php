@@ -12,9 +12,9 @@
             <input type="number" name="maxPrice" value="<?= $_GET["maxPrice"] ?? "" ?>" placeholder="Max price">
             <select name="subcategory_id">
                 <option>All</option>
-                <?php foreach($subCategories as $subCatId => $subCat){ ?>
+                <?php foreach ($subCategories as $subCatId => $subCat) { ?>
                     <option value="<?= $subCatId ?>" <?= isset($_GET["subcategory_id"]) && $_GET["subcategory_id"] == $subCatId ? "selected" : "" ?>><?= $subCat ?></option>
-                <?php }?>
+                <?php } ?>
             </select>
             <input type="submit" value="Filter">
         </form>
@@ -30,6 +30,11 @@
             <?php } ?>
         </div>
     </div>
+    <ul class="categoriesButton">
+        <?php foreach ($links as $link) { ?>
+            <li><a href="?page=<?= $link['page'] ?>"><?= $link['label'] ?></a></li>
+        <?php } ?>
+    </ul>
 </main>
 
 <?php require_once 'app/resources/views/site/components/footer.php' ?>

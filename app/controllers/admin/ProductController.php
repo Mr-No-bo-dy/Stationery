@@ -4,6 +4,7 @@ namespace app\controllers\admin;
 
 use app\vendor\Controller;
 use app\models\Product;
+use app\models\traits\Pagination;
 
 class ProductController extends Controller
 {
@@ -30,7 +31,13 @@ class ProductController extends Controller
         $title = "Stationery - Products";
         $products = Product::getProducts($filters);
         $subCategories = Product::getSubcategoryTitle();
-        return $this->view("admin/products/products", compact("products", "subCategories"));
+        
+        $pagination = new Pagination(count($products), 12);
+        $pageNumber = $_GET['page'] ?? 1;
+        $products =  $pagination->getItemsPerPage($products, $pageNumber);
+        $links = $pagination->getLinks($pageNumber);
+
+        return $this->view("admin/products/products", compact("products", "subCategories", "links"));
     }
 
     // product creation and routing to the product card

@@ -49,7 +49,11 @@
             <?php } ?>
             </tr>
         </table>
-
+        <ul class="categoriesButton">
+            <?php foreach ($links as $link) { ?>
+                <li><a href="?page=<?= $link['page'] ?>"><?= $link['label'] ?></a></li>
+            <?php } ?>
+        </ul>
     </div>
 </main>
 
