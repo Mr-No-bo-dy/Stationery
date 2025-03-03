@@ -1,5 +1,4 @@
 <?php
-$title = 'Profile';
 require_once 'app/resources/views/site/components/header.php';
 
 ?>

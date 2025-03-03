@@ -10,15 +10,16 @@ class UserController extends Controller
     //open admin panel
     public function index()
     {
-        return $this->view('admin/index');
+        $title = 'Admin Panel';
+        return $this->view('admin/index', compact('title'));
     }
 
     //open users page
     public function getAll()
     {
         $users = $this->getGet('role') ? User::getAll($this->getGet('role')) : User::getAll();
-
-        return $this->view('admin/user/users', compact('users'));
+        $title = 'Users';
+        return $this->view('admin/user/users', compact('users', 'title'));
     }
 
 
@@ -27,7 +28,6 @@ class UserController extends Controller
     {
         if ($this->getPost('delete')) {
             User::delete($this->getPost('delete'));
-
         }
         return $this->redirect('users');
     }
@@ -39,13 +39,15 @@ class UserController extends Controller
         if ($this->getGet('id')) {
 
             $user = User::getById($this->getGet('id'));
+            $title = 'Edit Page';
 
-            return $this->view('admin/user/update', compact('user'));
+            return $this->view('admin/user/update', compact('user', 'title'));
         } else if ($this->getGet('search')) {
 
             $users = User::getBySearch($this->getGet('search'));
             if (is_array($users)) {
-                return $this->view('admin/user/users', compact('users'));
+                $title = 'Searched Users';
+                return $this->view('admin/user/users', compact('users', 'title'));
             }
         }
 

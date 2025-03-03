@@ -1,5 +1,4 @@
 <?php
-$title = 'Admin Main page';
 require_once 'app/resources/views/admin/components/header.php';
 //echo '<pre>';
 //var_dump($_SESSION);
