@@ -24,7 +24,7 @@ class User extends Model
     /** User registration
      * @throws Exception
      */
-    public static function register(array $array): void
+    public static function register(array $array): null|string
     {
         // validation
         try {
@@ -64,49 +64,52 @@ class User extends Model
 //            elseif(!preg_match("#[0-9]+#",$array['password'])) {
 //                throw new Exception('Your Password Must Contain At Least 1 Number!');
 //            }
-            try {
-                $pdo = parent::builder();
-                $sql = "SELECT * FROM users WHERE email = :email OR phone = :phone";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([
-                    ':email' => $array['email'],
-                    ':phone' => $array['phone']
-                ]);
+            $pdo = parent::builder();
+            $sql = "SELECT * FROM users WHERE email = :email OR phone = :phone";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                ':email' => $array['email'],
+                ':phone' => $array['phone']
+            ]);
 
-                if ($stmt->fetch()) {
-                    throw new Exception('User`s email or phone already exists');
-                }
-
-
-                // seting user to db
-                $sql = "INSERT INTO users (name, surname, email, phone, role, password, photo) VALUES (:name, :surname, :email, :phone, :role, :password, :photo)";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([
-                    'name' => $array['name'],
-                    'surname' => $array['surname'],
-                    'email' => $array['email'],
-                    'phone' => $array['phone'],
-                    'role' => 'user',
-                    'password' => password_hash($array['password'], PASSWORD_BCRYPT, ['cost' => 12]),
-                    'photo' => 'default.png'
-                ]);
-            } catch (Exception $e) {
-
-                throw new Exception($e->getMessage());
+            if ($stmt->fetch()) {
+                throw new Exception('User`s email or phone already exists');
             }
 
+
+            // seting user to db
+            $sql = "INSERT INTO users (name, surname, email, phone, role, password, photo) VALUES (:name, :surname, :email, :phone, :role, :password, :photo)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                'name' => $array['name'],
+                'surname' => $array['surname'],
+                'email' => $array['email'],
+                'phone' => $array['phone'],
+                'role' => 'user',
+                'password' => password_hash($array['password'], PASSWORD_BCRYPT, ['cost' => 12]),
+                'photo' => 'default.png'
+            ]);
         } catch (Exception $e) {
 
-            throw new Exception($e->getMessage());
+            return $e->getMessage();
         }
+        return null;
     }
 
     /** User login
      * @throws Exception
      */
-    public static function login(string $login, string $password)
+    public static function login(string $login, string $password): null|string
     {
         try {
+
+            if (empty($login)) {
+
+                throw new Exception('Login must be not empty');
+            } else if (empty($password)) {
+
+                throw new Exception('Password must be not empty');
+            }
 
             if (str_contains($login, '@')) {
                 $sql = "SELECT * FROM users WHERE email = :login";
@@ -118,20 +121,25 @@ class User extends Model
 
             $user = $stmt->fetch();
 
-            if ($user && password_verify($password, $user['password'])) {
-                $_SESSION['user'] = $user;
-                return null;
+            if (!$user) {
+                throw new Exception('User not found');
             }
-            throw new Exception('User not found');
+            if (!password_verify($password, $user['password'])) {
 
-        } catch (PDOException $e) {
-            return 'Error: ' . $e->getMessage();
+                throw new Exception('Password is incorrect');
+            }
+
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
+
+        $_SESSION['user'] = $user;
+        return null;
     }
 
 
     //user self update data
-    public static function update(array $array)
+    public static function update(array $array): null|string
     {
         try {
             if (strlen($array['name']) < 2) {
@@ -192,14 +200,14 @@ class User extends Model
             $stmt->execute(['id' => $array['id']]);
             $_SESSION['user'] = $stmt->fetch();
 
-            return null;
         } catch (Exception $e) {
             return 'Error updating user: ' . $e->getMessage();
         }
+        return null;
     }
 
     //password change
-    public static function passwordChange($oldPassword, $repeatPassword, $newPassword)
+    public static function passwordChange($oldPassword, $repeatPassword, $newPassword): null|string
     {
         try {
             if ($oldPassword != $repeatPassword) {
@@ -301,7 +309,7 @@ class User extends Model
         return null;
     }
 
-    public static function deleteProfilePhoto()
+    public static function deleteProfilePhoto(): string
     {
         $sql = "UPDATE users SET photo = 'default.png' WHERE id = :id";
         $stmt = self::builder()->prepare($sql);
@@ -309,10 +317,15 @@ class User extends Model
             'id' => $_SESSION['user']['id']
         ]);
 
-        // Update session photo
-        $_SESSION['user']['photo'] = 'default.png';
+        if ($stmt){
+            unlink("app/resources/img/users/" . $_SESSION['user']['photo']);
 
-        return 'photo deleted successfully';
+            // Update session photo
+            $_SESSION['user']['photo'] = 'default.png';
+
+            return 'photo deleted successfully';
+        }
+        return 'Error deleting photo';
     }
 
 // admin methods
@@ -345,7 +358,6 @@ class User extends Model
                     ]);
                 }
             }
-
             return $stmt->fetchAll();
 
         } catch (PDOException $e) {
@@ -405,7 +417,7 @@ class User extends Model
 
 
     // Save edited user
-    public static function edit(array $array)
+    public static function edit(array $array): null|string
     {
         try {
             $pdo = parent::builder();
@@ -421,31 +433,29 @@ class User extends Model
             if ($stmt->fetch()) {
                 throw new Exception('Email or phone number is already registered');
             }
-
+            // seting user to db
+            $sql = "UPDATE users SET name = :name, surname = :surname, email = :email, phone = :phone, role = :role WHERE id = :id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                'name' => $array['name'],
+                'surname' => $array['surname'],
+                'email' => $array['email'],
+                'phone' => $array['phone'],
+                'role' => $array['role'],
+                'id' => $array['id']
+            ]);
 
         } catch (Exception $e) {
 
             return $e->getMessage();
         }
 
-        // seting user to db
-        $sql = "UPDATE users SET name = :name, surname = :surname, email = :email, phone = :phone, role = :role WHERE id = :id";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            'name' => $array['name'],
-            'surname' => $array['surname'],
-            'email' => $array['email'],
-            'phone' => $array['phone'],
-            'role' => $array['role'],
-            'id' => $array['id']
-        ]);
         return null;
-
     }
 
 
     // Delete user
-    public static function delete($id): bool
+    public static function delete($id): null|string
     {
         try {
             $sql = "DELETE FROM users WHERE id = :id";
@@ -453,10 +463,13 @@ class User extends Model
             $stmt->execute([
                 'id' => $id
             ]);
-        } catch (PDOException $e) {
-            return false;
+            if (!$stmt->rowCount()) {
+                throw new Exception('User not found');
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
         }
-        return true;
+        return null;
     }
 
 }

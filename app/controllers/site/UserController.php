@@ -12,69 +12,59 @@ class UserController extends Controller
 //open registration page
     public function registration()
     {
-        return $this->view('site/user/registration');
+        $title = 'Registration Page';
+        return $this->view('site/user/registration', compact('title'));
     }
 
     //try to register
     public function signUp()
     {
         if (!empty($this->getPost())) {
-            $message = '';
-            try {
-                User::register($this->getPost());
+            $message = User::register($this->getPost());
 
+            if (is_null($message)) {
+                $title = 'Login Page';
                 return $this->view('site/user/login');
-
-            } catch (Exception $e) {
-
-                $message = $e->getMessage();
-
-                return $this->view('site/user/registration', compact('message'));
             }
         }
-        return $this->redirect('registration');
+        $title = 'Registration Page';
+        return $this->view('site/user/registration', !empty($message) ? compact('message', 'title') : ['title']);
+
     }
-
-
     //open login page
     public function login()
     {
-        return $this->view('site/user/login');
+        $title = 'Login Page';
+        return $this->view('site/user/login', compact('title'));
     }
 
     //try to sign in
     public function signIn()
     {
-        if (isset($_POST['login']) && isset($_POST['password'])) {
-            $message = '';
+        if (!empty($this->getPost())) {
+            $message = User::login($_POST['login'], $_POST['password']);
 
-            try {
+            if (is_null($message)) {
+                if ($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'SuperAdmin') {
 
-                if (User::login($_POST['login'], $_POST['password']) === null) {
-                    if ($_SESSION['user']['role'] == 'admin' || $_SESSION['user']['role'] == 'SuperAdmin') {
+                    return $this->redirect('admin/home');
 
-                        return $this->redirect('admin/home');
+                } else if ($_SESSION['user']['role'] === 'user') {
 
-                    } else if ($_SESSION['user']['role'] === 'user') {
-
-                        return $this->redirect('home');
-                    }
+                    return $this->redirect('home');
                 }
-
-            } catch (Exception $e) {
-
-                $message = $e->getMessage();
             }
-            return $this->view('site/user/login', compact('message'));
         }
-        return $this->redirect('login');
+        $title = 'Login Page';
+        return $this->view('site/user/login', !empty($message) ? compact('message',  'title') : compact('title'));
     }
 
     //open profile page
     public function profile()
     {
         if (isset($_SESSION['user'])) {
-            return $this->view('site/user/profile');
+            $title = 'Profile Page';
+            return $this->view('site/user/profile', compact('title'));
         }
         return $this->redirect('home');
     }
@@ -84,7 +74,8 @@ class UserController extends Controller
     public function edit()
     {
         if (isset($_SESSION['user'])) {
-            return $this->view('site/user/edit');
+            $title = 'Edit Page';
+            return $this->view('site/user/edit', compact('title'));
         }
         return $this->redirect('home');
     }
@@ -92,14 +83,14 @@ class UserController extends Controller
     //try to update data
     public function update()
     {
-        if (isset($_POST['user'])) {
-            if (User::update($_POST['user']) === null) {
-                $message = 'data updated successfully';
-                return $this->view('site/user/profile', compact('message'));
+        if ($this->getPost('user')) {
+            $message = User::update($this->getPost('user'));
+            if (is_null($message)) {
+                $title = 'Profile Page';
+                return $this->view('site/user/profile', compact('message', 'title'));
             }
-            $message = User::update($_POST['user']);
-            return $this->view('site/user/edit', compact('message'));
-
+            $title = 'Edit Page';
+            return $this->view('site/user/edit', compact('message', 'title'));
         }
         return $this->redirect('home');
     }
@@ -108,7 +99,8 @@ class UserController extends Controller
     public function passwordChange()
     {
         if (isset($_SESSION['user'])) {
-            return $this->view('site/user/passwordChange');
+            $title = 'Change password page';
+            return $this->view('site/user/passwordChange', compact('title'));
         }
         return $this->redirect('home');
     }
@@ -116,17 +108,18 @@ class UserController extends Controller
     //try to change password
     public function passwordUpdate()
     {
-        if (isset($_SESSION['user']) && isset($_POST['changePassword'])) {
+        if (isset($_POST['changePassword'])) {
 
-            if (is_null(User::passwordChange($_POST['oldPassword'], $_POST['repeatPassword'], $_POST['newPassword']))) {
+            $message = User::passwordChange($_POST['oldPassword'], $_POST['repeatPassword'], $_POST['newPassword']);
+
+            if (is_null($message)) {
                 $message = 'password changed successfully';
-                return $this->view('site/user/profile', compact('message'));
-
-            } else {
-                $message = User::passwordChange($_POST['oldPassword'], $_POST['repeatPassword'], $_POST['newPassword']);
+                $title = 'Profile Page';
+                return $this->view('site/user/profile', compact('message', 'title'));
 
             }
-            return $this->view('site/user/passwordChange', compact('message'));
+            $title = 'Change password page';
+            return $this->view('site/user/passwordChange', compact('message', 'title'));
         }
         return $this->redirect('home');
 
@@ -137,7 +130,8 @@ class UserController extends Controller
     {
         if (isset($_SESSION['user']) && isset($_FILES['photo'])) {
             $message = User::setProfilePhoto($_FILES['photo']);
-            return $this->view('site/user/profile', compact('message'));
+            $title = 'Profile Page';
+            return $this->view('site/user/profile', compact('message', 'title'));
         }
         return $this->redirect('home');
     }
@@ -147,7 +141,8 @@ class UserController extends Controller
     {
         if (isset($_SESSION['user'])) {
             $message = User::deleteProfilePhoto();
-            return $this->view('site/user/profile', compact('message'));
+            $title = 'Profile Page';
+            return $this->view('site/user/profile', compact('message', 'title'));
         }
         return $this->redirect('profile');
     }

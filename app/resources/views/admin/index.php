@@ -1,4 +1,5 @@
-<?php require_once 'app/resources/views/admin/components/header.php';
+<?php
+require_once 'app/resources/views/admin/components/header.php';
 //echo '<pre>';
 //var_dump($_SESSION);
 ?>
