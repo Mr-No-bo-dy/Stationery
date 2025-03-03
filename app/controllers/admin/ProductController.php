@@ -4,47 +4,27 @@ namespace app\controllers\admin;
 
 use app\vendor\Controller;
 use app\models\Product;
-use app\models\traits\Pagination;
+use app\services\ProductOrganizing;
 
 class ProductController extends Controller
 {
 
-    //direction to the view of products page in admin
+    // direction to the view of products page in admin
     public function products()
     
     { 
-        $filters = [];
-        if(!empty($_GET['title'])){
-            $filters["title"] = $_GET['title'];
-        }
-        if(!empty($_GET['minPrice'])){
-            $filters["minPrice"] = $_GET['minPrice'];
-        }
-
-        if(!empty($_GET['maxPrice'])){
-            $filters["maxPrice"] = $_GET['maxPrice'];
-        }
-
-        if(!empty($_GET['subcategory_id']) && $_GET['subcategory_id'] != 'All'){
-            $filters["subcategory_id"] = $_GET['subcategory_id'];
-        }
-
         $title = "Stationery - Products";
+        $defaultSort = "id";
 
-        $sortBy = "id";
-        if(isset($_GET["sort"]) && $_GET["sort"] != "id") {
-            $sortBy = $_GET["sort"];
-        }
-        
-        $products = Product::getProducts($filters, $sortBy);
-        $subCategories = Product::getSubcategoryTitle();
-        
-        $pagination = new Pagination(count($products), 12);
-        $pageNumber = $_GET['page'] ?? 1;
-        $products =  $pagination->getItemsPerPage($products, $pageNumber);
-        $links = $pagination->getLinks($pageNumber);
+        $params = ProductOrganizing::organizing();
+        $filters = $params["filters"];
+        $sortBy = $params["sortBy"];
+        $products = $params["products"];
+        $subCategories = $params["subCategories"];
+        $links = $params["links"];
+        $pageNumber = $params["pageNumber"];
 
-        return $this->view("admin/products/products", compact("products", "subCategories", "links"));
+        return $this->view("admin/products/products", compact("products", "subCategories", "links", "defaultSort"));
     }
 
     // product creation and routing to the product card

@@ -5,7 +5,7 @@
     /* background-color: #999; */
 }
 
-.productCatalogBlock{
+.productCatalogBlock {
     display: flex;
     margin: 20px;
     flex-wrap: wrap;
@@ -36,15 +36,15 @@ nav ul {
 }
 
 nav ul:first-child,
-nav ul:last-child{
+nav ul:last-child {
     width: 20%;
 }
 
-nav ul:first-child{
+nav ul:first-child {
     justify-content: flex-start;
 }
 
-nav ul:last-child{
+nav ul:last-child {
     justify-content: flex-end;
 }
 
@@ -70,7 +70,7 @@ nav ul:last-child{
 }
 
 .users td:nth-child(1),
-.users th:nth-child(1){
+.users th:nth-child(1) {
     width: 3%;
 }
 
@@ -82,28 +82,30 @@ nav ul:last-child{
     width: 5%;
 }
 
-.productBlock{
+.productBlock {
     width: 100%;
     margin: 5rem 0 0 0;
     border: 3px solid #000;
     border-collapse: collapse;
 }
 
-.productBlock tr, td {
+.productBlock tr,
+td {
     border: 3px solid grey;
 }
 
 
-.edit table{
+.edit table {
     margin: 0 auto;
     width: 50%;
 }
 
 
-.edit td{
+.edit td {
     padding: 0;
 }
-.edit td input{
+
+.edit td input {
     width: 100%;
     height: 100%;
 }
@@ -148,16 +150,19 @@ ol {
     color: #000;
     text-decoration: none;
 }
+
 .profile_photo img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
 }
+
 .profile_photo img:hover {
     cursor: pointer;
     opacity: .5;
 }
-.usersButton{
+
+.usersButton {
     display: inline-block;
     padding: 5px 10px;
     background: #ffffff;
@@ -165,7 +170,19 @@ ol {
     border-radius: 5px;
     transition: .3s;
 }
-.usersButton-delete{
+
+.pageSelect {
+    display: flex;
+    justify-content: center;
+}
+
+.pageSelect li {
+
+    list-style: none;
+    padding: 10px;
+}
+
+.usersButton-delete {
     display: inline-block;
     padding: 5px 10px;
     color: red;
@@ -174,15 +191,18 @@ ol {
     border-radius: 5px;
     transition: .3s;
 }
+
 .usersButton-delete+button,
 .usersButton+button,
-.usersButton+input[type=file]{
+.usersButton+input[type=file] {
     display: none;
 }
-.usersButton:hover{
+
+.usersButton:hover {
     background: #dad9d9;
 }
-.usersButton-delete:hover{
+
+.usersButton-delete:hover {
     background: red;
     color: black;
     border-color: black;
@@ -192,7 +212,7 @@ ol {
     color: #00f;
 }
 
-.adminProductImg{
+.adminProductImg {
     height: 60px;
 }
 
@@ -203,7 +223,7 @@ ol {
     padding: 5px;
 }
 
-.productCard .reviews{
+.productCard .reviews {
     background: #eee;
     border: 1px solid #5b5b5b;
 }
@@ -393,6 +413,7 @@ ol {
 .warning {
     color: red;
 }
+
 .categoryForm {
     display: flex;
     flex-direction: column;
@@ -513,11 +534,13 @@ ol {
     margin: 0 auto;
     width: 80%;
 }
+
 .login h1,
 .register h1,
-.profile h1{
+.profile h1 {
     text-align: center;
 }
+
 .profile,
 .profile-edit,
 .profile-passwordChange,
@@ -533,11 +556,13 @@ ol {
     border-radius: 50px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
-.profile-info{
+
+.profile-info {
     margin: 0 auto;
     width: 70%;
 }
-.profile-info p{
+
+.profile-info p {
     margin-bottom: 10px;
     padding-bottom: 10px;
     border-bottom: #c7c6c6 solid 1px;
@@ -551,14 +576,17 @@ ol {
     padding: 5px 10px;
     margin-bottom: 10px;
 }
+
 .register form p:last-child,
 .login form p:last-child {
     text-align: center;
 }
+
 .register form input[type="submit"],
 .login form input[type="submit"] {
-   display: none;
+    display: none;
 }
+
 .register form label.button,
 .login form label.button {
     cursor: pointer;
@@ -570,6 +598,7 @@ ol {
     transition: .3s;
 
 }
+
 .register form label.button:hover,
 .login form label.button:hover {
     background-color: #09f500;
@@ -584,7 +613,8 @@ ol {
 .profile img {
     border-radius: 50%;
 }
-.profile form  {
+
+.profile form {
     text-align: center;
 }
 
@@ -609,7 +639,7 @@ ol {
     border-radius: 5px;
 }
 
-.productCreate{
+.productCreate {
     background: grey;
     width: 100%;
     padding: 10px;
@@ -617,9 +647,9 @@ ol {
     color: #fff;
     align-items: center;
     justify-content: center;
- }
- 
- 
+}
+
+
 .cardForm {
     display: flex;
     flex-direction: column;
