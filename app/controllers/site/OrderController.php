@@ -8,12 +8,14 @@ class OrderController extends Controller
 {
     // displaying the shopping cart page
     public function cart() {
-        return $this->view('site/products/cart');
+        $title = "Cart";
+        return $this->view('site/products/cart', compact('title'));
     }
 
     // displaying the checkout page
     public function checkout() {
-        return $this->view('site/products/checkout');
+        $title = "Checkout";
+        return $this->view('site/products/checkout', compact('title'));
     }
     
     // adding products to the cart
