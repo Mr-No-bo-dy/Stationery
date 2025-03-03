@@ -21,6 +21,22 @@ class Order extends Model
         return $stmt->fetch();
     }
 
+    public function getCartItems () {
+        $cart = $_SESSION["cart"] ?? [];
+        $cartItems = [];
+        foreach ($cart as $item) {
+            $product = Order::getProductById($item["id"]);
+            $cartItems[] = [
+                'id' => $item["id"],
+                'title' => $product["title"],
+                'price' => $product["price"],
+                'quantity' => $item["quantity"],
+                'image' => $product["image"],
+            ];
+        }
+        return $cartItems;
+    }
+
     // adding products to the cart / increasing the quantity of goods in the cart
     public static function addToCart($productId)
     {

@@ -24,7 +24,7 @@
                 <th>Count</th>
                 <th>Total</th>
             </tr>
-            <?php foreach($orders as $order) { ?>
+            <?php foreach($ordersItems as $order) { ?>
                 <tr>
                     <td><?= $order['id'] ?></td>
                     <td><?= $order['product_id'] ?></td>
@@ -34,6 +34,22 @@
                 </tr>
             <?php } ?>
         </table>
+        <ul class="categoriesButton">
+            <?php foreach ($links as $link) { ?>
+                <li>
+                    <a href="?page=<?= $link['page'] ?>
+                        <?php
+                        foreach ($filters as $key => $value) {
+                            echo "&$key=" . urlencode($value);
+                        }
+                        ?>">
+                        <?= $link['label'] ?>
+                    </a>
+                </li>
+            <?php } ?>
+        </ul>
+
+
     </div>
 </main>
 

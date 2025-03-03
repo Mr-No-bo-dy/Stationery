@@ -12,7 +12,7 @@
                     <th>Кількість</th>
                     <th>Зображення</th>
                 </tr>
-                <?php foreach (isset($_SESSION["cart"]) ? $_SESSION["cart"] : [] as $product) { ?>
+                <?php foreach ($cartItems as $product) { ?>
                     <tr>
                         <td><?= $product["id"] ?></td>
                         <td><?= $product["title"] ?></td>
@@ -22,6 +22,12 @@
                     </tr>
                 <?php } ?>
             </table>
+
+            <ul class="categoriesButton">
+                <?php foreach ($links as $link) { ?>
+                    <li><a href="?page=<?= $link['page'] ?>"><?= $link['label'] ?></a></li>
+                <?php } ?>
+            </ul>
         <?php } ?>
     <form action="makeOrder" method="POST">
         <input type="text" name="name" placeholder="Ім'я"><br>

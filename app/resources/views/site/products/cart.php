@@ -12,7 +12,7 @@
                 <th>Зображення</th>
                 <th colspan="3">Дії</th>
             </tr>
-            <?php foreach (isset($_SESSION["cart"]) ? $_SESSION["cart"] : [] as $product) { ?>
+            <?php foreach ($cartItems as $product) { ?>
                 <tr>
                     <td><?= $product["id"] ?></td>
                     <td><?= $product["title"] ?></td>
@@ -40,6 +40,11 @@
                 </tr>
             <?php } ?>
         </table>
+        <ul class="categoriesButton">
+            <?php foreach ($links as $link) { ?>
+                <li><a href="?page=<?= $link['page'] ?>"><?= $link['label'] ?></a></li>
+            <?php } ?>
+        </ul>
         <br>
         <a href="checkout">checkout</a>
     <?php } ?>

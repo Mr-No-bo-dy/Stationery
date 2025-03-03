@@ -3,6 +3,7 @@ namespace app\controllers\admin;
 
 use app\vendor\Controller;
 use app\models\Order;
+use app\models\traits\Pagination;
 
 class OrderController extends Controller
 {
@@ -10,9 +11,15 @@ class OrderController extends Controller
     public function index()
     {
         $title = "User's orders list";
-        $orders = Order::findUserOrders();
+        $cartModel = new Order();
+        $ordersItems = Order::findUserOrders();
 
-        return $this->view("admin/orders/orders", compact("orders", "title"));
+        $pagination = new Pagination(count($ordersItems), 2);
+        $pageNumber = $_GET['page'] ?? 1;
+        $ordersItems = $pagination->getItemsPerPage($ordersItems, $pageNumber);
+        $links = $pagination->getLinks($pageNumber);
+
+        return $this->view("admin/orders/orders", compact("ordersItems", "title", "links", "filters"));
     }
 
     // displaying all user's orders by his id
@@ -20,27 +27,34 @@ class OrderController extends Controller
     {   
         $filters = [];
 
-        if(!empty($_GET['userid'])){
+        if (!empty($_GET['userid'])) {
             $filters["userid"] = $_GET['userid'];
         }
-        if(!empty($_GET['minPrice'])){
+        if (!empty($_GET['minPrice'])) {
             $filters["minPrice"] = $_GET['minPrice'];
         }
-
-        if(!empty($_GET['maxPrice'])){
+        if (!empty($_GET['maxPrice'])) {
             $filters["maxPrice"] = $_GET['maxPrice'];
         }
-
-        if(!empty($_GET['subcategory_id'])){
+        if (!empty($_GET['subcategory_id'])) {
             $filters["subcategory_id"] = $_GET['subcategory_id'];
         }
-
         if (isset($_GET["sort"])) {
             $filters["sort"] = $_GET["sort"];
         }
 
-        $orders = Order::findUserOrders($filters);
+        $ordersItems = Order::findUserOrders($filters);
 
-        return $this->view("admin/orders/orders", compact("orders"));
+        if (!$ordersItems) {
+            $ordersItems = [];
+        }
+
+        $pagination = new Pagination(count($ordersItems), 2);
+        $pageNumber = $_GET['page'] ?? 1;
+        $ordersItems = $pagination->getItemsPerPage($ordersItems, $pageNumber);
+        $links = $pagination->getLinks($pageNumber);
+
+        return $this->view("admin/orders/orders", compact("ordersItems", "links", "filters"));
     }
+
 }
