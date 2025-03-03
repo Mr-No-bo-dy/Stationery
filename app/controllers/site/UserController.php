@@ -74,7 +74,7 @@ class UserController extends Controller
     public function edit()
     {
         if (isset($_SESSION['user'])) {
-            $title = 'Edit Page';
+            $title = 'Edit Profile Page';
             return $this->view('site/user/edit', compact('title'));
         }
         return $this->redirect('home');
