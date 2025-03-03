@@ -1,4 +1,6 @@
-<?php require_once 'app/resources/views/site/components/header.php';
+<?php
+$title = 'Change password';
+require_once 'app/resources/views/site/components/header.php';
 ?>
 
     <main class="wrapper">
