@@ -5,7 +5,7 @@ namespace app\controllers\site;
 use app\vendor\Controller;
 use app\models\Product;
 
-class ProductsController extends Controller
+class ProductController extends Controller
 {
     // direction to the catalog view 
     public function catalog()
@@ -28,7 +28,8 @@ class ProductsController extends Controller
             $filters["subcategory_id"] = $_GET['subcategory_id'];
         }
         $products = Product::getProducts($filters);
-        $title = "Stationary - catalog";
+        $title = "Stationery - catalog";
+        
 
         return $this->view("site/products/catalog", compact("products", "subCategories"));
     }
@@ -37,7 +38,7 @@ class ProductsController extends Controller
     public function card()  
     {
         $product = Product::getProduct($this->getGet('id'));
-        $title = "Stationary -" . $product["title"];
+        $title = "Stationery -" . $product["title"];
 
         return $this->view("site/products/productCard", compact("product"));
     }

@@ -5,7 +5,7 @@ namespace app\controllers\admin;
 use app\vendor\Controller;
 use app\models\Product;
 
-class ProductsController extends Controller
+class ProductController extends Controller
 {
 
     //direction to the view of products page in admin
@@ -27,7 +27,7 @@ class ProductsController extends Controller
         if(!empty($_GET['subcategory_id']) && $_GET['subcategory_id'] != 'All'){
             $filters["subcategory_id"] = $_GET['subcategory_id'];
         }
-        $title = "Stationary - Products";
+        $title = "Stationery - Products";
         $products = Product::getProducts($filters);
         $subCategories = Product::getSubcategoryTitle();
         return $this->view("admin/products/products", compact("products", "subCategories"));
@@ -38,7 +38,7 @@ class ProductsController extends Controller
     {
         $product = Product::getProduct($this->getGet('id'));
         $allSubcategories = Product::getSubcategories();
-        $title = "Stationary - edit " . $product["title"];
+        $title = "Stationery - edit " . $product["title"];
         return $this->view("admin/products/edit", compact("product", "allSubcategories", "title"));
     }
 
@@ -54,7 +54,7 @@ class ProductsController extends Controller
     public function productCreating()
     {
         $allSubcategories = Product::getSubcategories();
-        $title = "Stationary - product creation ";
+        $title = "Stationery - product creation ";
 
         return $this->view("admin/products/create", compact("allSubcategories"));
     }
