@@ -28,7 +28,13 @@ class ProductController extends Controller
         if (!empty($_GET['subcategory_id']) && $_GET['subcategory_id'] != 'All') {
             $filters["subcategory_id"] = $_GET['subcategory_id'];
         }
-        $products = Product::getProducts($filters);
+
+        $sortBy = "Default sort";
+        if (isset($_GET["sort"]) && $_GET["sort"] != "Default sort") {
+            $sortBy = $_GET["sort"];
+        }
+
+        $products = Product::getProducts($filters, $sortBy);
         $title = "Stationery - catalog";
 
         $pagination = new Pagination(count($products), 20);
