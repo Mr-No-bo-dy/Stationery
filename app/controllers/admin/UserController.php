@@ -2,6 +2,7 @@
 
 namespace app\controllers\admin;
 
+use app\models\traits\Pagination;
 use App\models\User;
 use app\vendor\Controller;
 
@@ -22,12 +23,17 @@ class UserController extends Controller
 
         if ($this->getGet('search')) {
 
-            $users = User::getBySearch($this->getGet('search'));
+            $users = User::getAll($this->getGet('role'), $this->getGet('search'));
             if (is_array($users)) {
                 $title = 'Searched Users';
             }
         }
-        return $this->view('admin/user/users', compact('users', 'title'));
+        $pagination = new Pagination(count($users), 5);
+        $pageNumber = $_GET['page'] ?? 1;
+        $usersPerPage = $pagination->getItemsPerPage($users, $pageNumber);
+        $links = $pagination->getLinks($pageNumber);
+
+        return $this->view('admin/user/users', compact('usersPerPage', 'title', 'links'));
     }
 
 

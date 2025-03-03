@@ -317,7 +317,7 @@ class User extends Model
             'id' => $_SESSION['user']['id']
         ]);
 
-        if ($stmt){
+        if ($stmt) {
             unlink("app/resources/img/users/" . $_SESSION['user']['photo']);
 
             // Update session photo
@@ -333,36 +333,42 @@ class User extends Model
     /** Getting all Users
      * @throws Exception
      */
-    public static function getAll($role = null): array
+    public static function getAll($role = null, $search = null): array
     {
         try {
-            if ($_SESSION['user']['role'] == 'admin') {
-                $sql = "SELECT * FROM `users` WHERE id != :id and role = 'user';";
-                $stmt = self::builder()->prepare($sql);
-                $stmt->execute([
-                    'id' => $_SESSION['user']['id']
-                ]);
-            } else if ($_SESSION['user']['role'] == 'SuperAdmin') {
-                if (!$role) {
-                    $sql = "SELECT * FROM `users` WHERE id != :id;";
-                    $stmt = self::builder()->prepare($sql);
-                    $stmt->execute([
-                        'id' => $_SESSION['user']['id']
-                    ]);
-                } else {
-                    $sql = "SELECT * FROM `users` WHERE id != :id and role = :role;";
-                    $stmt = self::builder()->prepare($sql);
-                    $stmt->execute([
-                        'id' => $_SESSION['user']['id'],
-                        'role' => $role
-                    ]);
-                }
+            $sql = "SELECT * FROM `users` WHERE id != :id";
+            $params = [
+                'id' => $_SESSION['user']['id']
+            ];
+
+            if ($role && $role !== 'all') {
+                $sql .= " AND role = :role";
+                $params['role'] = $role;
+            } else if ($_SESSION['user']['role'] == 'admin') {
+                // Admins can only see users by default
+                $sql .= " AND role = 'user'";
             }
+
+            if ($search) {
+                $searchPattern = "%{$search}%";
+                $sql .= " AND (id LIKE :search_id OR name LIKE :search_name OR 
+                     surname LIKE :search_surname OR email LIKE :search_email OR 
+                     phone LIKE :search_phone)";
+
+                $params['search_id'] = $searchPattern;
+                $params['search_name'] = $searchPattern;
+                $params['search_surname'] = $searchPattern;
+                $params['search_email'] = $searchPattern;
+                $params['search_phone'] = $searchPattern;
+            }
+
+            // Prepare, execute and return
+            $stmt = self::builder()->prepare($sql);
+            $stmt->execute($params);
+
             return $stmt->fetchAll();
-
-        } catch (PDOException $e) {
-
-            throw new Exception($e->getMessage() . 'ERROR');
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage() . ' ERROR');
         }
     }
 
@@ -380,38 +386,6 @@ class User extends Model
         } catch (Exception $e) {
 
             throw new Exception($e->getMessage() . 'ERROR');
-        }
-    }
-
-
-    public static function getBySearch(string $search): array|false
-    {
-        try {
-            $sql = "SELECT * FROM users WHERE 
-            id LIKE ? OR 
-            name LIKE ? OR 
-            surname LIKE ? OR 
-            email LIKE ? OR 
-            phone LIKE ?";
-
-            $stmt = self::builder()->prepare($sql);
-
-            $searchPattern = "%{$search}%";
-            $stmt->execute([
-                $searchPattern,
-                $searchPattern,
-                $searchPattern,
-                $searchPattern,
-                $searchPattern
-            ]);
-
-            $results = $stmt->fetchAll();
-
-            return $results;
-
-        } catch (Exception $e) {
-            error_log("User search error: " . $e->getMessage());
-            return false;
         }
     }
 

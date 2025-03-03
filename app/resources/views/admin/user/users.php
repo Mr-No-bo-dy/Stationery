@@ -7,14 +7,20 @@ require_once 'app/resources/views/admin/components/header.php';
         <div class="wrapper">
             <?php if ($_SESSION['user']['role'] == 'SuperAdmin'): ?>
 
-                <a class="<?= !isset($_GET['role']) ? 'active' : '' ?>" href="users">All</a>
+                <a class="<?= !isset($_GET['role']) ? 'active' : '' ?>"
+                   href="users<?= isset($_GET['search']) ? '?search=' . urlencode($_GET['search']) : '' ?>">All</a>
+
                 <a class="<?= (isset($_GET['role']) && $_GET['role'] == 'user') ? 'active' : '' ?>"
-                   href="users?role=user">Users</a>
+                   href="users?role=user<?= isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : '' ?>">Users</a>
+
                 <a class="<?= (isset($_GET['role']) && $_GET['role'] == 'admin') ? 'active' : '' ?>"
-                   href="users?role=admin">Admins</a>
+                   href="users?role=admin<?= isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : '' ?>">Admins</a>
             <?php endif; ?>
 
-            <form action="users" method="get">
+            <form action="users?<?= isset($_GET['role']) ? 'role=' . urlencode($_GET['role']) : '' ?>" method="get">
+                <?php if (isset($_GET['role'])): ?>
+                    <input type="hidden" name="role" value="<?= $_GET['role'] ?? '' ?>">
+                <?php endif; ?>
                 <input type="text" name="search" value="<?= $_GET['search'] ?? '' ?>">
                 <button type="submit">search</button>
                 <a href="users">clear</a>
@@ -32,8 +38,8 @@ require_once 'app/resources/views/admin/components/header.php';
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
-                <?php if (!empty($users)): ?>
-                    <?php foreach ($users as $user): ?>
+                <?php if (!empty($usersPerPage)): ?>
+                    <?php foreach ($usersPerPage as $user): ?>
 
                         <tr>
                             <td class="<?php if (isset($_GET['search']) && str_contains(strtolower($user['id']), strtolower($_GET['search']))) {
@@ -59,7 +65,8 @@ require_once 'app/resources/views/admin/components/header.php';
                             </td>
                             <td>
                                 <form action="delete" method="post">
-                                    <button class="usersButton-delete" type="submit" id="delete" name="delete" value="<?= $user['id'] ?>">delete
+                                    <button class="usersButton-delete" type="submit" id="delete" name="delete"
+                                            value="<?= $user['id'] ?>">delete
                                     </button>
                                 </form>
                             </td>
@@ -67,7 +74,15 @@ require_once 'app/resources/views/admin/components/header.php';
                     <?php endforeach; ?>
                 <?php endif; ?>
             </table>
+
             <p class="warning"><?= $message ?? '' ?></p>
+            <ul class="categoriesButton">
+                <?php foreach ($links as $link) { ?>
+                    <li>
+                        <a href="?<?= isset($_GET['role']) ? 'role=' . urlencode($_GET['role']) . '&' : '' ?><?= isset($_GET['search']) ? 'search=' . urlencode($_GET['search']) . '&' : '' ?>page=<?= $link['page'] ?>"><?= $link['label'] ?></a>
+                    </li>
+                <?php } ?>
+            </ul>
         </div>
     </main>
 
