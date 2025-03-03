@@ -1,3 +1,4 @@
+<?php $title = "List Of Stationery Subcategories"; ?>
 <?php require_once 'app/resources/views/site/components/header.php' ?>
 
     <main>
