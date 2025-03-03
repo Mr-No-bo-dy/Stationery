@@ -1,6 +1,4 @@
 <?php
-$title = 'Profile Edit';
-
 require_once 'app/resources/views/site/components/header.php';
 ?>
 

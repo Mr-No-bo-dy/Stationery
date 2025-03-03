@@ -1,5 +1,4 @@
 <?php
-$title = 'Change password';
 require_once 'app/resources/views/site/components/header.php';
 ?>
 

@@ -12,7 +12,8 @@ class UserController extends Controller
 //open registration page
     public function registration()
     {
-        return $this->view('site/user/registration');
+        $title = 'Registration Page';
+        return $this->view('site/user/registration', compact('title'));
     }
 
     //try to register
@@ -22,16 +23,19 @@ class UserController extends Controller
             $message = User::register($this->getPost());
 
             if (is_null($message)) {
+                $title = 'Login Page';
                 return $this->view('site/user/login');
             }
         }
-        return $this->view('site/user/registration', !empty($message) ? compact('message') : []);
+        $title = 'Registration Page';
+        return $this->view('site/user/registration', !empty($message) ? compact('message', 'title') : ['title']);
 
     }
     //open login page
     public function login()
     {
-        return $this->view('site/user/login');
+        $title = 'Login Page';
+        return $this->view('site/user/login', compact('title'));
     }
 
     //try to sign in
@@ -51,14 +55,16 @@ class UserController extends Controller
                 }
             }
         }
-        return $this->view('site/user/login', !empty($message) ? compact('message') : []);
+        $title = 'Login Page';
+        return $this->view('site/user/login', !empty($message) ? compact('message',  'title') : compact('title'));
     }
 
     //open profile page
     public function profile()
     {
         if (isset($_SESSION['user'])) {
-            return $this->view('site/user/profile');
+            $title = 'Profile Page';
+            return $this->view('site/user/profile', compact('title'));
         }
         return $this->redirect('home');
     }
@@ -68,7 +74,8 @@ class UserController extends Controller
     public function edit()
     {
         if (isset($_SESSION['user'])) {
-            return $this->view('site/user/edit');
+            $title = 'Edit Page';
+            return $this->view('site/user/edit', compact('title'));
         }
         return $this->redirect('home');
     }
@@ -79,10 +86,11 @@ class UserController extends Controller
         if ($this->getPost('user')) {
             $message = User::update($this->getPost('user'));
             if (is_null($message)) {
-                return $this->view('site/user/profile', compact('message'));
+                $title = 'Profile Page';
+                return $this->view('site/user/profile', compact('message', 'title'));
             }
-
-            return $this->view('site/user/edit', compact('message'));
+            $title = 'Edit Page';
+            return $this->view('site/user/edit', compact('message', 'title'));
         }
         return $this->redirect('home');
     }
@@ -91,7 +99,8 @@ class UserController extends Controller
     public function passwordChange()
     {
         if (isset($_SESSION['user'])) {
-            return $this->view('site/user/passwordChange');
+            $title = 'Change password page';
+            return $this->view('site/user/passwordChange', compact('title'));
         }
         return $this->redirect('home');
     }
@@ -105,10 +114,12 @@ class UserController extends Controller
 
             if (is_null($message)) {
                 $message = 'password changed successfully';
-                return $this->view('site/user/profile', compact('message'));
+                $title = 'Profile Page';
+                return $this->view('site/user/profile', compact('message', 'title'));
 
             }
-            return $this->view('site/user/passwordChange', compact('message'));
+            $title = 'Change password page';
+            return $this->view('site/user/passwordChange', compact('message', 'title'));
         }
         return $this->redirect('home');
 
@@ -119,7 +130,8 @@ class UserController extends Controller
     {
         if (isset($_SESSION['user']) && isset($_FILES['photo'])) {
             $message = User::setProfilePhoto($_FILES['photo']);
-            return $this->view('site/user/profile', compact('message'));
+            $title = 'Profile Page';
+            return $this->view('site/user/profile', compact('message', 'title'));
         }
         return $this->redirect('home');
     }
@@ -129,7 +141,8 @@ class UserController extends Controller
     {
         if (isset($_SESSION['user'])) {
             $message = User::deleteProfilePhoto();
-            return $this->view('site/user/profile', compact('message'));
+            $title = 'Profile Page';
+            return $this->view('site/user/profile', compact('message', 'title'));
         }
         return $this->redirect('profile');
     }
