@@ -17,8 +17,16 @@ class UserController extends Controller
     //open users page
     public function getAll()
     {
-        $users = $this->getGet('role') ? User::getAll($this->getGet('role')) : User::getAll();
         $title = 'Users';
+        $users = $this->getGet('role') ? User::getAll($this->getGet('role')) : User::getAll();
+
+        if ($this->getGet('search')) {
+
+            $users = User::getBySearch($this->getGet('search'));
+            if (is_array($users)) {
+                $title = 'Searched Users';
+            }
+        }
         return $this->view('admin/user/users', compact('users', 'title'));
     }
 
@@ -42,13 +50,6 @@ class UserController extends Controller
             $title = 'Edit Page';
 
             return $this->view('admin/user/update', compact('user', 'title'));
-        } else if ($this->getGet('search')) {
-
-            $users = User::getBySearch($this->getGet('search'));
-            if (is_array($users)) {
-                $title = 'Searched Users';
-                return $this->view('admin/user/users', compact('users', 'title'));
-            }
         }
 
         return $this->redirect('users');

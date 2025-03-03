@@ -14,7 +14,7 @@ require_once 'app/resources/views/admin/components/header.php';
                    href="users?role=admin">Admins</a>
             <?php endif; ?>
 
-            <form action="edit" method="get">
+            <form action="users" method="get">
                 <input type="text" name="search" value="<?= $_GET['search'] ?? '' ?>">
                 <button type="submit">search</button>
                 <a href="users">clear</a>
