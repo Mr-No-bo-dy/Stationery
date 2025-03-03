@@ -10,18 +10,20 @@ class SubcategoryController extends Controller
     // view all subcategories
     public function index()
     {
+        $title = "Admin List Of Stationery Subcategory";
+
         $orderBy = $_GET['sort'] ?? 'id'; // За замовчуванням сортуємо по ID
         $subcategoriesModel = new Subcategory();
 
         if ($orderBy == 'id') {
-            $allSubcategories = $subcategoriesModel->sortById();
+            $allSubcategories = $subcategoriesModel->sortBy("subcategories.id", $_GET['filter'] ?? "");
         } else if ($orderBy == 'category') {
-            $allSubcategories = $subcategoriesModel->sortByCategory();
+            $allSubcategories = $subcategoriesModel->sortBy("categories.title", $_GET['filter'] ?? "");
         } else {
-            $allSubcategories = $subcategoriesModel->sortByTitle();
+            $allSubcategories = $subcategoriesModel->sortBy("subcategories.title", $_GET['filter'] ?? "");
         }
 
-        return $this->view('admin/subcategories/subcategories', compact('allSubcategories'));
+        return $this->view('admin/subcategories/subcategories', compact('allSubcategories', 'title'));
     }
 
     // view to create subcategory page

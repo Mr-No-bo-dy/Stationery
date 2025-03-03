@@ -43,47 +43,31 @@ class Subcategory extends Model
         return $stmt->fetchAll();
     }
 
-    // return all subcategories sort by id
-    public function sortById() {
-        $stmt = self::builder()->prepare("
-            SELECT subcategories.id, 
-            subcategories.title AS subcategory_title, 
-            subcategories.description, 
-            categories.title AS category_title 
-            FROM subcategories 
-            JOIN categories ON subcategories.category_id = categories.id 
-            ORDER BY subcategories.id ASC;
-        ");
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
+    // return all subcategories sort by column and check filter
+    public function sortBy($col, $filter = null) {
+        $sql = "
+        SELECT subcategories.id, 
+               subcategories.title AS subcategory_title, 
+               subcategories.description, 
+               categories.title AS category_title 
+        FROM subcategories 
+        JOIN categories ON subcategories.category_id = categories.id
+        WHERE 1
+    ";
 
-    // return all subcategories sort by category title
-    public function sortByCategory(): array {
-        $stmt = self::builder()->prepare("
-            SELECT subcategories.id, 
-            subcategories.title AS subcategory_title, 
-            subcategories.description, 
-            categories.title AS category_title 
-            FROM subcategories 
-            JOIN categories ON subcategories.category_id = categories.id 
-            ORDER BY categories.title ASC;
-        ");
-        $stmt->execute();
-        return $stmt->fetchAll();
-    }
+        if (!empty($filter)) {
+            $sql .= " AND (subcategories.title LIKE :filterTitle OR subcategories.description LIKE :filterDescription OR categories.title LIKE :filterCategory)";
+        }
 
-    // return all subcategories sort by subcategory title
-    public function sortByTitle() {
-        $stmt = self::builder()->prepare("
-            SELECT subcategories.id, 
-            subcategories.title AS subcategory_title, 
-            subcategories.description, 
-            categories.title AS category_title 
-            FROM subcategories 
-            JOIN categories ON subcategories.category_id = categories.id 
-            ORDER BY subcategories.title ASC;
-        ");
+        $sql .= " ORDER BY $col ASC"; // Додано пробіл перед ORDER
+
+        $stmt = self::builder()->prepare($sql);
+        if (!empty($filter)) {
+            $filter = "%" . $filter . "%";
+            $stmt->bindParam(":filterTitle", $filter);
+            $stmt->bindParam(":filterDescription", $filter);
+            $stmt->bindParam(":filterCategory", $filter);
+        }
         $stmt->execute();
         return $stmt->fetchAll();
     }

@@ -22,4 +22,13 @@ window.onload = function () {
             })
         }
     }
+
+    let sortCaterogiesButton = document.querySelectorAll(".sortButton");
+    if (sortCaterogiesButton) {
+        sortCaterogiesButton.forEach(button => {
+            button.addEventListener("click", function () {
+                document.querySelector(`.sortRadio[value="${this.dataset.value}"]`).checked = true
+            })
+        })
+    }
 }

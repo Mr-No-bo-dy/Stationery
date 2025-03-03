@@ -10,8 +10,10 @@ class SubcategoryController extends Controller
     // view all subcategories
     public function index()
     {
+        $title = "List Of Stationery Subcategory";
+
         $subcategoriesModel = new Subcategory();
         $subcategories = $subcategoriesModel->getSubcategoriesByCategoryId($_GET['categoryId']);
-        return $this->view('site/subcategories/subcategories', compact('subcategories'));
+        return $this->view('site/subcategories/subcategories', compact('subcategories', 'title'));
     }
 }

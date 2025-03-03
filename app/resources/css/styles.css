@@ -260,6 +260,10 @@ ol {
     background: #39ff00;
 }
 
+.sortRadio {
+    display: none;
+}
+
 .sortButton {
     display: block;
     padding: 7px 14px;
@@ -284,6 +288,40 @@ ol {
 .createButton:hover {
     color: #fff;
     background: #39ff00;
+}
+
+.filters {
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 25px;
+}
+
+.filters input {
+    padding: 5px;
+    border-radius: 5px 0 0 5px;
+    border: 2px solid #000;
+    transition: 0.3s;
+    margin: 0;
+    outline: none;
+}
+
+.filters input:focus {
+    border: 2px solid #3c9a25;
+}
+
+.filters .search {
+    padding: 5px;
+    background: #fff;
+    transition: 0.3s;
+    border-radius: 0 5px 5px 0;
+    border: 2px solid #000;
+    margin: 0;
+}
+
+.filters .search:hover {
+    border: 2px solid #3c9a25;
+    background: #3c9a25;
+    color: #fff;
 }
 
 .cancelButton {

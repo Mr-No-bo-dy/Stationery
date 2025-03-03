@@ -1,6 +1,10 @@
 <?php $title = "List Of Stationery Categories"; ?>
 <?php require_once 'app/resources/views/site/components/header.php' ?>
 <main>
+    <form action="category" method="get" class="filters">
+        <input type="text" name="filter" placeholder="Title or description" value="<?= $_GET['filter'] ?? '' ?>">
+        <button type="submit" class="search">search</button>
+    </form>
     <table class="categoriesTable">
         <tr>
             <th>title</th>

@@ -9,8 +9,9 @@ class CategoryController extends Controller
     // view all categories
     public function index()
     {
+        $title = "List Of Stationery Categories";
         $categoriesModel = new Category();
-        $allCategories = $categoriesModel->getAllCategories();
-        return $this->view('site/categories/categories', compact('allCategories'));
+        $allCategories = $categoriesModel->getAllCategories($_GET['filter'] ?? null);
+        return $this->view('site/categories/categories', compact('allCategories', 'title'));
     }
 }
