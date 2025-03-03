@@ -27,6 +27,7 @@ class ProductsController extends Controller
         if(!empty($_GET['subcategory_id']) && $_GET['subcategory_id'] != 'All'){
             $filters["subcategory_id"] = $_GET['subcategory_id'];
         }
+        $title = "Stationary - Products";
         $products = Product::getProducts($filters);
         $subCategories = Product::getSubcategoryTitle();
         return $this->view("admin/products/products", compact("products", "subCategories"));
@@ -37,8 +38,8 @@ class ProductsController extends Controller
     {
         $product = Product::getProduct($this->getGet('id'));
         $allSubcategories = Product::getSubcategories();
-
-        return $this->view("admin/products/edit", compact("product", "allSubcategories"));
+        $title = "Stationary - edit " . $product["title"];
+        return $this->view("admin/products/edit", compact("product", "allSubcategories", "title"));
     }
 
     // Make changes pointing to admin/productEditing
@@ -53,6 +54,7 @@ class ProductsController extends Controller
     public function productCreating()
     {
         $allSubcategories = Product::getSubcategories();
+        $title = "Stationary - product creation ";
 
         return $this->view("admin/products/create", compact("allSubcategories"));
     }
