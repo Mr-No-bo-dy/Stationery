@@ -3,6 +3,7 @@ namespace app\controllers\admin;
 
 use app\models\Category;
 use app\models\Subcategory;
+use app\models\traits\Pagination;
 use app\vendor\Controller;
 
 class SubcategoryController extends Controller
@@ -23,7 +24,12 @@ class SubcategoryController extends Controller
             $allSubcategories = $subcategoriesModel->sortBy("subcategories.title", $_GET['filter'] ?? "");
         }
 
-        return $this->view('admin/subcategories/subcategories', compact('allSubcategories', 'title'));
+        $pagination = new Pagination(count($allSubcategories), 2);
+        $pageNumber = $_GET['page'] ?? 1;
+        $allSubcategories = $pagination->getItemsPerPage($allSubcategories, $pageNumber);
+        $links = $pagination->getLinks($pageNumber);
+
+        return $this->view('admin/subcategories/subcategories', compact('allSubcategories', 'title', 'links'));
     }
 
     // view to create subcategory page

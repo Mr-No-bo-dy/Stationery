@@ -3,6 +3,7 @@ namespace app\controllers\admin;
 
 use app\models\Category;
 use app\vendor\Controller;
+use app\models\traits\Pagination;
 
 class CategoryController extends Controller
 {
@@ -20,7 +21,12 @@ class CategoryController extends Controller
             $allCategories = $categoriesModel->sortBy("id", $_GET['filter'] ?? "");
         }
 
-        return $this->view('admin/categories/categories', compact('allCategories', 'title'));
+        $pagination = new Pagination(count($allCategories), 2);
+        $pageNumber = $_GET['page'] ?? 1;
+        $allCategories = $pagination->getItemsPerPage($allCategories, $pageNumber);
+        $links = $pagination->getLinks($pageNumber);
+
+        return $this->view('admin/categories/categories', compact('allCategories', 'title', 'links'));
     }
 
     // view to create category page

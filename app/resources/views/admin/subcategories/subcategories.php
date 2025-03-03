@@ -39,6 +39,11 @@
                 </tr>
             <?php } ?>
         </table>
+        <ul class="categoriesButton">
+            <?php foreach ($links as $link) { ?>
+                <li><a href="?page=<?= $link['page'] ?>"><?= $link['label'] ?></a></li>
+            <?php } ?>
+        </ul>
     </main>
 
 <?php require_once 'app/resources/views/admin/components/footer.php' ?>
