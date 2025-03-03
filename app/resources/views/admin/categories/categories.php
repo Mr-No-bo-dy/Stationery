@@ -5,11 +5,19 @@
         <form action="category" method="get" class="filters">
             <div class="categoriesButton">
                 <a href="createCategory" class="createButton">Create category</a>
-                <input type="radio" name="sort" value="id" class="sortRadio" <?= (!isset($_GET['sort']) || $_GET['sort'] == 'id') ? 'checked' : '' ?>>
-                <input type="radio" name="sort" value="title" class="sortRadio" <?= (isset($_GET['sort']) && $_GET['sort'] == 'title') ? 'checked' : '' ?>>
+                <input type="radio" name="sort" value="id"
+                       class="sortRadio" <?= (!isset($_GET['sort']) || $_GET['sort'] == 'id') ? 'checked' : '' ?>>
+                <input type="radio" name="sort" value="title"
+                       class="sortRadio" <?= (isset($_GET['sort']) && $_GET['sort'] == 'title') ? 'checked' : '' ?>>
 
-                <button type="submit" class="sortButton <?= (!isset($_GET['sort']) || $_GET['sort'] == 'id') ? 'active' : '' ?>" data-value="id">Sort by id</button>
-                <button type="submit" class="sortButton <?= (isset($_GET['sort']) && $_GET['sort'] == 'title') ? 'active' : '' ?>" data-value="title">Sort by title</button>
+                <button type="submit"
+                        class="sortButton <?= (!isset($_GET['sort']) || $_GET['sort'] == 'id') ? 'active' : '' ?>"
+                        data-value="id">Sort by id
+                </button>
+                <button type="submit"
+                        class="sortButton <?= (isset($_GET['sort']) && $_GET['sort'] == 'title') ? 'active' : '' ?>"
+                        data-value="title">Sort by title
+                </button>
             </div>
             <input type="text" name="filter" placeholder="Title or description" value="<?= $_GET['filter'] ?? '' ?>">
             <button type="submit" class="search">search</button>
@@ -36,6 +44,11 @@
                 </tr>
             <?php } ?>
         </table>
+        <ul class="categoriesButton">
+            <?php foreach ($links as $link) { ?>
+                <li><a href="?page=<?= $link['page'] ?>"><?= $link['label'] ?></a></li>
+            <?php } ?>
+        </ul>
     </main>
 
 <?php require_once 'app/resources/views/admin/components/footer.php' ?>

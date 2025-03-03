@@ -30,7 +30,7 @@ class Pagination
     {
         $countPage = $this->countTotalPages();
         $startLink = max(ceil($currentPage - ($this->links / 2)), 1);
-        $endLink = ceil($currentPage + ($this->links / 2)) + 1;
+        $endLink = min(ceil($currentPage + ($this->links / 2)) + 1, $countPage);
         $links = [];
         if ($startLink > 1) {
             $links[] = [
@@ -46,6 +46,13 @@ class Pagination
             ];
         }
 
+        for ($i = $startLink; $i <= $endLink; $i++) {
+            $links[] = [
+                "page" => $i,
+                "label" => $i,
+            ];
+        }
+
         if ($currentPage < $countPage) {
             $links[] = [
                 "page" => $currentPage + 1,
@@ -55,9 +62,10 @@ class Pagination
 
         if ($countPage > $endLink) {
             $links[] = [
-                "page" => $endLink,
+                "page" => $countPage,
                 "label" => ">>",
             ];
         }
+        return $links;
     }
 }
