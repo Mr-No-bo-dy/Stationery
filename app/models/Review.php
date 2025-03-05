@@ -16,12 +16,15 @@ class Review extends Model
     ];
 
     // get information about reviews and sort it by id or rating
-    public static function getSiteReviews($sortBy = "id", $filters = []): array
+    public static function getSiteReviews($sortBy = "id", $filters = [], $product_id = NULL): array
     {
         $sql = "SELECT r.user_id, u.name, r.rating, r.comment, r.id, r.product_id, r.is_active 
                 FROM reviews r 
                 JOIN users u ON r.user_id = u.id
                 WHERE 1";
+        if (isset($product_id)) {
+            $sql .= " AND r.product_id = :product_id";
+        }
         if (isset($filters["is_active"]) && $filters["is_active"] == "yes") {
             $sql .= " AND r.is_active = 1";
         }
@@ -35,11 +38,14 @@ class Review extends Model
             $sql .= " ORDER BY r.rating DESC";
         }
         if ($sortBy == "product id") {
-            $sql .= " ORDER BY r.product_id DESC";
+            $sql .= " ORDER BY r.product_id";
         }
         $stmt = self::builder()->prepare($sql);
         if (!empty($filters["product_id"])) {
             $stmt->bindParam(':product_id', $filters["product_id"]);
+        }
+        if (isset($product_id)) {
+            $stmt->bindParam(':product_id', $product_id);
         }
         $stmt->execute();
         return $stmt->fetchAll();
@@ -55,7 +61,6 @@ class Review extends Model
         foreach ($arr as $value) {
             $allProducts[$value["product_id"]] = $value["title"];
         }
-        // self::dd($allProducts);
         return $allProducts;
     }
 

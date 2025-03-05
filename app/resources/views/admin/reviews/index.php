@@ -3,6 +3,9 @@
 <main class="reviewsMain">
     <div class="wrapper">
         <form class="adminReviewsButtonForm" action="reviews" method="post">    
+            <input class="adminReviewsButton" type="submit" value="drop filters" name="sessDrop">
+        </form>
+        <form class="adminReviewsButtonForm" action="reviews" method="post">    
             <div class="reviews_block">
                 <p>is_active:</p>
                 <div class="reviews_inputs-flex">
@@ -73,6 +76,17 @@
                 </form>
             </tbody>
         </table>
+        <ul>
+            <?php foreach ($links as $link) { ?>
+                <li>
+                    <?php if ((isset($_GET['page']) && $_GET['page'] == $link['page']) || (!isset($_GET['page']) && $link['page'] == 1)): ?>
+                        <a class="active" href="?page=<?= $link['page'] ?>"><?= $link['label'] ?></a>
+                    <?php else: ?>
+                        <a href="?page=<?= $link['page'] ?>"><?= $link['label'] ?></a>
+                    <?php endif; ?>
+                </li>
+            <?php } ?>
+        </ul>
     </div>
 </main>
 

@@ -22,6 +22,17 @@
                 <?php } ?>
             </tbody>
         </table>
+        <ul>
+            <?php foreach ($links as $link) { ?>
+                <li>
+                    <?php if ((isset($_GET['page']) && $_GET['page'] == $link['page']) || (!isset($_GET['page']) && $link['page'] == 1)): ?>
+                        <a class="active" href="?page=<?= $link['page'] ?><?= isset($_GET["id"]) ? "&id=".$_GET["id"] : "" ?>"><?= $link['label'] ?></a>
+                    <?php else: ?>
+                        <a href="?page=<?= $link['page'] ?><?= isset($_GET["id"]) ? "&id=".$_GET["id"] : "" ?>"><?= $link['label'] ?></a>
+                    <?php endif; ?>
+                </li>
+            <?php } ?>
+        </ul>
         <?php if (isset($_GET["id"])) { ?>
             <form action="reviews?id=<?= $_GET["id"] ?>" method="post" class="createReviewsForm">
                 <div class="range-star">
