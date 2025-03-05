@@ -14,14 +14,9 @@ class CategoryController extends Controller
 
         $orderBy = $_GET['sort'] ?? 'id';
         $categoriesModel = new Category();
+        $allCategories = $categoriesModel->getCategories($orderBy, $_GET['filter'] ?? "");
 
-        if ($orderBy == 'title') {
-            $allCategories = $categoriesModel->sortBy("title", $_GET['filter'] ?? "");
-        } else {
-            $allCategories = $categoriesModel->sortBy("id", $_GET['filter'] ?? "");
-        }
-
-        $pagination = new Pagination(count($allCategories), 2);
+        $pagination = new Pagination(count($allCategories), 5);
         $pageNumber = $_GET['page'] ?? 1;
         $allCategories = $pagination->getItemsPerPage($allCategories, $pageNumber);
         $links = $pagination->getLinks($pageNumber);

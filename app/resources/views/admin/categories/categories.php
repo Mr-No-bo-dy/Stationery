@@ -46,7 +46,7 @@
         </table>
         <ul class="categoriesButton">
             <?php foreach ($links as $link) { ?>
-                <li><a href="?page=<?= $link['page'] ?>"><?= $link['label'] ?></a></li>
+                <li><a href="?<?= (isset($_GET['filter'])) ? "filter=". urlencode($_GET['filter']) ."&" : "" ?><?= (isset($_GET['sort']))? "sort=" . urlencode($_GET['sort']) . "&" : "" ?>page=<?= urlencode($link['page']) ?>"><?= $link['label'] ?></a></li>
             <?php } ?>
         </ul>
     </main>

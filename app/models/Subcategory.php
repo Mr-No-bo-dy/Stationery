@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models;
 
 use app\vendor\Model;
@@ -23,7 +24,7 @@ class Subcategory extends Model
     }
 
     // returns the name of the category we are updating
-    public function getPresentCategoriesTitle($id):array
+    public function getPresentCategoriesTitle($id): array
     {
         $stmt = self::builder()->prepare("select title from categories WHERE id = (SELECT category_id FROM subcategories WHERE id = :id)");
         $stmt->bindParam(':id', $id);
@@ -44,7 +45,8 @@ class Subcategory extends Model
     }
 
     // return all subcategories sort by column and check filter
-    public function sortBy($col, $filter = null) {
+    public function getSubcategories($sort, $filter = null)
+    {
         $sql = "
         SELECT subcategories.id, 
                subcategories.title AS subcategory_title, 
@@ -59,7 +61,13 @@ class Subcategory extends Model
             $sql .= " AND (subcategories.title LIKE :filterTitle OR subcategories.description LIKE :filterDescription OR categories.title LIKE :filterCategory)";
         }
 
-        $sql .= " ORDER BY $col ASC"; // Додано пробіл перед ORDER
+        if ("id" == $sort) {
+            $sql .= " ORDER BY id";
+        } else if ("title" == $sort) {
+            $sql .= " ORDER BY subcategories.title";
+        } else if ("category" == $sort) {
+            $sql .= " ORDER BY categories.title";
+        }
 
         $stmt = self::builder()->prepare($sql);
         if (!empty($filter)) {
@@ -91,7 +99,8 @@ class Subcategory extends Model
     }
 
     // create subcategories
-    public function createSubcategory($categoryTitle, $title, $description) {
+    public function createSubcategory($categoryTitle, $title, $description)
+    {
         $stmt = self::builder()->prepare("
             INSERT INTO subcategories (title, description, category_id)
             VALUES (:title, :description, (SELECT id FROM categories WHERE title = :categoryTitle LIMIT 1));
@@ -104,7 +113,8 @@ class Subcategory extends Model
     }
 
     // update subcategories
-    public function updateSubcategory($name, $description, $id, $categoryTitle) {
+    public function updateSubcategory($name, $description, $id, $categoryTitle)
+    {
         $stmt = self::builder()->prepare("
             UPDATE subcategories SET title = :name, description = :description, category_id = 
             (SELECT id FROM categories WHERE title = :categoryTitle) 
@@ -118,7 +128,8 @@ class Subcategory extends Model
     }
 
     // delete categories
-    public function deleteSubcategory($id) {
+    public function deleteSubcategory($id)
+    {
         $stmt = self::builder()->prepare("DELETE FROM subcategories WHERE id = :id");
         $stmt->bindParam(":id", $id);
         $stmt->execute();
