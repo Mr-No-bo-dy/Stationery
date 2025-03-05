@@ -2,6 +2,8 @@
 
 $urlRoutes = [
     // URI => directory / controller / method
+
+    // Site pages
     '' => 'site/home/index',
     'home' => 'site/home/index',
     'changeColorTheme' => 'site/home/changeColorTheme',
@@ -12,6 +14,7 @@ $urlRoutes = [
     'catalog' => "site/product/catalog",
     'card' => "site/product/card",
 
+    // Cart & Order
     "addToCart" => "site/order/addToCart",
     "removeFromCart" => "site/order/removeFromCart",
     "plusItemToCart" => "site/order/plusItemToCart",
@@ -20,8 +23,11 @@ $urlRoutes = [
     "cart" => "site/order/cart",
     "checkout" => "site/order/checkout",
     "order" => "site/order/test",
+
+    // Reviews
     'reviews' => 'site/review/index',
 
+    // Users
     'registration' => 'site/user/registration',
     'signUp' => 'site/user/signUp',
     'login' => 'site/user/login',
@@ -35,6 +41,7 @@ $urlRoutes = [
     'passwordUpdate' => 'site/user/passwordUpdate',
     'logout' => 'site/user/logout',
 
+    // Admin Categories
     'admin/changeColorTheme' => 'site/home/changeColorTheme',
     'admin/category' => 'admin/category/index',
     'admin/deleteCategory' => 'admin/category/deleteCategory',
@@ -43,6 +50,7 @@ $urlRoutes = [
     'admin/editCategory' => 'admin/category/edit',
     'admin/updateCategory' => 'admin/category/update',
 
+    // Admin Subcategories
     'admin/subcategory' => 'admin/subcategory/index',
     'admin/createSubcategory' => 'admin/subcategory/create',
     'admin/storeSubcategory' => 'admin/subcategory/store',
@@ -50,6 +58,7 @@ $urlRoutes = [
     'admin/updateSubcategory' => 'admin/subcategory/update',
     'admin/deleteSubcategory' => 'admin/subcategory/delete',
 
+    // Admin Users
     'admin/home' => 'admin/user/index',
     'admin/logout' => 'admin/user/logout',
     'admin/users' => 'admin/user/getAll',
@@ -57,10 +66,12 @@ $urlRoutes = [
     'admin/update' => 'admin/user/update',
     'admin/delete' => 'admin/user/delete',
 
+    // Admin orders
     'admin/orders' => 'admin/order/index',
     'admin/userFiltering' => 'admin/order/userFiltering',
     'admin/reviews' => 'admin/review/index',
 
+    // Admin Products
     'admin/productCreating' => 'admin/product/productCreating',
     'admin/productSave' => 'admin/product/save',
     'admin/productEdit' => 'admin/product/productEdit',
