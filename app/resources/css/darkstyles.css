@@ -14,6 +14,26 @@ body, input, textarea, select, button {
     color: var(--text-color);
 }
 
+
+.pageSelect {
+    display: flex;
+    justify-content: center;
+}   
+
+.pageSelect li {
+    list-style: none;
+    padding: 10px;
+}
+
+
+.card {
+    border: 3px solid grey;
+    margin: 15px;
+    padding: 5px;
+}
+
+
+
 .productCatalogBlock{
     display: flex;
     margin: 20px;
