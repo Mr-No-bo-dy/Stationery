@@ -57,8 +57,8 @@ class CategoryController extends Controller
     // Used to delete a category
     public function deleteCategory()
     {
-        if (isset($_GET['id'])) {
-            Category::deleteCategory($_GET['id']);
+        if (isset($_POST['id'])) {
+            Category::deleteCategory($_POST['id']);
         }
         return $this->redirect('category');
     }
