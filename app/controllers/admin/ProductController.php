@@ -4,33 +4,27 @@ namespace app\controllers\admin;
 
 use app\vendor\Controller;
 use app\models\Product;
+use app\services\ProductOrganizing;
 
 class ProductController extends Controller
 {
 
-    //direction to the view of products page in admin
+    // direction to the view of products page in admin
     public function products()
     
     { 
-        $filters = [];
-        if(!empty($_GET['title'])){
-            $filters["title"] = $_GET['title'];
-        }
-        if(!empty($_GET['minPrice'])){
-            $filters["minPrice"] = $_GET['minPrice'];
-        }
-
-        if(!empty($_GET['maxPrice'])){
-            $filters["maxPrice"] = $_GET['maxPrice'];
-        }
-
-        if(!empty($_GET['subcategory_id']) && $_GET['subcategory_id'] != 'All'){
-            $filters["subcategory_id"] = $_GET['subcategory_id'];
-        }
         $title = "Stationery - Products";
-        $products = Product::getProducts($filters);
-        $subCategories = Product::getSubcategoryTitle();
-        return $this->view("admin/products/products", compact("products", "subCategories"));
+        $defaultSort = "id";
+
+        $params = ProductOrganizing::organizing();
+        $filters = $params["filters"];
+        $sortBy = $params["sortBy"];
+        $products = $params["products"];
+        $subCategories = $params["subCategories"];
+        $links = $params["links"];
+        $pageNumber = $params["pageNumber"];
+
+        return $this->view("admin/products/products", compact("products", "subCategories", "links", "defaultSort"));
     }
 
     // product creation and routing to the product card

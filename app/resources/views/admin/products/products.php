@@ -4,19 +4,9 @@
 
 ?>
 <main>
-    <form action="" method="get">
-        <input type="text" name="title" value="<?= $_GET["title"] ?? "" ?>" placeholder="Name">
-        <input type="number" name="minPrice" value="<?= $_GET["minPrice"] ?? "" ?>" placeholder="Min price">
-        <input type="number" name="maxPrice" value="<?= $_GET["maxPrice"] ?? "" ?>" placeholder="Max price">
-        <select name="subcategory_id">
-            <option>All</option>
-            <?php foreach ($subCategories as $subCatId => $subCat) { ?>
-                <option value="<?= $subCatId ?>" <?= isset($_GET["subcategory_id"]) && $_GET["subcategory_id"] == $subCatId ? "selected" : "" ?>><?= $subCat ?></option>
-            <?php } ?>
-        </select>
-        <input type="submit" value="Filter">
-    </form>
-    <a href="products">Clear filters</a>
+<?php require_once 'app/resources/views/site/components/products/productsSort.php'; ?>
+    <?php require_once 'app/resources/views/site/components/products/productFilters.php'; ?>
+
     <a href="productCreating" class="productCreate">Create product</a>
     <div class="catalog wrapper">
         <table class="productBlock">
@@ -49,7 +39,7 @@
             <?php } ?>
             </tr>
         </table>
-
+        <?php require_once 'app/resources/views/site/components/products/pagination.php' ?>
     </div>
 </main>
 

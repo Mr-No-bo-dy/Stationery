@@ -17,7 +17,7 @@ class Product extends Model
     ];
 
     // obtaining products data
-    public static function getProducts($filters = []): array
+    public static function getProducts($filters = [], $sortBy = "id"): array
     {
         $sql = "SELECT * FROM `products` WHERE 1";
         if (isset($filters["title"])) {
@@ -32,6 +32,17 @@ class Product extends Model
         if (isset($filters["subcategory_id"])) {
             $sql .= " AND subcategory_id = :subcategory_id";
         }
+        if (isset($sortBy)) {
+            if ($sortBy == "title") {
+                $sql .= " ORDER BY title ASC";
+            }
+            if($sortBy == "price growth"){
+                $sql .="  ORDER BY price";
+            }
+            if($sortBy == "price downward"){
+                $sql .="  ORDER BY price DESC";
+            }
+        }
         $stm = self::builder()->prepare($sql);
         if (isset($filters["title"])) {
             $stm->bindValue(":title", "%" . $filters["title"] . "%");
@@ -45,6 +56,8 @@ class Product extends Model
         if (isset($filters["subcategory_id"])) {
             $stm->bindValue(":subcategory_id", $filters["subcategory_id"]);
         }
+
+
         $stm->execute();
         return $stm->fetchAll();
     }
@@ -105,7 +118,9 @@ class Product extends Model
 
         return $stmt->fetch();
     }
-    public static function getSubcategoryTitle()
+
+    // getting a prepared array with category names
+    public static function getSubcategoryTitle(): array
     {
         $stmt = self::builder()->prepare("SELECT id, title FROM subcategories");
         $stmt->execute();
