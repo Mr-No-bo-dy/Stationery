@@ -15,7 +15,7 @@
                 <p class="categoryLabel">Category</p>
                 <select name="categoryTitle">
                     <?php foreach ($allCategoriesTitle as $category) { ?>
-                        <option value="<?= $category['title'] ?>" <?= ($presentCategoriesTitle['title'] == $category['title'])? "selected" : "" ?>><?= $category['title'] ?></option>
+                        <option value="<?= $category['id'] ?>" <?= ($presentCategoriesTitle['title'] == $category['title'])? "selected" : "" ?>><?= $category['title'] ?></option>
                     <?php } ?>
                 </select>
             </label>

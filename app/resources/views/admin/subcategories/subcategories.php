@@ -1,4 +1,3 @@
-<?php $title = "Admin List Of Stationery Subcategories"; ?>
 <?php require_once 'app/resources/views/admin/components/header.php' ?>
 
     <main>
@@ -34,7 +33,11 @@
                     <td><?= $subcategory['description'] ?></td>
                     <td class="tableButton update"><a href="editSubcategory?id=<?= $subcategory['id'] ?>">UPDATE</a>
                     </td>
-                    <td class="tableButton delete"><a href="deleteSubcategory?id=<?= $subcategory['id'] ?>">DELETE</a>
+                    <td class="tableButton delete">
+<!--                        <a href="deleteSubcategory?id=--><?php //= $subcategory['id'] ?><!--">DELETE</a>-->
+                        <form action="deleteSubcategory" method="post">
+                            <button type="submit" name="id" value="<?= $subcategory['id'] ?>">DELETE</button>
+                        </form>
                     </td>
                 </tr>
             <?php } ?>
