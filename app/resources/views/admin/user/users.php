@@ -76,13 +76,22 @@ require_once 'app/resources/views/admin/components/header.php';
             </table>
 
             <p class="warning"><?= $message ?? '' ?></p>
-            <ul class="categoriesButton">
-                <?php foreach ($links as $link) { ?>
-                    <li>
-                        <a href="?<?= isset($_GET['role']) ? 'role=' . urlencode($_GET['role']) . '&' : '' ?><?= isset($_GET['search']) ? 'search=' . urlencode($_GET['search']) . '&' : '' ?>page=<?= $link['page'] ?>"><?= $link['label'] ?></a>
-                    </li>
-                <?php } ?>
-            </ul>
+            <?php if ($links): ?>
+                <div class="UserMenu">
+                    <ul>
+                        <?php foreach ($links as $link) { ?>
+                            <li>
+                                <?php if ((isset($_GET['page']) && $_GET['page'] == $link['page']) || (!isset($_GET['page']) && $link['page'] == 1)): ?>
+                                    <a class="active"
+                                       href="?<?= isset($_GET['role']) ? 'role=' . urlencode($_GET['role']) . '&' : '' ?><?= isset($_GET['search']) ? 'search=' . urlencode($_GET['search']) . '&' : '' ?>page=<?= $link['page'] ?>"><?= $link['label'] ?></a>
+                                <?php else: ?>
+                                    <a href="?<?= isset($_GET['role']) ? 'role=' . urlencode($_GET['role']) . '&' : '' ?><?= isset($_GET['search']) ? 'search=' . urlencode($_GET['search']) . '&' : '' ?>page=<?= $link['page'] ?>"><?= $link['label'] ?></a>
+                                <?php endif; ?>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
         </div>
     </main>
 
