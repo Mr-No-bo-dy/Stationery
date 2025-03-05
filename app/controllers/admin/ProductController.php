@@ -15,6 +15,7 @@ class ProductController extends Controller
     { 
         $title = "Stationery - Products";
         $defaultSort = "id";
+        $uri = "products";
 
         $params = ProductOrganizing::organizing();
         $filters = $params["filters"];
@@ -24,7 +25,7 @@ class ProductController extends Controller
         $links = $params["links"];
         $pageNumber = $params["pageNumber"];
 
-        return $this->view("admin/products/products", compact("products", "subCategories", "links", "defaultSort"));
+        return $this->view("admin/products/products", compact("products", "subCategories", "links", "defaultSort", "uri"));
     }
 
     // product creation and routing to the product card

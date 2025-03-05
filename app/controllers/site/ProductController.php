@@ -14,6 +14,7 @@ class ProductController extends Controller
     {
         $title = "Stationery - products catalog";
         $defaultSort = "Default sort";
+        $uri = "catalog";
         
         $subCategories = Product::getSubcategoryTitle();
         $params = ProductOrganizing::organizing();
@@ -24,7 +25,7 @@ class ProductController extends Controller
         $links = $params["links"];
         $pageNumber = $params["pageNumber"];
         
-        return $this->view("site/products/catalog", compact("products", "subCategories", "links", "defaultSort"));
+        return $this->view("site/products/catalog", compact("products", "subCategories", "links", "defaultSort", "uri"));
     }
 
     // direction to the card view 

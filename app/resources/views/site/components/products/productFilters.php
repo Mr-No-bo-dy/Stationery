@@ -9,7 +9,7 @@
             <option value="<?= $subCatId ?>" <?= isset($_GET["subcategory_id"]) && $_GET["subcategory_id"] == $subCatId ? "selected" : "" ?>><?= $subCat ?></option>
         <?php } ?>
     </select>
-    <input type="hidden" name="sort" value="<?= $_GET["sort"] ?? "false" ?>">
+    <?= !empty($_GET["sort"]) ? '<input type="hidden" name="sort" value="' . $_GET["sort"] . '">' : ""   ?>
     <input type="submit" value="Filter">
 </form>
-<a href="catalog">Clear filters</a>
+<a href="<?= $uri?>">Clear filters</a>

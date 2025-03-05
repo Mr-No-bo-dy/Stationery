@@ -65,7 +65,8 @@ class Product extends Model
     // obtaining an id of the product that is currently being created
     public static function getNewImageId()
     {
-        $stmt = self::builder()->prepare('SELECT MAX(`id`) FROM products'); // get the largest id to add 1 to it and get the id of the next product
+        $stmt = self::builder()->prepare('SELECT MAX(`id`) FROM products'); 
+        // get the largest id to add 1 to it and get the id of the next product
         $stmt->execute();
         $id = $stmt->fetch();
         return $id["MAX(`id`)"] + 1;
