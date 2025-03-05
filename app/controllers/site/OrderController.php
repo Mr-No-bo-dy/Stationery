@@ -11,8 +11,7 @@ class OrderController extends Controller
     public function cart() {
         $title = "Cart";
 
-        $cartModel = new Order();
-        $cartItems = $cartModel->getCartItems();
+        $cartItems = Order::getCartItems();
 
         $pagination = new Pagination(count($cartItems), 2);
         $pageNumber = $_GET['page'] ?? 1;
@@ -26,8 +25,7 @@ class OrderController extends Controller
     public function checkout() {
         $title = "Checkout";
 
-        $cartModel = new Order();
-        $cartItems = $cartModel->getCartItems();
+        $cartItems = Order::getCartItems();
 
         $pagination = new Pagination(count($cartItems), 2);
         $pageNumber = $_GET['page'] ?? 1;

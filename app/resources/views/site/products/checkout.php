@@ -32,7 +32,7 @@
     <form action="makeOrder" method="POST">
         <input type="text" name="name" placeholder="Ім'я"><br>
         <input type="text" name="phone" placeholder="Телефон"><br>
-        <button type="submit">Замовити</button>
+        <button type="submit">submit order</button>
         <br><br>
         <p><?= $error ?? "" ?></p>
     </form>
