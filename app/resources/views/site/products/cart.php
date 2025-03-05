@@ -46,7 +46,7 @@
             <?php } ?>
         </ul>
         <br>
-        <a href="checkout">checkout</a>
+        <a href="checkout">order</a>
     <?php } ?>
 </main>
 

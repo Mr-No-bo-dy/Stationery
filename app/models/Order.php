@@ -13,6 +13,7 @@ class Order extends Model
         'total'
     ];
 
+    // getting product by it's id
     public static function getProductById($productId)
     {
         $sql = "SELECT id, subcategory_id, title, description, price, stock, image FROM products WHERE id = :id";
@@ -21,7 +22,8 @@ class Order extends Model
         return $stmt->fetch();
     }
 
-    public function getCartItems () {
+    // getting all products from the cart
+    public static function getCartItems () {
         $cart = $_SESSION["cart"] ?? [];
         $cartItems = [];
         foreach ($cart as $item) {
