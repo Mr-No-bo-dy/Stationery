@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models\traits;
 
 class Pagination
@@ -14,58 +15,61 @@ class Pagination
         $this->links = $links;
     }
 
-    // count pages number
+    // Count total pages number
     public function countTotalPages(): int
     {
         return ceil($this->totalItems / $this->perPage);
     }
 
-    // get items per page
+    // Get items per page
     public function getItemsPerPage(array $items, int $numPage): array
     {
         return array_slice($items, $this->perPage * ($numPage - 1), $this->perPage);
     }
 
+    // Get pagination links
     public function getLinks(int $currentPage): array
     {
-        $countPage = $this->countTotalPages();
+        $totalPages = $this->countTotalPages();
         $startLink = max(ceil($currentPage - ($this->links / 2)), 1);
-        $endLink = min(ceil($currentPage + ($this->links / 2)) + 1, $countPage);
+        $endLink = min(ceil($currentPage + ($this->links / 2)) + 1, $totalPages);
+
         $links = [];
         if ($startLink > 1) {
             $links[] = [
-                "page" => 1,
-                "label" => "<<",
+                'page' => 1,
+                'label' => '<<',
             ];
         }
 
         if ($currentPage > 1) {
             $links[] = [
-                "page" => $currentPage - 1,
-                "label" => "<",
+                'page' => $currentPage - 1,
+                'label' => '<',
             ];
         }
 
         for ($i = $startLink; $i <= $endLink; $i++) {
             $links[] = [
-                "page" => $i,
-                "label" => $i,
+                'page' => $i,
+                'label' => $i,
             ];
         }
 
-        if ($currentPage < $countPage) {
+        if ($currentPage < $totalPages) {
             $links[] = [
-                "page" => $currentPage + 1,
-                "label" => ">",
+                'page' => $currentPage + 1,
+                'label' => '>',
             ];
         }
 
-        if ($countPage > $endLink) {
+        if ($endLink < $totalPages) {
             $links[] = [
-                "page" => $countPage,
-                "label" => ">>",
+                'page' => $totalPages,
+                'label' => '>>',
             ];
         }
+
         return $links;
     }
 }
