@@ -4,6 +4,7 @@ namespace app\controllers\admin;
 
 use app\vendor\Controller;
 use app\models\Review;
+use app\models\traits\Pagination;
 
 class ReviewController extends Controller
 {
@@ -12,6 +13,10 @@ class ReviewController extends Controller
     public function index()
     {   
         $title = "Stationery admin rewiews";
+
+        if (isset($_POST["sessDrop"])) {
+            unset($_SESSION["reviews"]);
+        }
 
         // writes to SESSION
         if (!isset($_SESSION["reviews"]["sortBy"])) {
@@ -32,6 +37,11 @@ class ReviewController extends Controller
 
         // checking are selected filters/sorts
         $allReviews = Review::getSiteReviews($_SESSION["reviews"]["sortBy"], $_SESSION["reviews"]["filters"]);
+
+        $pagination = new Pagination(count($allReviews), 10);
+        $pageNumber = $_GET['page'] ?? 1;
+        $allReviews = $pagination->getItemsPerPage($allReviews, $pageNumber);
+        $links = $pagination->getLinks($pageNumber);
         
         // providing a value for the variable $isOnlyActive depending on $_SESSION["reviews"]["is_active"]
         if (isset($_POST["is_active"]) || isset($_SESSION["reviews"]["is_active"])) {
@@ -57,13 +67,11 @@ class ReviewController extends Controller
             $this->redirect("reviews");
         }
         
-        // 
         $allProductsWithReviews = Review::getSiteProducts();
 
-        // checking if isset $_SESSION["reviews"]["is_active"]
         if (isset($_SESSION["reviews"]["is_active"])) {
-            return $this->view("admin/reviews/index", compact("allReviews", "title", "allProductsWithReviews", "isOnlyActive"));
+            return $this->view("admin/reviews/index", compact("allReviews", "links", "title", "allProductsWithReviews", "isOnlyActive"));
         }
-        return $this->view("admin/reviews/index", compact("allReviews", "title", "allProductsWithReviews"));
+        return $this->view("admin/reviews/index", compact("allReviews", "links", "title", "allProductsWithReviews"));
     }
 }
