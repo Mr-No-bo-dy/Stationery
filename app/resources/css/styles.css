@@ -622,6 +622,23 @@ ol {
     color: #3333e3;
 }
 
+
+.UserMenu {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+
+}
+.UserMenu ul {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #000;
+}
+
 .adminReviewsButtonForm {
     display: flex;
     align-items: center;
