@@ -4,7 +4,6 @@ namespace App\models;
 
 use app\vendor\Model;
 use Exception;
-use PDOException;
 
 class User extends Model
 {

@@ -4,7 +4,6 @@ namespace app\controllers\site;
 
 use App\models\User;
 use app\vendor\Controller;
-use Exception;
 
 class UserController extends Controller
 {
@@ -19,6 +18,7 @@ class UserController extends Controller
     //try to register
     public function signUp()
     {
+        $message ='';
         if (!empty($this->getPost())) {
             $message = User::register($this->getPost());
 
@@ -28,7 +28,7 @@ class UserController extends Controller
             }
         }
         $title = 'Registration Page';
-        return $this->view('site/user/registration', !empty($message) ? compact('message', 'title') : ['title']);
+        return $this->view('site/user/registration', compact('message', 'title'));
 
     }
 
@@ -42,6 +42,7 @@ class UserController extends Controller
     //try to sign in
     public function signIn()
     {
+        $message = '';
         if (!empty($this->getPost())) {
             $message = User::login($_POST['login'], $_POST['password']);
 
@@ -57,7 +58,7 @@ class UserController extends Controller
             }
         }
         $title = 'Login Page';
-        return $this->view('site/user/login', !empty($message) ? compact('message', 'title') : compact('title'));
+        return $this->view('site/user/login', compact('message', 'title'));
     }
 
     //open profile page

@@ -38,7 +38,6 @@ require_once 'app/resources/views/admin/components/header.php';
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
-                <?php if (!empty($usersPerPage)): ?>
                     <?php foreach ($usersPerPage as $user): ?>
 
                         <tr>
@@ -72,7 +71,6 @@ require_once 'app/resources/views/admin/components/header.php';
                             </td>
                         </tr>
                     <?php endforeach; ?>
-                <?php endif; ?>
             </table>
 
             <p class="warning"><?= $message ?? '' ?></p>
