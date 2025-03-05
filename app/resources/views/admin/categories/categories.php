@@ -1,4 +1,3 @@
-<?php $title = "Admin List Of Stationery Categories"; ?>
 <?php require_once 'app/resources/views/admin/components/header.php' ?>
 
     <main>

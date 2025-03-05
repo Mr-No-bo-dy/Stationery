@@ -15,7 +15,7 @@ class Category extends Model
     ];
 
     // return all category
-    public function getAllCategories($filter = null): array
+    public static function getAllCategories($filter = null): array
     {
         $sql = "SELECT * FROM categories WHERE 1";
         if (!empty($filter)) {
@@ -31,8 +31,16 @@ class Category extends Model
         return $stmt->fetchAll();
     }
 
+    // return categories title
+    public static function getAllCategoriesTitle(): array
+    {
+        $stmt = self::builder()->prepare("select id, title from categories");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
     // return category by id
-    public function getCategoryById($id): array
+    public static function getCategoryById($id): array
     {
         $stmt = self::builder()->prepare("SELECT * FROM categories WHERE id = :id");
         $stmt->execute([':id' => $id]);
@@ -40,7 +48,7 @@ class Category extends Model
     }
 
     // create category
-    public function createCategory($name, $description)
+    public static function createCategory($name, $description)
     {
         $stmt = self::builder()->prepare("INSERT INTO categories (title, description) VALUES (:name, :description)");
         $stmt->bindParam(":name", $name);
@@ -49,7 +57,7 @@ class Category extends Model
     }
 
     // return all category sort by arguments
-    public function getCategories(string $sort, $filter = null): array
+    public static function getCategories(string $sort, $filter = null): array
     {
         $sql = "SELECT * FROM categories WHERE 1";
         if (!empty($filter)) {
@@ -71,7 +79,7 @@ class Category extends Model
     }
 
     // edit category by id
-    public function updateCategory($name, $description, $id)
+    public static function updateCategory($name, $description, $id)
     {
         $stmt = self::builder()->prepare("UPDATE categories SET title = :name, description = :description WHERE id = :id");
         $stmt->bindParam(":name", $name);
@@ -81,7 +89,7 @@ class Category extends Model
     }
 
     // delete category in data base
-    public function deleteCategory($id)
+    public static function deleteCategory($id)
     {
         $stmt = self::builder()->prepare("DELETE FROM categories WHERE id = :id");
         $stmt->bindParam(":id", $id);

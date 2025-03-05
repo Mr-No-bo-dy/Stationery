@@ -13,9 +13,9 @@
             </label>
             <label>
                 <p class="categoryLabel">Category</p>
-                <select name="categoryTitle">
+                <select name="categoryId">
                     <?php foreach ($allCategoriesTitle as $category) { ?>
-                        <option value="<?= $category['title'] ?>"><?= $category['title'] ?></option>
+                        <option value="<?= $category['id'] ?>"><?= $category['title'] ?></option>
                     <?php } ?>
                 </select>
             </label>

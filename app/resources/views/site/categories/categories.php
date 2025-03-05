@@ -1,4 +1,3 @@
-<?php $title = "List Of Stationery Categories"; ?>
 <?php require_once 'app/resources/views/site/components/header.php' ?>
 <main>
     <form action="category" method="get" class="filters">
