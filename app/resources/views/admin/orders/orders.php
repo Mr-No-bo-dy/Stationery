@@ -3,7 +3,7 @@
 <main>
     <div class="all-reviews-list">
         <h1>Orders list</h1>
-        <form action="userFiltering" method="get">
+        <form action="orders" method="get">
             <p>Sorting by</p>
             <button style="font-size: 20px; padding: 5px" type="submit" name="sort" value="id">all</button>
             <button style="font-size: 20px; padding: 5px" type="submit" name="sort" value="userId">user_id</button>

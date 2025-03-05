@@ -68,7 +68,6 @@ $urlRoutes = [
 
     // Admin orders
     'admin/orders' => 'admin/order/index',
-    'admin/userFiltering' => 'admin/order/index',
     'admin/reviews' => 'admin/review/index',
 
     // Admin Products
