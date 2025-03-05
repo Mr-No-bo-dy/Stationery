@@ -31,6 +31,7 @@ class UserController extends Controller
         return $this->view('site/user/registration', !empty($message) ? compact('message', 'title') : ['title']);
 
     }
+
     //open login page
     public function login()
     {
@@ -56,7 +57,7 @@ class UserController extends Controller
             }
         }
         $title = 'Login Page';
-        return $this->view('site/user/login', !empty($message) ? compact('message',  'title') : compact('title'));
+        return $this->view('site/user/login', !empty($message) ? compact('message', 'title') : compact('title'));
     }
 
     //open profile page

@@ -33,7 +33,7 @@ require_once 'app/resources/views/site/components/header.php';
                         </p>
                     </form>
                     <a class="warning" href="passwordChange">Change your password?</a>
-                <p class="warning"><?= $message ?? '' ?></p>
+                    <p class="warning"><?= $message ?? '' ?></p>
 
                 <?php endif; ?>
             </div>

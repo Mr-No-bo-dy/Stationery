@@ -9,19 +9,21 @@ require_once 'app/resources/views/site/components/header.php';
                 <h1>Register</h1>
                 <p>
                     <label for="name">Name</label>
-                    <input type="text" name="name" id="name">
+                    <input type="text" name="name" id="name" value="<?= $_POST['name'] ?? '' ?>">
                 </p>
                 <p>
                     <label for="surname">Surname</label>
-                    <input type="text" name="surname" id="surname">
+                    <input type="text" name="surname" id="surname" value="<?= $_POST['surname'] ?? '' ?>">
                 </p>
                 <p>
                     <label for="email">Email</label>
-                    <input type="text" name="email" id="email" placeholder="user@example.com">
+                    <input type="text" name="email" id="email" value="<?= $_POST['email'] ?? '' ?>"
+                           placeholder="user@example.com">
                 </p>
                 <p>
                     <label for="phone">Phone</label>
-                    <input type="text" name="phone" id="phone" placeholder="+380123456789">
+                    <input type="text" name="phone" id="phone" value="<?= $_POST['phone'] ?? '' ?>"
+                           placeholder="+380123456789">
                 </p>
                 <p>
                     <label for="password">Password</label>
