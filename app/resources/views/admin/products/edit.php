@@ -15,7 +15,7 @@
         <input type="hidden" name="id" value="<?= $product["id"] ?>">
         <select name="subcategory_id">
             <?php foreach ($allSubcategories as $category) { ?>
-                <option value="<?= $category['id'] ?>" <?php if($product['subcategory_id'] == $category['id']) {  echo"selected"; ?> <?php }?>> <?= $category["title"] ?></option>
+                <option value="<?= $category['id'] ?>" <?= $product['subcategory_id'] == $category['id'] ? "selected": "" ?>> <?= $category["title"] ?></option>
             <?php } ?>
         </select>
         <input type="submit">
