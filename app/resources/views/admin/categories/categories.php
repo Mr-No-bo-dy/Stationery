@@ -38,7 +38,9 @@
                         <a href="editCategory?id=<?= $category['id'] ?>">UPDATE</a>
                     </td>
                     <td class="tableButton delete">
-                        <a href="deleteCategory?id=<?= $category['id'] ?>">DELETE</a>
+                        <form action="deleteCategory" method="post">
+                            <button type="submit" name="id" value="<?= $category['id'] ?>">DELETE</button>
+                        </form>
                     </td>
                 </tr>
             <?php } ?>
